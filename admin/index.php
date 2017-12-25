@@ -31,7 +31,7 @@
 				<div class="header-main">
 					<div class="header-left">
 							<div class="logo-name">
-									 <a href="index.html"> <h1>BakaAG</h1> 
+									 <a href="index.php"> <h1>BakaAG</h1> 
 									<!--<img id="logo" src="" alt="Logo"/>--> 
 								  </a> 								
 							</div>
@@ -162,6 +162,6 @@
 <script src="js/jquery.nicescroll.js"></script>
 <script src="js/scripts.js"></script>
 <script src="js/bootstrap.js"> </script>
-<script src="js/pageswitcher.js"></script>
+<script src="js/myjsfuncs.js"></script>
 </body>
 </html>
