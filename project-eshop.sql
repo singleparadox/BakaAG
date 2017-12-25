@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 18, 2017 at 03:03 PM
+-- Generation Time: Dec 25, 2017 at 05:06 PM
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 5.6.28
 
@@ -149,17 +149,17 @@ CREATE TABLE `cart` (
 
 CREATE TABLE `inventory` (
   `inv_id` int(11) NOT NULL,
-  `prod_id` int(11) NOT NULL,
   `inv_price` int(9) NOT NULL,
-  `inv_stock` int(32) NOT NULL
+  `inv_stock` int(32) NOT NULL,
+  `inv_no_of_sold` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `inventory`
 --
 
-INSERT INTO `inventory` (`inv_id`, `prod_id`, `inv_price`, `inv_stock`) VALUES
-(1, 1, 999999999, 1);
+INSERT INTO `inventory` (`inv_id`, `inv_price`, `inv_stock`, `inv_no_of_sold`) VALUES
+(1, 1001, 2, 0);
 
 -- --------------------------------------------------------
 
@@ -207,7 +207,7 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`prod_id`, `prod_name`, `prod_desc`, `prod_picture_link`, `prod_genre_id`, `prod_type_id`, `inv_id`) VALUES
-(1, 'Loyd''s Dreams', 'Test Description', 'file//location etc', 1, 3, 0);
+(1, 'Laptop', 'Test DescriptionTest DescriptionTest DescriptionTest DescriptionTest Description', 'file//location etc', 2, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -225,7 +225,8 @@ CREATE TABLE `product_genre` (
 --
 
 INSERT INTO `product_genre` (`prod_genre_id`, `prod_genre_name`) VALUES
-(1, 'Hentai');
+(1, 'Hentai'),
+(2, 'Action');
 
 -- --------------------------------------------------------
 
@@ -381,7 +382,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT for table `product_genre`
 --
 ALTER TABLE `product_genre`
-  MODIFY `prod_genre_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `prod_genre_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `product_type`
 --
