@@ -2437,7 +2437,7 @@ ul.nav.tabs li a span {
 }
 /*--light-box--*/
 .project-eff:hover span.rollover1 {
-	background: url(../images/arrow.png) center no-repeat;
+	background: url() center no-repeat;
 	width:300px;
 	height:215px;
 	cursor: pointer;
