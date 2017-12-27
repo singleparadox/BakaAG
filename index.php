@@ -18,7 +18,7 @@ include_once("header.php");
 		<div class="content">
 			<div class="f_products">
 				<h3>FEATURED PRODUCTS</h3>
-
+				
 				<!-- Slideshow container -->
 				<div class="slideshow-container">
 
