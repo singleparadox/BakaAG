@@ -12,6 +12,7 @@ include_once("header.php");
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/style_home.css">
 	<link rel="stylesheet" type="text/css" href="css/slideshow.css">
+	
 <body>
 	<main>
 		<div class="content">
@@ -22,27 +23,27 @@ include_once("header.php");
 				<div class="slideshow-container">
 
 				<!-- Full-width images with number and caption text -->
-				<div class="mySlides fade">
+				<div class="mySlides">
 					<div class="numbertext">1 / 3</div>
-					<img src="img/1.jpg" style="width:100%">
+					<a href="#1"><img src="img/1.jpg" style="width:100%"></a>
 					<div class="text">Caption Text</div>
 				</div>
 
-				<div class="mySlides fade">
+				<div class="mySlides">
 					<div class="numbertext">2 / 3</div>
-					<img src="img/2.jpg" style="width:100%">
+					<a href="#2"><img src="img/2.jpg" style="width:100%"></a>
 					<div class="text">Caption Two</div>
 				</div>
 
-				<div class="mySlides fade">
+				<div class="mySlides">
 					<div class="numbertext">3 / 3</div>
-					<img src="img/3.jpg" style="width:100%">
+					<a href="#3"><img src="img/3.jpg" style="width:100%"></a>
 					<div class="text">Caption Three</div>
 				</div>
 
 				<!-- Next and previous buttons -->
-				<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-				<a class="next" onclick="plusSlides(1)">&#10095;</a>
+				<a class="prev" onclick="plusDivs(-1)">&#10094;</a>
+				<a class="next" onclick="plusDivs(+1)">&#10095;</a>
 				</div>
 				<br>
 			</div>
@@ -122,7 +123,7 @@ include_once("header.php");
 						
 					<div class="container">
 						<h4><b>Product</b></h4> 
-						<p><span id='price'>PHP 0.00</span></p> 
+						<p><span id='price'><strike>PHP 500.00</strike><br>PHP 250.00<br>50% off!</span></p> 
 					</div>
 				</div>
 
@@ -132,7 +133,7 @@ include_once("header.php");
 						
 					<div class="container">
 						<h4><b>Product</b></h4> 
-						<p><span id='price'>PHP 0.00</span></p> 
+						<p><span id='price'><strike>PHP 500.00</strike><br>PHP 250.00<br>50% off!</span></p> 
 					</div>
 				</div>
 
@@ -142,7 +143,7 @@ include_once("header.php");
 						
 					<div class="container">
 						<h4><b>Product</b></h4> 
-						<p><span id='price'>PHP 0.00</span></p> 
+						<p><span id='price'><strike>PHP 500.00</strike><br>PHP 250.00<br>50% off!</span></p> 
 					</div>
 				</div>
 
@@ -152,7 +153,7 @@ include_once("header.php");
 						
 					<div class="container">
 						<h4><b>Product</b></h4> 
-						<p><span id='price'>PHP 0.00</span></p> 
+						<p><span id='price'><strike>PHP 500.00</strike><br>PHP 250.00<br>50% off!</span></p> 
 					</div>
 				</div>
 
@@ -162,7 +163,7 @@ include_once("header.php");
 						
 					<div class="container">
 						<h4><b>Product</b></h4> 
-						<p><span id='price'>PHP 0.00</span></p> 
+						<p><span id='price'><strike>PHP 500.00</strike><br>PHP 250.00<br>50% off!</span></p> 
 					</div>
 				</div>
 
@@ -172,7 +173,7 @@ include_once("header.php");
 						
 					<div class="container">
 						<h4><b>Product</b></h4> 
-						<p><span id='price'>PHP 0.00</span></p> 
+						<p><span id='price'><strike>PHP 500.00</strike><br>PHP 250.00<br>50% off!</span></p> 
 					</div>
 				</div>
 
@@ -183,7 +184,7 @@ include_once("header.php");
 					CATEGORIES
 				</h3>
 
-				<ul class="list-group" style="width: 30%; display: inline-block;">
+				<ul class="list-group" style="width: 31%; display: inline-block;">
 					<li class="list-group-item d-flex justify-content-between align-items-center">
 					Fantasy
 
@@ -199,7 +200,7 @@ include_once("header.php");
 					</li>
 				</ul>
 
-				<ul class="list-group" style="width: 30%; display: inline-block;">
+				<ul class="list-group" style="width: 31%; display: inline-block;">
 					<li class="list-group-item d-flex justify-content-between align-items-center">
 					Ecchi
 
@@ -216,7 +217,7 @@ include_once("header.php");
 					</li>
 				</ul>
 
-				<ul class="list-group" style="width: 30%; display: inline-block;">
+				<ul class="list-group" style="width: 31%; display: inline-block;">
 					<li class="list-group-item d-flex justify-content-between align-items-center">
 					Shounen
 
