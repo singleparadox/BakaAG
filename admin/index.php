@@ -50,27 +50,7 @@
 								<!--notifications of menu start -->
 								<ul class="nofitications-dropdown">
 									<li class="dropdown head-dpdn">
-										<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-bell"></i><span class="badge blue">3</span></a>
-										<ul class="dropdown-menu">
-											<li>
-												<div class="notification_header">
-													<h3>You have 3 new notification</h3>
-												</div>
-											</li>
-											 <li><a href="#">
-												<div class="user_img"><img src="images/p7.png" alt=""></div>
-											   <div class="notification_desc">
-												<p>Lorem ipsum dolor</p>
-												<p><span>1 hour ago</span></p>
-												</div>
-											   <div class="clearfix"></div>	
-											 </a></li>
-											 <li>
-												<div class="notification_bottom">
-													<a href="#">See all notifications</a>
-												</div> 
-											</li>
-										</ul>
+										<a href="#" class="dropdown-toggle" aria-expanded="false"  data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-plus">Add a new product</i></a>
 									</li>		
 								</ul>
 								<div class="clearfix"> </div>
@@ -122,7 +102,6 @@
 
 
 <!-- - - Main Pages Start Here - - -->
-
 	<div class="main-page" id="main-page">
 		<?php include "pages/dashboard.php";?>
 	</div>
@@ -131,8 +110,59 @@
 			</div>
 		</div>
 	</div>
-<!-- - - Main Pages End - - -->
 
+	<!--Add New Product-->
+	<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+	  <div class="modal-dialog modal-lg" role="document">
+	    <div class="modal-content">
+	    	<form action="pages/backend/addproduct.php" method="POST" enctype="multipart/form-data">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel">Add New Product</h4>
+	      </div>
+	      <div class="modal-body">
+	      	<label for="new-prod-pic">Product Picture:</label>
+				<input type="file" id="new-prod-pic" name="new-prod-pic" class="form-control-file" placeholder="Title" aria-describedby="basic-addon1">
+	      	<label for="new-prod-name">Product Name:</label>
+				<input type="text" id="new-prod-name" name="new-prod-name" class="form-control" placeholder="Title" aria-describedby="basic-addon1">
+			<label for="new-prod-desc">Product Description:</label>
+				<input type="textarea" id="new-prod-desc" name="new-prod-desc" class="form-control" placeholder="Enter Description" aria-describedby="basic-addon1">
+			<label for="new-prod-genre">Product Genre:</label>
+				<select class="form-control" id="new-prod-genre" name="new-prod-genre">
+					<?php
+						$sql = "SELECT * FROM product_genre ORDER BY prod_genre_name ASC";
+						$result = $conn->query($sql);
+						while($row = $result->fetch_assoc()){
+							echo '<option>'.$row['prod_genre_name'].'</option>';
+						}
+					?>
+				</select>
+			<label for="new-prod-type">Product Type:</label>
+				<select class="form-control" id="new-prod-type" name="new-prod-type">
+					<?php
+						$sql = "SELECT * FROM product_type";
+						$result = $conn->query($sql);
+						while($row = $result->fetch_assoc()){
+							echo '<option>'.$row['prod_type_name'].'</option>';
+						}
+					?>
+				</select>
+			<label for="new-prod-price">Product Price:</label>
+				<input type="number" id="new-prod-price" name="new-prod-price" class="form-control" placeholder="0" aria-describedby="basic-addon1" value="0">
+			<label for="new-prod-sock">Product Stock:</label>
+				<input type="number" id="new-prod-stock" name="new-prod-stock" class="form-control" placeholder="0" aria-describedby="basic-addon1" value="0">
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        <button type="submit" class="btn btn-primary">Confirm</button>
+	      </div>
+	      </form>
+	    </div>
+	  </div>
+	</div>
+	<!--Add New Product End-->
+
+<!-- - - Main Pages End - - -->
 
 <!--slider menu-->
     <div class="sidebar-menu">	
@@ -153,8 +183,6 @@
 	<div class="clearfix"> </div>
 </div>
 <!--slide bar menu end here-->
-
-
 
 
 

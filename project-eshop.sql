@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 25, 2017 at 05:06 PM
+-- Generation Time: Dec 28, 2017 at 03:13 PM
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 5.6.28
 
@@ -32,9 +32,6 @@ CREATE TABLE `account` (
   `acc_pass` varchar(700) NOT NULL,
   `acc_fname` varchar(32) NOT NULL,
   `acc_lname` varchar(32) NOT NULL,
-  `acc_details_id` int(11) NOT NULL,
-  `acc_address_id` int(11) NOT NULL,
-  `acc_billing_id` int(11) NOT NULL,
   `acc_type_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -42,8 +39,8 @@ CREATE TABLE `account` (
 -- Dumping data for table `account`
 --
 
-INSERT INTO `account` (`acc_id`, `acc_email`, `acc_pass`, `acc_fname`, `acc_lname`, `acc_details_id`, `acc_address_id`, `acc_billing_id`, `acc_type_id`) VALUES
-(1, 'email@test.com', 'pass', 'Glenn', 'Yanzon', 1, 1, 1, 2);
+INSERT INTO `account` (`acc_id`, `acc_email`, `acc_pass`, `acc_fname`, `acc_lname`, `acc_type_id`) VALUES
+(1, 'email@test.com', 'pass', 'Glenn', 'Yanzon', 2);
 
 -- --------------------------------------------------------
 
@@ -53,6 +50,7 @@ INSERT INTO `account` (`acc_id`, `acc_email`, `acc_pass`, `acc_fname`, `acc_lnam
 
 CREATE TABLE `account_address` (
   `acc_address_id` int(11) NOT NULL,
+  `acc_id` int(11) NOT NULL,
   `address_province` varchar(100) NOT NULL,
   `address_country` varchar(100) NOT NULL DEFAULT 'Not Assigned',
   `address_city` varchar(100) NOT NULL DEFAULT 'Not Assigned',
@@ -65,8 +63,8 @@ CREATE TABLE `account_address` (
 -- Dumping data for table `account_address`
 --
 
-INSERT INTO `account_address` (`acc_address_id`, `address_province`, `address_country`, `address_city`, `address_zipcode`, `address_line1`, `address_line2`) VALUES
-(1, 'Test Province', 'Test Country', 'Test City', '1111', 'Test Address1', 'Test Address2');
+INSERT INTO `account_address` (`acc_address_id`, `acc_id`, `address_province`, `address_country`, `address_city`, `address_zipcode`, `address_line1`, `address_line2`) VALUES
+(1, 1, 'Test Province', 'Test Country', 'Test City', '1111', 'Test Address1', 'Test Address2');
 
 -- --------------------------------------------------------
 
@@ -76,6 +74,7 @@ INSERT INTO `account_address` (`acc_address_id`, `address_province`, `address_co
 
 CREATE TABLE `account_billing` (
   `acc_billing_id` int(11) NOT NULL,
+  `acc_id` int(11) NOT NULL,
   `billing_province` varchar(100) NOT NULL,
   `billing_country` varchar(100) NOT NULL DEFAULT 'Not Assigned',
   `billing_city` varchar(100) NOT NULL DEFAULT 'Not Assigned',
@@ -87,8 +86,8 @@ CREATE TABLE `account_billing` (
 -- Dumping data for table `account_billing`
 --
 
-INSERT INTO `account_billing` (`acc_billing_id`, `billing_province`, `billing_country`, `billing_city`, `billing_phonenum`, `billing_compaddress`) VALUES
-(1, 'Test B. Province', 'Test B. Country', 'Test B. City', '091111111', 'Test B. CompAdd');
+INSERT INTO `account_billing` (`acc_billing_id`, `acc_id`, `billing_province`, `billing_country`, `billing_city`, `billing_phonenum`, `billing_compaddress`) VALUES
+(1, 1, 'Test B. Province', 'Test B. Country', 'Test B. City', '091111111', 'Test B. CompAdd');
 
 -- --------------------------------------------------------
 
@@ -98,6 +97,7 @@ INSERT INTO `account_billing` (`acc_billing_id`, `billing_province`, `billing_co
 
 CREATE TABLE `account_details` (
   `acc_details_id` int(11) NOT NULL,
+  `acc_id` int(11) NOT NULL,
   `acc_details_gender` varchar(32) NOT NULL DEFAULT 'Not Assigned',
   `acc_details_bday` date NOT NULL,
   `acc_details_pnum` varchar(32) NOT NULL DEFAULT 'Not Assigned'
@@ -107,8 +107,8 @@ CREATE TABLE `account_details` (
 -- Dumping data for table `account_details`
 --
 
-INSERT INTO `account_details` (`acc_details_id`, `acc_details_gender`, `acc_details_bday`, `acc_details_pnum`) VALUES
-(1, 'Trans', '2017-12-17', '0976542321');
+INSERT INTO `account_details` (`acc_details_id`, `acc_id`, `acc_details_gender`, `acc_details_bday`, `acc_details_pnum`) VALUES
+(1, 1, 'Trans', '2017-12-17', '0976542321');
 
 -- --------------------------------------------------------
 
@@ -151,7 +151,7 @@ CREATE TABLE `inventory` (
   `inv_id` int(11) NOT NULL,
   `inv_price` int(9) NOT NULL,
   `inv_stock` int(32) NOT NULL,
-  `inv_no_of_sold` int(9) NOT NULL
+  `inv_no_of_sold` int(9) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -159,7 +159,12 @@ CREATE TABLE `inventory` (
 --
 
 INSERT INTO `inventory` (`inv_id`, `inv_price`, `inv_stock`, `inv_no_of_sold`) VALUES
-(1, 1001, 2, 0);
+(1, 1001, 2, 0),
+(7, 111, 11, 0),
+(8, 10, 100, 0),
+(9, 0, 0, 0),
+(10, 10000, 222, 0),
+(11, 111, 777, 0);
 
 -- --------------------------------------------------------
 
@@ -196,7 +201,7 @@ CREATE TABLE `product` (
   `prod_id` int(11) NOT NULL,
   `prod_name` varchar(32) NOT NULL,
   `prod_desc` longtext NOT NULL,
-  `prod_picture_link` varchar(700) NOT NULL,
+  `prod_picture_link` varchar(700) NOT NULL DEFAULT 'data/Products/default.jpg',
   `prod_genre_id` int(11) NOT NULL,
   `prod_type_id` int(11) NOT NULL,
   `inv_id` int(11) NOT NULL
@@ -207,7 +212,11 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`prod_id`, `prod_name`, `prod_desc`, `prod_picture_link`, `prod_genre_id`, `prod_type_id`, `inv_id`) VALUES
-(1, 'Laptop', 'Test DescriptionTest DescriptionTest DescriptionTest DescriptionTest Description', 'file//location etc', 2, 3, 1);
+(1, 'Laptop', 'Test Desc', 'data/Products/default.jpg', 2, 3, 1),
+(3, 'joe', 'show', 'data/Products/default.jpg', 2, 2, 7),
+(4, 'Boku no Pico', 'A show for all ages specially male', 'data/Products/default.jpg', 2, 2, 8),
+(6, 'Test Image', 'Test Image', 'data/Products/Test Image-17-12-28-42295/Test Image-17-12-28-42295', 2, 2, 10),
+(7, 'Test Image(No Image)', 'No image', 'data/Products/default.jpg', 2, 3, 11);
 
 -- --------------------------------------------------------
 
@@ -362,7 +371,7 @@ ALTER TABLE `account_type`
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `inv_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `inv_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `orders`
 --
@@ -377,7 +386,7 @@ ALTER TABLE `order_status`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `prod_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `prod_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `product_genre`
 --

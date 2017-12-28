@@ -17,7 +17,7 @@
 				    		<div class="product-items">
 					    		    <div class="project-eff">
 										<div id="nivo-lightbox-demo"> <p> <a href="#'.$row['prod_id'].'" id="nivo-lightbox-demo" data-toggle="modal" data-target=".prod-modal-'.$row['prod_id'].'"><span class="rollover1"> </span> </a></p></div>     
-											<img class="img-responsive" src="images/pro1.jpg" alt="">
+											<img class="img-responsive" src="../'.$row['prod_picture_link'].'" alt="">
 									</div>
 					    		<div class="produ-cost">
 					    			<h4>'.$row['prod_name'].'</h4>
@@ -26,16 +26,6 @@
 				    		</div>
 				    	</div>
     			';
-    		
-    	?>
-    	</div>
-    	
-      <div class="clearfix"> </div>
-    </div>
-    </div>
-</div>
-<?php
-	
 	echo '
 		<div class="modal fade prod-modal-'.$row['prod_id'].'" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
 		  <div class="modal-dialog modal-lg" role="document">
@@ -91,7 +81,7 @@
 			echo'
 		      </div>
 		      <div class="modal-footer">
-		      	<button type="button" class="btn btn-default" onclick="update('.$row['prod_id'].')">Update</button>
+		      	<button type="button" class="btn btn-primary" onclick="update('.$row['prod_id'].')">Update</button>
 		        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="resetAlert('.$row['prod_id'].'),chPage()">Close</button>
 		      </div>
 		    </div>
@@ -99,3 +89,8 @@
 		</div>';
 	}
 ?>
+   	</div>
+      <div class="clearfix"> </div>
+    </div>
+    </div>
+</div>
