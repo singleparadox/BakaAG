@@ -40,7 +40,8 @@
 		       	 <input type="text" id="prod-name-'.$row['prod_id'].'" class="form-control" placeholder="Title" aria-describedby="basic-addon1" value="'.$row['prod_name'].'">
 		       	 <label for="prod-desc-'.$row['prod_id'].'">Description:</label>
 		       	 <textarea class="form-control" rows="5" id="prod-desc-'.$row['prod_id'].'">'.$row['prod_desc'].'</textarea>
-				  <div class="form-group">
+				 <div class="form-row">
+				  <div class="form-group col-md-6">
 				  <label for="prod-genre-'.$row['prod_id'].'">Genre:</label>
 				  <select class="form-control" id="prod-genre-'.$row['prod_id'].'">
 				    ';
@@ -54,6 +55,8 @@
 				    }
 				    echo'
 				  </select>
+				  </div>
+				  <div class="form-group col-md-6">
 				  <label for="prod-type-'.$row['prod_id'].'">Select list:</label>
 				  <select class="form-control" id="prod-type-'.$row['prod_id'].'">';
 				  		if($row['prod_type_id']==2)
@@ -64,21 +67,29 @@
 				  				 <option selected="selected">Game</option>';
 				  echo'
 				  </select>
-				</div>
+				  </div>
+				
 				<input id="prod-inv-'.$row['prod_id'].'" type="text" value="'.$row['inv_id'].'" hidden>';
 				$sql2 = "SELECT * FROM inventory WHERE inv_id='".$row['inv_id']."'";
 				$result2 = $conn->query($sql2);
 				$result2 = $result2->fetch_assoc();
 				$prod_price=$result2['inv_price'];
-				echo '<label for="prod-price-'.$row['prod_id'].'">Price:</label>
-					  <input type="number" class="form-control" id="prod-price-'.$row['prod_id'].'" value="'.$prod_price.'">';
+				echo '<div class="form-group col-md-4">	
+					  <label for="prod-price-'.$row['prod_id'].'">Price:</label>
+					  <input type="number" class="form-control" id="prod-price-'.$row['prod_id'].'" value="'.$prod_price.'">
+					  </div>';
 				$prod_stock=$result2['inv_stock'];
-				echo '<label for="prod-stock-'.$row['prod_id'].'">Stock Left:</label>
-					  <input type="number" class="form-control" id="prod-stock-'.$row['prod_id'].'" value="'.$prod_stock.'">';
+				echo '<div class="form-group col-md-4">
+					  <label for="prod-stock-'.$row['prod_id'].'">Stock Left:</label>
+					  <input type="number" class="form-control" id="prod-stock-'.$row['prod_id'].'" value="'.$prod_stock.'">
+					  </div>';
 				$prod_sold=$result2['inv_no_of_sold'];
-				echo '<label for="prod-sold-'.$row['prod_id'].'">Sold:</label>
-					  <span id="prod-sold-'.$row['prod_id'].'" class="input-group-addon" id="basic-addon3">'.$prod_sold.'</span>';
+				echo '<div class="form-group col-md-4">
+					  <label for="prod-sold-'.$row['prod_id'].'">Sold:</label>
+					  <span id="prod-sold-'.$row['prod_id'].'" class="input-group-addon" id="basic-addon3">'.$prod_sold.'</span>
+					  </div>';
 			echo'
+			</div>
 		      </div>
 		      <div class="modal-footer">
 		      	<button type="button" class="btn btn-primary" onclick="update('.$row['prod_id'].')">Update</button>
