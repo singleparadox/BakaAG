@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 28, 2017 at 03:13 PM
+-- Generation Time: Jan 03, 2018 at 11:36 AM
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 5.6.28
 
@@ -151,20 +151,23 @@ CREATE TABLE `inventory` (
   `inv_id` int(11) NOT NULL,
   `inv_price` int(9) NOT NULL,
   `inv_stock` int(32) NOT NULL,
-  `inv_no_of_sold` int(9) NOT NULL DEFAULT '0'
+  `inv_no_of_sold` int(9) NOT NULL DEFAULT '0',
+  `inv_views` int(9) NOT NULL DEFAULT '0',
+  `inv_rate` int(9) NOT NULL DEFAULT '0',
+  `inv_discount` int(3) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `inventory`
 --
 
-INSERT INTO `inventory` (`inv_id`, `inv_price`, `inv_stock`, `inv_no_of_sold`) VALUES
-(1, 1001, 2, 0),
-(7, 111, 11, 0),
-(8, 10, 100, 0),
-(9, 0, 0, 0),
-(10, 10000, 222, 0),
-(11, 111, 777, 0);
+INSERT INTO `inventory` (`inv_id`, `inv_price`, `inv_stock`, `inv_no_of_sold`, `inv_views`, `inv_rate`, `inv_discount`) VALUES
+(1, 1001, 2, 0, 0, 0, 0),
+(7, 111, 11, 0, 0, 0, 0),
+(8, 10, 100, 0, 0, 0, 0),
+(9, 0, 0, 0, 0, 0, 0),
+(10, 10000, 222, 0, 0, 0, 0),
+(11, 111, 777, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -214,7 +217,6 @@ CREATE TABLE `product` (
 INSERT INTO `product` (`prod_id`, `prod_name`, `prod_desc`, `prod_picture_link`, `prod_genre_id`, `prod_type_id`, `inv_id`) VALUES
 (1, 'Laptop', 'Test Desc', 'data/Products/default.jpg', 2, 3, 1),
 (3, 'joe', 'show', 'data/Products/default.jpg', 2, 2, 7),
-(4, 'Boku no Pico', 'A show for all ages specially male', 'data/Products/default.jpg', 2, 2, 8),
 (6, 'Test Image', 'Test Image', 'data/Products/Test Image-17-12-28-42295/Test Image-17-12-28-42295', 2, 2, 10),
 (7, 'Test Image(No Image)', 'No image', 'data/Products/default.jpg', 2, 3, 11);
 
@@ -234,7 +236,7 @@ CREATE TABLE `product_genre` (
 --
 
 INSERT INTO `product_genre` (`prod_genre_id`, `prod_genre_name`) VALUES
-(1, 'Hentai'),
+(1, 'Adventure'),
 (2, 'Action');
 
 -- --------------------------------------------------------

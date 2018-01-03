@@ -127,6 +127,8 @@
 				<input type="text" id="new-prod-name" name="new-prod-name" class="form-control" placeholder="Title" aria-describedby="basic-addon1">
 			<label for="new-prod-desc">Product Description:</label>
 				<input type="textarea" id="new-prod-desc" name="new-prod-desc" class="form-control" placeholder="Enter Description" aria-describedby="basic-addon1">
+			<div class="form-row">
+			<div class="form-group col-md-3">
 			<label for="new-prod-genre">Product Genre:</label>
 				<select class="form-control" id="new-prod-genre" name="new-prod-genre">
 					<?php
@@ -137,6 +139,8 @@
 						}
 					?>
 				</select>
+			</div>
+			<div class="form-group col-md-3">
 			<label for="new-prod-type">Product Type:</label>
 				<select class="form-control" id="new-prod-type" name="new-prod-type">
 					<?php
@@ -147,10 +151,16 @@
 						}
 					?>
 				</select>
+			</div>
+			<div class="form-group col-md-3">
 			<label for="new-prod-price">Product Price:</label>
 				<input type="number" id="new-prod-price" name="new-prod-price" class="form-control" placeholder="0" aria-describedby="basic-addon1" value="0">
+			</div>
+			<div class="form-group col-md-3">
 			<label for="new-prod-sock">Product Stock:</label>
 				<input type="number" id="new-prod-stock" name="new-prod-stock" class="form-control" placeholder="0" aria-describedby="basic-addon1" value="0">
+			</div>
+		  </div>
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
