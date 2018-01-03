@@ -18,6 +18,7 @@ function update(id) {
   inv_id = document.getElementById("prod-inv-"+id).value;
   prod_price = document.getElementById("prod-price-"+id).value;
   prod_stock = document.getElementById("prod-stock-"+id).value;
+  prod_discount = document.getElementById("prod-discount-"+id).value;
   console.log(prod_genre);
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
@@ -27,7 +28,7 @@ function update(id) {
     //document.getElementById("modal-test").innerHTML = this.responseText;
     }
   };
-  xhttp.open("GET", "pages/backend/updateproduct.php?id="+id+"&prod_name="+prod_name+"&prod_desc="+prod_desc+"&prod_genre="+prod_genre+"&prod_type="+prod_type+"&prod_price="+prod_price+"&prod_stock="+prod_stock+"&inv_id="+inv_id, true);
+  xhttp.open("GET", "pages/backend/updateproduct.php?id="+id+"&prod_name="+prod_name+"&prod_desc="+prod_desc+"&prod_genre="+prod_genre+"&prod_type="+prod_type+"&prod_price="+prod_price+"&prod_stock="+prod_stock+"&inv_id="+inv_id+"&prod_discount="+prod_discount, true);
   xhttp.send();
 }
 

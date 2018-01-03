@@ -86,8 +86,8 @@
 					  <input type="number" class="form-control" id="prod-stock-'.$row['prod_id'].'" value="'.$prod_stock.'">
 					  </div>';
 				echo '<div class="form-group col-md-2">
-					  <label for="prod-discount-'.$row['prod_id'].'">Discount:</label>
-					  <input type="number" class="form-control" id="prod-discount-'.$row['prod_id'].'" value="'.$result2['inv_discount'].'">
+					  <label for="prod-discount-'.$row['prod_id'].'">Discount(%):</label>
+					  <input type="number" class="form-control" id="prod-discount-'.$row['prod_id'].'" value="'.$result2['inv_discount'].'" min=0 max=100>
 					  </div>';
 				$prod_sold=$result2['inv_no_of_sold'];
 				echo '<div class="form-group col-md-2">
