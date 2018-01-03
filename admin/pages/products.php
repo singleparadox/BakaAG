@@ -32,10 +32,11 @@
 		    <div class="modal-content">
 		      <div class="modal-header">
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        <h4 class="modal-title" id="myModalLabel">Product Details</h4>
+		        <h4 class="modal-title" id="myModalLabel">'.$row['prod_name'].'</h4>
 		      </div>
 		      <div id="modal-alert-'.$row['prod_id'].'" class="alert alert-success hidden" role="alert">Updated Successfully</div>
 		      <div class="modal-body" id="modal-test">
+		      	<h4><i>Details</i></h4><hr>
 		      	 <label for="prod-Name-'.$row['prod_id'].'">Name:</label>
 		       	 <input type="text" id="prod-name-'.$row['prod_id'].'" class="form-control" placeholder="Title" aria-describedby="basic-addon1" value="'.$row['prod_name'].'">
 		       	 <label for="prod-desc-'.$row['prod_id'].'">Description:</label>
@@ -74,19 +75,32 @@
 				$result2 = $conn->query($sql2);
 				$result2 = $result2->fetch_assoc();
 				$prod_price=$result2['inv_price'];
-				echo '<div class="form-group col-md-4">	
+				echo ' <h4><i>Sales</i></h4><hr>
+					  <div class="form-group col-md-2">	
 					  <label for="prod-price-'.$row['prod_id'].'">Price:</label>
 					  <input type="number" class="form-control" id="prod-price-'.$row['prod_id'].'" value="'.$prod_price.'">
 					  </div>';
 				$prod_stock=$result2['inv_stock'];
-				echo '<div class="form-group col-md-4">
+				echo '<div class="form-group col-md-2">
 					  <label for="prod-stock-'.$row['prod_id'].'">Stock Left:</label>
 					  <input type="number" class="form-control" id="prod-stock-'.$row['prod_id'].'" value="'.$prod_stock.'">
 					  </div>';
+				echo '<div class="form-group col-md-2">
+					  <label for="prod-discount-'.$row['prod_id'].'">Discount:</label>
+					  <input type="number" class="form-control" id="prod-discount-'.$row['prod_id'].'" value="'.$result2['inv_discount'].'">
+					  </div>';
 				$prod_sold=$result2['inv_no_of_sold'];
-				echo '<div class="form-group col-md-4">
+				echo '<div class="form-group col-md-2">
 					  <label for="prod-sold-'.$row['prod_id'].'">Sold:</label>
 					  <span id="prod-sold-'.$row['prod_id'].'" class="input-group-addon" id="basic-addon3">'.$prod_sold.'</span>
+					  </div>';
+				echo '<div class="form-group col-md-2">
+					  <label for="prod-views-'.$row['prod_id'].'">Views:</label>
+					  <span id="prod-views-'.$row['prod_id'].'" class="input-group-addon" id="basic-addon3">'.$result2['inv_views'].'</span>
+					  </div>';
+				echo '<div class="form-group col-md-2">
+					  <label for="prod-rate-'.$row['prod_id'].'">Rating:</label>
+					  <span id="prod-rate-'.$row['prod_id'].'" class="input-group-addon" id="basic-addon3">'.$result2['inv_rate'].'</span>
 					  </div>';
 			echo'
 			</div>
