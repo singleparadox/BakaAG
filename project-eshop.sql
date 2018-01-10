@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 03, 2018 at 11:36 AM
+-- Generation Time: Jan 10, 2018 at 02:19 PM
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 5.6.28
 
@@ -162,12 +162,14 @@ CREATE TABLE `inventory` (
 --
 
 INSERT INTO `inventory` (`inv_id`, `inv_price`, `inv_stock`, `inv_no_of_sold`, `inv_views`, `inv_rate`, `inv_discount`) VALUES
-(1, 1001, 2, 0, 0, 0, 0),
-(7, 111, 11, 0, 0, 0, 0),
+(1, 1001, 2, 0, 0, 0, 20),
+(7, 111, 11, 0, 0, 0, 10),
 (8, 10, 100, 0, 0, 0, 0),
 (9, 0, 0, 0, 0, 0, 0),
-(10, 10000, 222, 0, 0, 0, 0),
-(11, 111, 777, 0, 0, 0, 0);
+(10, 10000, 222, 0, 0, 0, 50),
+(11, 111, 777, 0, 0, 0, 40),
+(12, 100, 2, 0, 0, 0, 30),
+(13, 100, 3, 0, 0, 0, 75);
 
 -- --------------------------------------------------------
 
@@ -205,6 +207,7 @@ CREATE TABLE `product` (
   `prod_name` varchar(32) NOT NULL,
   `prod_desc` longtext NOT NULL,
   `prod_picture_link` varchar(700) NOT NULL DEFAULT 'data/Products/default.jpg',
+  `prod_featured` varchar(3) NOT NULL DEFAULT 'No',
   `prod_genre_id` int(11) NOT NULL,
   `prod_type_id` int(11) NOT NULL,
   `inv_id` int(11) NOT NULL
@@ -214,11 +217,13 @@ CREATE TABLE `product` (
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`prod_id`, `prod_name`, `prod_desc`, `prod_picture_link`, `prod_genre_id`, `prod_type_id`, `inv_id`) VALUES
-(1, 'Laptop', 'Test Desc', 'data/Products/default.jpg', 2, 3, 1),
-(3, 'joe', 'show', 'data/Products/default.jpg', 2, 2, 7),
-(6, 'Test Image', 'Test Image', 'data/Products/Test Image-17-12-28-42295/Test Image-17-12-28-42295', 2, 2, 10),
-(7, 'Test Image(No Image)', 'No image', 'data/Products/default.jpg', 2, 3, 11);
+INSERT INTO `product` (`prod_id`, `prod_name`, `prod_desc`, `prod_picture_link`, `prod_featured`, `prod_genre_id`, `prod_type_id`, `inv_id`) VALUES
+(1, 'Laptop', 'Test Desc', 'data/Products/default.jpg', 'Yes', 2, 3, 1),
+(3, 'joe', 'show', 'data/Products/default.jpg', 'Yes', 2, 2, 7),
+(6, 'Test Image', 'Test Image', 'data/Products/Test Image-17-12-28-42295/Test Image-17-12-28-42295', 'Yes', 2, 2, 10),
+(7, 'Test Image(No Image)', 'No image', 'data/Products/default.jpg', 'Yes', 2, 3, 11),
+(8, 'Steins;Gate', '', 'data/Products/Steins;Gate-18-01-10-16257/Steins;Gate-18-01-10-16257', 'Yes', 2, 2, 12),
+(9, 'Mob Psycho', '', 'data/Products/Mob Psycho-18-01-10-69665/Mob Psycho-18-01-10-69665', 'Yes', 2, 2, 13);
 
 -- --------------------------------------------------------
 
@@ -373,7 +378,7 @@ ALTER TABLE `account_type`
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `inv_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `inv_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `orders`
 --
@@ -388,7 +393,7 @@ ALTER TABLE `order_status`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `prod_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `prod_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `product_genre`
 --
