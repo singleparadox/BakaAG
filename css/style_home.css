@@ -2,7 +2,12 @@
 body {
 	margin: 0;
 	padding: 0;
-	background-color: #262626 !important;
+	/*background-color: #262626 !important;*/
+	background-image: url("../img/background.jpg");
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 
@@ -19,7 +24,8 @@ main {
 }
 
 .f_products {
-
+	/*background-color: #202020;*/
+	/*width: 100%;*/
 }
 
 .f_products h3 {
@@ -31,6 +37,7 @@ main {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
     width: 15%;
+
 }
 
 .card:hover {

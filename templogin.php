@@ -23,20 +23,41 @@ session_destroy();
 
 ?>
 
+
 <!DOCTYPE html>
 <html>
 	<head>
 		<title>Administartor Login</title>
+		<link rel="stylesheet" type="text/css" href="css/templogin.css">
 	</head>
 	<body>
-		<form id="login" action="backend/validate.php" method="POST">
-			<label for="username">email</label>
-			<input type="text"  id="username" name="username" />
-			<label for="username">Password</label>
-			<input type="password" id="password" name="password" />
-			<hr>
-			<div id="error"><?php echo $error_msg; ?></div>
-			<!-- There is a problem with button of type = submit -->
-			<button type="submit" id="submit">Log in</button>
-		</form>
+		<?php include "header.php"; ?>
+		<div class="container">
+			<div class="title">
+				<center><h3>LOGIN</h3></center>
+			</div>			
+			<form id="login" action="backend/validate.php" method="POST">
+				<table>
+					<tr>
+						<td>
+							<label for="username">Email</label>
+							<input placeholder="Enter Email" type="text" id="username" name="username" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="username">Password</label>
+							<input placeholder="Enter Password" type="password" id="password" name="password" />
+						</td>
+					</tr>
+				</table>
+
+
+				<div id="error"><?php echo $error_msg; ?></div>
+				<!-- There is a problem with button of type = submit -->
+				<center><button type="submit" id="submit">Login</button></center>
+			</form>
+
+		</div>
+		<?php include "footer.php"; ?>
 	</body>

@@ -7,11 +7,13 @@
 	max-width: 1080px;
 	position: relative;
 	margin: auto;
+	
 }
 
 /* Hide the images by default */
 .mySlides {
     display: none;
+
 }
 
 /* Next & previous buttons */
