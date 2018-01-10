@@ -17,7 +17,7 @@
 				    		<div class="product-items">
 					    		    <div class="project-eff">
 										<div id="nivo-lightbox-demo"> <p> <a href="#'.$row['prod_id'].'" id="nivo-lightbox-demo" data-toggle="modal" data-target=".prod-modal-'.$row['prod_id'].'"><span class="rollover1"> </span> </a></p></div>     
-											<img class="img-responsive" src="../'.$row['prod_picture_link'].'" alt="">
+											<img src="../'.$row['prod_picture_link'].'" alt="" height="320px" width="290px">
 									</div>
 					    		<div class="produ-cost">
 					    			<h4>'.$row['prod_name'].'</h4>
@@ -66,6 +66,18 @@
 				  		else
 				  			echo'<option>Anime</option>
 				  				 <option selected="selected">Game</option>';
+				  echo'
+				  </select>
+				  </div>
+				  <div class="form-group col-md-12">
+				  <label for="prod-feature-'.$row['prod_id'].'">Featured:</label>
+				  <select class="form-control" id="prod-feature-'.$row['prod_id'].'">';
+				  		if($row['prod_featured']=="No")
+				  			echo'<option selected="selected">No</option>
+				  				 <option>Yes</option>';
+				  		else
+				  			echo'<option>No</option>
+				  				 <option selected="selected">Yes</option>';
 				  echo'
 				  </select>
 				  </div>

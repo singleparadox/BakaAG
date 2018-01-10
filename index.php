@@ -52,64 +52,25 @@ include_once("header.php");
 				<h3>
 					MOST POPULAR
 				</h3>
-				<div class="card" style="display:  inline-block; margin: 2px;">
-					<img src="https://cdn.shopify.com/s/files/1/0377/2037/products/WhiteTanLeather.Front_1024x.jpg?v=1510683461" alt="Avatar" style="width:100%">
+
+				<?php
+					$sql = "SELECT * FROM product,inventory WHERE product.inv_id=inventory.inv_id ORDER BY inv_rate ASC LIMIT 6";
+					$result = $conn->query($sql);
+					while($row = $result->fetch_assoc()){
+						echo '
+								<div class="card" style="display:  inline-block; margin: 2px;">
+								<img src="'.$row['prod_picture_link'].'" alt="Avatar" style="width:100%">
+									
+								<div class="container">
+									<h4><b>'.$row['prod_name'].'</b></h4> 
+									<p><span id="price">PHP '.$row['inv_price'].'.00</span></p> 
+								</div>
+							</div>
 						
-					<div class="container">
-						<h4><b>Product</b></h4> 
-						<p><span id='price'>PHP 0.00</span></p> 
-					</div>
-				</div>
-
-				<div class="card" style="display:  inline-block; margin: 2px;">
-					<img src="https://cdn.shopify.com/s/files/1/0377/2037/products/WhiteTanLeather.Front_1024x.jpg?v=1510683461" alt="Avatar" style="width:100%">
-						
-					<div class="container">
-						<h4><b>Product</b></h4> 
-						<p><span id='price'>PHP 0.00</span></p> 
-					</div>
-				</div>
-
-
-				<div class="card" style="display:  inline-block; margin: 2px;">
-					<img src="https://cdn.shopify.com/s/files/1/0377/2037/products/WhiteTanLeather.Front_1024x.jpg?v=1510683461" alt="Avatar" style="width:100%">
-						
-					<div class="container">
-						<h4><b>Product</b></h4> 
-						<p><span id='price'>PHP 0.00</span></p> 
-					</div>
-				</div>
-
-
-				<div class="card" style="display:  inline-block; margin: 2px;">
-					<img src="https://cdn.shopify.com/s/files/1/0377/2037/products/WhiteTanLeather.Front_1024x.jpg?v=1510683461" alt="Avatar" style="width:100%">
-						
-					<div class="container">
-						<h4><b>Product</b></h4> 
-						<p><span id='price'>PHP 0.00</span></p> 
-					</div>
-				</div>
-
-
-				<div class="card" style="display:  inline-block; margin: 2px;">
-					<img src="https://cdn.shopify.com/s/files/1/0377/2037/products/WhiteTanLeather.Front_1024x.jpg?v=1510683461" alt="Avatar" style="width:100%">
-						
-					<div class="container">
-						<h4><b>Product</b></h4> 
-						<p><span id='price'>PHP 0.00</span></p> 
-					</div>
-				</div>
-
-
-				<div class="card" style="display:  inline-block; margin: 2px;">
-					<img src="https://cdn.shopify.com/s/files/1/0377/2037/products/WhiteTanLeather.Front_1024x.jpg?v=1510683461" alt="Avatar" style="width:100%">
-						
-					<div class="container">
-						<h4><b>Product</b></h4> 
-						<p><span id='price'>PHP 0.00</span></p> 
-					</div>
-				</div>
-
+							';
+						}
+				?>
+				
 			</div>
 
 			<div class="flash_sales">
@@ -117,65 +78,26 @@ include_once("header.php");
 				<h3>
 					FLASH SALES
 				</h3>
-
-				<div class="card" style="display:  inline-block; margin: 2px;">
-					<img src="https://cdn.shopify.com/s/files/1/0377/2037/products/WhiteTanLeather.Front_1024x.jpg?v=1510683461" alt="Avatar" style="width:100%">
+				<?php
+					$sql = "SELECT * FROM product,inventory WHERE product.inv_id=inventory.inv_id AND inv_discount>'0' ORDER BY inv_rate ASC LIMIT 6";
+					$result = $conn->query($sql);
+					while($row = $result->fetch_assoc()){
+						$discount = $row['inv_discount'] / 100;
+						$discount = $row['inv_price'] * $discount;
+						$saleprice = $row['inv_price'] - $discount;
+						echo '
+								<div class="card" style="display:  inline-block; margin: 2px;">
+								<img src="'.$row['prod_picture_link'].'" alt="Avatar" style="width:100%">
+									
+								<div class="container">
+									<h4><b>'.$row['prod_name'].'</b></h4> 
+									<p><p><span id="price"><strike>'.$row['inv_price'].'</strike><br>PHP '.$saleprice.'<br>'.$row['inv_discount'].'% off!</span></p></p> 
+								</div>
+							</div>
 						
-					<div class="container">
-						<h4><b>Product</b></h4> 
-						<p><span id='price'><strike>PHP 500.00</strike><br>PHP 250.00<br>50% off!</span></p> 
-					</div>
-				</div>
-
-
-				<div class="card" style="display:  inline-block; margin: 2px;">
-					<img src="https://cdn.shopify.com/s/files/1/0377/2037/products/WhiteTanLeather.Front_1024x.jpg?v=1510683461" alt="Avatar" style="width:100%">
-						
-					<div class="container">
-						<h4><b>Product</b></h4> 
-						<p><span id='price'><strike>PHP 500.00</strike><br>PHP 250.00<br>50% off!</span></p> 
-					</div>
-				</div>
-
-
-				<div class="card" style="display:  inline-block; margin: 2px;">
-					<img src="https://cdn.shopify.com/s/files/1/0377/2037/products/WhiteTanLeather.Front_1024x.jpg?v=1510683461" alt="Avatar" style="width:100%">
-						
-					<div class="container">
-						<h4><b>Product</b></h4> 
-						<p><span id='price'><strike>PHP 500.00</strike><br>PHP 250.00<br>50% off!</span></p> 
-					</div>
-				</div>
-
-
-				<div class="card" style="display:  inline-block; margin: 2px;">
-					<img src="https://cdn.shopify.com/s/files/1/0377/2037/products/WhiteTanLeather.Front_1024x.jpg?v=1510683461" alt="Avatar" style="width:100%">
-						
-					<div class="container">
-						<h4><b>Product</b></h4> 
-						<p><span id='price'><strike>PHP 500.00</strike><br>PHP 250.00<br>50% off!</span></p> 
-					</div>
-				</div>
-
-
-				<div class="card" style="display:  inline-block; margin: 2px;">
-					<img src="https://cdn.shopify.com/s/files/1/0377/2037/products/WhiteTanLeather.Front_1024x.jpg?v=1510683461" alt="Avatar" style="width:100%">
-						
-					<div class="container">
-						<h4><b>Product</b></h4> 
-						<p><span id='price'><strike>PHP 500.00</strike><br>PHP 250.00<br>50% off!</span></p> 
-					</div>
-				</div>
-
-
-				<div class="card" style="display:  inline-block; margin: 2px;">
-					<img src="https://cdn.shopify.com/s/files/1/0377/2037/products/WhiteTanLeather.Front_1024x.jpg?v=1510683461" alt="Avatar" style="width:100%">
-						
-					<div class="container">
-						<h4><b>Product</b></h4> 
-						<p><span id='price'><strike>PHP 500.00</strike><br>PHP 250.00<br>50% off!</span></p> 
-					</div>
-				</div>
+							';
+						}
+				?>
 
 			</div>
 
