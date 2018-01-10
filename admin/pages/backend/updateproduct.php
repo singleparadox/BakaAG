@@ -10,6 +10,7 @@
 	$prod_price = $_GET['prod_price'];
 	$prod_stock = $_GET['prod_stock'];
 	$prod_discount = $_GET['prod_discount'];
+	$prod_feature = $_GET['prod_feature'];
 	
 	$sql = "SELECT prod_genre_id FROM product_genre WHERE prod_genre_name='".$prod_genre."'";
 	$result = $conn->query($sql);
@@ -21,7 +22,7 @@
 	$result = $result->fetch_assoc();
 	$prod_type = $result['prod_type_id'];
 	
-	$sql = "UPDATE product SET prod_name='".$prod_name."',prod_desc='".$prod_desc."',prod_genre_id='".$prod_genre."',prod_type_id='".$prod_type."' WHERE prod_id='".$id."'";
+	$sql = "UPDATE product SET prod_name='".$prod_name."',prod_desc='".$prod_desc."',prod_genre_id='".$prod_genre."',prod_type_id='".$prod_type."',prod_featured='".$prod_feature."' WHERE prod_id='".$id."'";
 	$conn->query($sql);
 
 	$sql = "UPDATE inventory SET inv_price='".$prod_price."',inv_stock='".$prod_stock."',inv_discount='".$prod_discount."' WHERE inv_id='".$inv_id."'";
