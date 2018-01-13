@@ -12,12 +12,13 @@ include_once("header.php");
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/style_home.css">
 	<link rel="stylesheet" type="text/css" href="css/slideshow.css">
+	<link rel="stylesheet" type="text/css" href="css/style_global.css">
 	
 <body>
 	<main>
 		<div class="content">
 			<div class="f_products">
-				<h3>FEATURED PRODUCTS</h3>
+				<h3 style="margin-left: 30px;">FEATURED PRODUCTS</h3>
 				
 				<!-- Slideshow container -->
 				<div class="slideshow-container">
@@ -26,19 +27,19 @@ include_once("header.php");
 				<div class="mySlides">
 					<div class="numbertext">1 / 3</div>
 					<a href="#1"><img src="img/1.jpg" style="width:100%"></a>
-					<div class="text">Caption Text</div>
+					<div class="text">Anime</div>
 				</div>
 
 				<div class="mySlides">
 					<div class="numbertext">2 / 3</div>
 					<a href="#2"><img src="img/2.jpg" style="width:100%"></a>
-					<div class="text">Caption Two</div>
+					<div class="text">Charlotte Merchs</div>
 				</div>
 
 				<div class="mySlides">
 					<div class="numbertext">3 / 3</div>
 					<a href="#3"><img src="img/3.jpg" style="width:100%"></a>
-					<div class="text">Caption Three</div>
+					<div class="text">Strawberry</div>
 				</div>
 
 				<!-- Next and previous buttons -->

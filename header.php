@@ -30,10 +30,24 @@
 					    </div>
 					</div>
 				</div>
-
-
 			</div>
-		</nav>		
+		</nav>
+
+		<?php
+			//This code will check if the page is the homepage, if it is true, then
+			//it will show the searchbox
+
+			$search = '<div class="search_container"><div class="search" style="display: block; width: 1000px; margin: auto auto; margin-top: 10%; margin-bottom:15%;">
+			<h3>Search</h3><br>
+			<form class="form-inline my-2 my-lg-0">
+				<input class="form-control mr-sm-2" type="text" placeholder="Search" style="width: 80%;">
+				<button style="cursor:pointer;" class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+			</form>
+		</div></div>';
+			if (basename($_SERVER['PHP_SELF']) == "index.php") {
+				echo $search;
+			} 
+		?>
 	</header>
 
 </body>
