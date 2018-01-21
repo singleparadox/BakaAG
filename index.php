@@ -87,14 +87,14 @@ include_once("header.php");
 						$discount = $row['inv_price'] * $discount;
 						$saleprice = $row['inv_price'] - $discount;
 						echo '
-								<div class="card" style="display:  inline-block; margin: 2px;">
+								<a href="products.php"><div class="card" style="display:  inline-block; margin: 2px;">
 								<img src="'.$row['prod_picture_link'].'" alt="Avatar" style="width:100%">
 									
 								<div class="container">
 									<h4><b>'.$row['prod_name'].'</b></h4> 
 									<p><p><span id="price"><strike>'.$row['inv_price'].'</strike><br>PHP '.$saleprice.'<br>'.$row['inv_discount'].'% off!</span></p></p> 
 								</div>
-							</div>
+							</div></a>
 						
 							';
 						}
