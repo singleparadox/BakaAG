@@ -63,3 +63,16 @@
 	max-height: 50px;
 	top: -10px;
 }
+
+h3 {
+    color: white !important;
+    margin-left: -50px;
+}
+
+.search_container {
+    top: 0;
+    padding-top:1px;
+    height: 100%;
+    background-image: url("../img/searchbg.gif");
+    background-size: cover;
+}

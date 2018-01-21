@@ -3,16 +3,6 @@
 
 }
 
-body {
-	margin: 0;
-	padding: 0;
-	background-image: url("../img/background.jpg");
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
 .container {
 	padding-top: 20px;
 	position: relative;
@@ -49,7 +39,7 @@ body {
 	text-indent: 5px;
 }
 
-#login button[type=submit] {
+/*#login button[type=submit] {
 	margin-top: 10px;
 	font-size: 18px;
 	width: 90px;
@@ -66,7 +56,7 @@ body {
 	background-color: #2196f3;
 	color: black;
 	transition: 0.2s
-}
+}*/
 
 #username {
 	width: 100%;
@@ -74,5 +64,9 @@ body {
 
 #password {
 	width: 100%;
+}
+
+#invi_margin {
+	margin-bottom: 35px;
 }
 

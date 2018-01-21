@@ -1,21 +1,20 @@
 
-body {
-	margin: 0;
-	padding: 0;
-	/*background-color: #262626 !important;*/
-	background-image: url("../img/background.jpg");
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-
 main {
 	display: inline-block;
 	margin: 0;
 	padding: 0;
 }
+
+.mySlides img {
+	max-height: 350px;
+	object-fit: cover; /* Anti-image 'stretching' */
+}
+
+.mySlides .text {
+	text-transform: uppercase;
+	mix-blend-mode: difference; /* Inverts the font color depending on the background picture */
+}
+
 
 .content {
 	display: inline-block;
@@ -26,6 +25,7 @@ main {
 .f_products {
 	/*background-color: #202020;*/
 	/*width: 100%;*/
+	margin-top: 20px;
 }
 
 .f_products h3 {
@@ -37,7 +37,14 @@ main {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
     width: 15%;
+    height: 280px;
+    overflow: hidden;
+}
 
+.card img {
+	width: auto;
+	height: 140px;
+	width: 100%;
 }
 
 .card:hover {
@@ -46,6 +53,10 @@ main {
 
 .container {
     padding: 2px 16px;
+}
+
+.container h4 {
+	font-size: 1vw;
 }
 
 .m_popular {

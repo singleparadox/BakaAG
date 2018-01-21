@@ -14,7 +14,7 @@ if(isset($_SESSION['acc_id'])) {
 $error_msg = "";
 
 if(isset($_SESSION['error_msg'])) {
-	$error_msg = '<label class="show_error">'.$_SESSION['error_msg'].'</label>';
+	$error_msg = '<label class="show_error" style="position:absolute;">'.$_SESSION['error_msg'].'</label>';
 	unset($_SESSION['error_msg']);
 }
 
@@ -29,6 +29,7 @@ session_destroy();
 	<head>
 		<title>Administartor Login</title>
 		<link rel="stylesheet" type="text/css" href="css/templogin.css">
+		<link rel="stylesheet" type="text/css" href="css/style_global.css">
 	</head>
 	<body>
 		<?php include "header.php"; ?>
@@ -55,7 +56,8 @@ session_destroy();
 
 				<div id="error"><?php echo $error_msg; ?></div>
 				<!-- There is a problem with button of type = submit -->
-				<center><button type="submit" id="submit">Login</button></center>
+				<div id="invi_margin"></div>
+				<center><button type="submit" style="cursor:pointer;" class="btn btn-secondary">Submit</button></center>
 			</form>
 
 		</div>
