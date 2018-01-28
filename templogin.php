@@ -1,26 +1,5 @@
 <?php
 include "backend/connection.php";
-
-if(session_status() == PHP_SESSION_NONE)
-	session_start();
-
-//in case user goes here while he/she's still logged in...
-if(isset($_SESSION['acc_id'])) {
-	//redirect back to homepage
-	header("Location: admin/index.php");
-	exit;
-}
-
-$error_msg = "";
-
-if(isset($_SESSION['error_msg'])) {
-	$error_msg = '<label class="show_error" style="position:absolute;">'.$_SESSION['error_msg'].'</label>';
-	unset($_SESSION['error_msg']);
-}
-
-session_unset();
-session_destroy();
-
 ?>
 
 
