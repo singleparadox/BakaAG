@@ -1,9 +1,7 @@
 <?php
 include_once("backend/connection.php");
 include_once("header.php");
-
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,14 +57,14 @@ include_once("header.php");
 					$result = $conn->query($sql);
 					while($row = $result->fetch_assoc()){
 						echo '
-								<div class="card" style="display:  inline-block; margin: 2px;">
+								<a href="products.php?prod_id='.$row['prod_id'].'"><div class="card" style="display:  inline-block; margin: 2px;">
 								<img src="'.$row['prod_picture_link'].'" alt="Avatar" style="width:100%">
 									
 								<div class="container">
 									<h4><b>'.$row['prod_name'].'</b></h4> 
 									<p><span id="price">PHP '.$row['inv_price'].'.00</span></p> 
 								</div>
-							</div>
+							</div></a>
 						
 							';
 						}
@@ -87,7 +85,7 @@ include_once("header.php");
 						$discount = $row['inv_price'] * $discount;
 						$saleprice = $row['inv_price'] - $discount;
 						echo '
-								<a href="products.php"><div class="card" style="display:  inline-block; margin: 2px;">
+								<a href="products.php?prod_id='.$row['prod_id'].'"><div class="card" style="display:  inline-block; margin: 2px;">
 								<img src="'.$row['prod_picture_link'].'" alt="Avatar" style="width:100%">
 									
 								<div class="container">
