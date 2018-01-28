@@ -9,7 +9,7 @@ $username = $_POST['username'];
 $password = $_POST['password'];
 
 
-$query = "SELECT acc_id FROM account WHERE acc_email='$username' AND acc_pass='$password';";
+$query = "SELECT acc_id,acc_type_id FROM account WHERE acc_email='$username' AND acc_pass='$password';";
 $result = $conn->query($query);
 
 // close database connection
@@ -24,7 +24,7 @@ else if($result->num_rows > 0) {
 	$row = $result->fetch_assoc();
 	$_SESSION['acc_id'] = $row["acc_id"];
 	$_SESSION['acc_type_id'] = $row["acc_type_id"];
-	header("Location:../admin/index.php");
+	header("Location:../index.php");
 }
 
 ?>

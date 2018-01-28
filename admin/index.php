@@ -3,7 +3,7 @@
 	include "../backend/connection.php";
 	$acc_id = $_SESSION['acc_id'];
 	if($acc_id==NULL){
-		header("Location:../templogin.php");
+		header("Location:../index.php");
 	}
 	$sql = "SELECT * FROM account WHERE acc_id=$acc_id";
 	$result = $conn->query($sql);
