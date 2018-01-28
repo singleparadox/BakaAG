@@ -1,7 +1,10 @@
 <?php
 include_once("backend/connection.php");
 include_once("header.php");
-
+$_GET['prod_id'];
+$sql = "SELECT * FROM product,inventory WHERE product.inv_id=inventory.inv_id AND prod_id=".$_GET['prod_id'];
+$result = $conn->query($sql);
+$result = $result->fetch_assoc();
 ?>
 <!DOCTYPE html>
 <html>
@@ -21,11 +24,11 @@ include_once("header.php");
 	<div class="col-lg-4">
 	<div class="bs-component">
 	<div class="card border-primary mb-3" style="max-width: 30rem;">
-  <div class="card-header">Product Title</div>
+  <div class="card-header"><h4><?php echo $result['prod_name']?></h4></div>
   <div class="card-body text-primary">
     <h4 class="card-title"></h4>
     <p class="card-text">
-    	<img src="img/2.jpg" height="300px" width="430px" class="img-responsive">
+    	<?php echo '<img src="'.$result['prod_picture_link'].'" height="300px" width="430px" class="img-responsive">';?>
     	<div class="row">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     		<a href="#"><img src="img/1.jpg" height="90px" width="90px" class="img-responsive"></a>&nbsp;
     		<a href="#"><img src="img/2.jpg" height="90px" width="90px" class="img-responsive"></a>&nbsp;
@@ -43,7 +46,7 @@ include_once("header.php");
 	<div class="card border-primary mb-3" style="max-width: 65rem;">
   <div class="card-header">Product Details</div>
   <div class="card-body text-primary">
-    <h4 class="card-title">$1000</h4>
+    <h4 class="card-title">$<?php echo $result['inv_price']?></h4>
     <p class="card-text">
     	<button type="button" class="btn btn-primary">Add to cart</button>
     	<span class="glyphicon glyphicon-shopping-heart"></span><button type="button" class="btn btn-primary">Add to wishlist</button>
@@ -58,16 +61,31 @@ include_once("header.php");
   </thead>
   <tbody>
     <tr class="table-active">
-      <th scope="row">Anime</th>
-      <td>Mystery</td>
-      <td>In stock</td>
-      <td>5.0</td>
+      <th scope="row"><?php
+              $sql2 = "SELECT prod_type_name FROM product_type WHERE prod_type_id=".$result['prod_type_id'];
+              $result2 = $conn->query($sql2);
+              $result2 = $result2->fetch_assoc();
+              echo $result2['prod_type_name'];
+          ?></th>
+      <td><?php
+              $sql2 = "SELECT prod_genre_name FROM product_genre WHERE prod_genre_id=".$result['prod_genre_id'];
+              $result2 = $conn->query($sql2);
+              $result2 = $result2->fetch_assoc();
+              echo $result2['prod_genre_name'];
+          ?></td>
+      <td><?php
+              if($result['inv_stock']>0)
+                echo "In stock";
+              else
+                echo "Out of stock";
+          ?></td>
+      <td><?php echo $result['inv_rate']?></td>
     </tr>
   </tbody>
 </table>
 <hr>
 <h4>Product Description</h4>
-<p>Veeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeerrrrrrrrrrrrrrrrrrrryyyyyyyyyyyyyyyyyyyyyy looooooooooooooooooooonnnnnnnnnngggggggggg description.</p>
+<p><?php echo $result['prod_desc']?></p>
 
     </p>
     </div>
