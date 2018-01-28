@@ -36,9 +36,9 @@
     top: 53px;
     z-index:-1;
     opacity:0;
-    transition:opacity linear 0.15s;
-    transition-delay: 0.15s; /* delays for 1 second */
-    -webkit-transition-delay: 0.15s; /* for Safari & Chrome */
+    transition:opacity ease 0.15s;
+    transition-delay: 0.15s ease; /* delays for 1 second */
+    -webkit-transition-delay: 0.15s ease; /* for Safari & Chrome */
     box-shadow:0px 2px 3px rgba(0,0,0,0.2);
 }
 
@@ -60,8 +60,12 @@
 
 #profile_logo {
 	position: absolute;
-	max-height: 50px;
-	top: -10px;
+	max-height: 80px;
+    padding: 20px;
+    top: -25px;
+    right: 2px;
+    
+
 }
 
 h3 {
