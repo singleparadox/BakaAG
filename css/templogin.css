@@ -10,8 +10,8 @@
 	margin-right: auto;
 	margin-top: 138px;
 	margin-bottom: 138px;
-	width: 300px !important;
-	background-color: #262626;
+	width: 450px !important;
+	/*background-color: #262626;*/
 	border-radius: 8px;
 }
 
@@ -32,11 +32,19 @@
 	color: white;
 }
 
-#login input {
+#reg {
+	color: lightblue;
+}
+
+/*#login input {
 	border-style: solid;
 	border:none;
 	border-radius: 3px;
 	text-indent: 5px;
+}*/
+
+#login input {
+	width: 100%;
 }
 
 /*#login button[type=submit] {
@@ -64,6 +72,10 @@
 
 #password {
 	width: 100%;
+}
+
+#d_account {
+	float: left;
 }
 
 #invi_margin {

@@ -31,8 +31,27 @@ if(isset($_SESSION['error_msg'])) {
 					<div class="menu-wrap">
 					    <div class="menu">
 					        <ul class="clearfix">
+
 					        	<?php
-					        		if(isset($_SESSION['acc_id']))
+					        		if (isset($_SESSION['acc_id'])) { // Delete this and uncomment below to get back old code...
+					        			echo '
+					        				<li>
+					                			<a href="#"><img id="profile_logo" src="img/profile.png"></a>
+					                				<ul class="sub-menu">
+					                    				<li><a href="#">Profile</a></li>
+					                    				<li><a href="#">Settings</a></li>
+					                    				<li><a href="backend/logout.php">Logout</a></li>
+					                				</ul>
+					            			</li>';
+					        		}
+					        		else {
+					        			echo '
+											<li class="nav-item login">
+												<a class="" href="login.php">Login</span></a>
+											</li>';
+					        		} // Delete until this line
+
+					        		/*if(isset($_SESSION['acc_id']))
 					        			echo '
 					        				<li>
 					                			<a href="#"><img id="profile_logo" src="img/profile.png"></a>
@@ -56,7 +75,7 @@ if(isset($_SESSION['error_msg'])) {
 					                    				</form>
 					                				</ul>
 					            			</li>
-					            			';
+					            			';*/
 					        	?>
 					        </ul>
 					    </div>

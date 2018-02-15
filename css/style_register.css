@@ -1,0 +1,48 @@
+body {
+	margin: 0;
+	padding: 0;
+	/*background-color: #262626 !important;*/
+    /*background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #000;*/
+}
+
+#h3 {
+	margin-left: 30%;
+	margin-top: 20px;
+}
+
+input {
+	display: inline-block;
+	margin: 5px !important;
+}
+
+.container {
+	display: inline-block;
+	position: relative;
+	left: 200px;
+	max-width: 500px !important;
+	padding-bottom: 30px;
+}
+
+.btn-primary {
+	margin-left: 75%;
+}
+
+.maki {
+	display: inline-block;
+	position: relative;
+	top: -100px;
+	right: 350px;
+	z-index: 100;
+	float: right;
+	background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+	background-image: url("../img/maki.png");
+	height: 650px;
+	width: 300px;
+	pointer-events: none;
+}
