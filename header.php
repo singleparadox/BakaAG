@@ -13,6 +13,7 @@ if(isset($_SESSION['error_msg'])) {
 <head>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/style_navbar.css">
+
 </head>
 <body>
 	<header>
@@ -47,7 +48,7 @@ if(isset($_SESSION['error_msg'])) {
 					        		else {
 					        			echo '
 											<li class="nav-item login">
-												<a class="" href="login.php">Login</span></a>
+												<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal" >Login</span></button>
 											</li>';
 					        		} // Delete until this line
 
@@ -100,6 +101,69 @@ if(isset($_SESSION['error_msg'])) {
 			} 
 		?>
 	</header>
-
+	 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog cascading-modal" role="document">
+            <!--Content-->
+            <div class="modal-content">
+    
+                <!--Modal cascading tabs-->
+                <div class="modal-c-tabs">
+    
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs tabs-2 light-blue darken-3" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#panel7" role="tab"><i class="fa fa-user mr-1"></i> Login</a>
+                        </li>
+                    </ul>
+    
+                    <!-- Tab panels -->
+                    <div class="tab-content">
+                        <!--Panel 7-->
+                        <div class="tab-pane fade in show active" id="panel7" role="tabpanel">
+    						<form id="login" action="backend/validate.php" method="POST">
+                            <!--Body-->
+                            <div class="modal-body mb-1">
+                                <div class="md-form form-sm">
+                                    <i class="fa fa-envelope prefix"></i>
+                                    <input type="text" class="form-control" id="exampleInputEmail1 username" name="username" aria-describedby="emailHelp" placeholder="Enter Username" required>
+                                    <label for="exampleInputEmail1 username">Your email</label>
+                                </div>
+    
+                                <div class="md-form form-sm">
+                                    <i class="fa fa-lock prefix"></i>
+                                    <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Password" required>
+                                    <label for="exampleInputPassword1">Your password</label>
+                                </div>
+                                <div class="text-center mt-2">
+                                    <button type="submit" style="cursor:pointer;" class="btn btn-info">Log in <i class="fa fa-sign-in ml-1"></i></button>
+                                </div>
+                            </div>
+                            </form>
+                            <!--Footer-->
+                            <div class="modal-footer display-footer">
+                                <div class="options text-center text-md-right mt-1">
+                                    <p>Not a member? <a href="#" class="blue-text">Sign Up</a></p>
+                                    <p>Forgot <a href="#" class="blue-text">Password?</a></p>
+                                </div>
+                                <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">Close</button>
+                            </div>
+    
+                        </div>
+                    </div>
+    
+                </div>
+            </div>
+            <!--/.Content-->
+        </div>
+    </div>
+    <!--Modal: Login / Register Form-->
+ <!-- JQuery -->
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="js/mdb.min.js"></script>
 </body>
 </html>
