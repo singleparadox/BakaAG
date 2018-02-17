@@ -13,6 +13,8 @@ if(isset($_SESSION['error_msg'])) {
 <head>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/style_navbar.css">
+	 <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
 
 </head>
 <body>
@@ -47,8 +49,9 @@ if(isset($_SESSION['error_msg'])) {
 					        		}
 					        		else {
 					        			echo '
+					        				<li><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cartModal" >Cart</span></button></li>
 											<li class="nav-item login">
-												<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal" >Login</span></button>
+												<button type="button" style="cursor:pointer;" class="btn btn-primary" data-toggle="modal" data-target="#loginModal" >Login</span></button>
 											</li>';
 					        		} // Delete until this line
 
@@ -101,21 +104,21 @@ if(isset($_SESSION['error_msg'])) {
 			} 
 		?>
 	</header>
+
+
+	<!--Login Modal-->
 	 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog cascading-modal" role="document">
             <!--Content-->
             <div class="modal-content">
-    
                 <!--Modal cascading tabs-->
                 <div class="modal-c-tabs">
-    
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs tabs-2 light-blue darken-3" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" data-toggle="tab" href="#panel7" role="tab"><i class="fa fa-user mr-1"></i> Login</a>
                         </li>
                     </ul>
-    
                     <!-- Tab panels -->
                     <div class="tab-content">
                         <!--Panel 7-->
@@ -156,7 +159,58 @@ if(isset($_SESSION['error_msg'])) {
             <!--/.Content-->
         </div>
     </div>
-    <!--Modal: Login / Register Form-->
+  <!--Login Modal End-->
+
+<!-- Modal: modalCart -->
+<div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Your cart</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Product name</th>
+                            <th>Price</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Product 1</td>
+                            <td>100$</td>
+                            <td><a><i class="fa fa-remove"></i></a></td>
+                        </tr>
+                        <tr class="total">
+                            <th scope="row">5</th>
+                            <td>Total</td>
+                            <td>400$</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <!--Footer-->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>
+                <button class="btn btn-primary">Checkout</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal: modalCart -->
+
  <!-- JQuery -->
     <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
     <!-- Bootstrap tooltips -->
