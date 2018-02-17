@@ -48,7 +48,7 @@ if(isset($_SESSION['error_msg'])) {
 					        		else {
 					        			echo '
 											<li class="nav-item login">
-												<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal" >Login</span></button>
+												<a class="login_button" data-toggle="modal" data-target="#loginModal" >Login</span></a>
 											</li>';
 					        		} // Delete until this line
 
@@ -125,14 +125,16 @@ if(isset($_SESSION['error_msg'])) {
                             <div class="modal-body mb-1">
                                 <div class="md-form form-sm">
                                     <i class="fa fa-envelope prefix"></i>
+                                    <label for="username">Your Email</label>
                                     <input type="text" class="form-control" id="exampleInputEmail1 username" name="username" aria-describedby="emailHelp" placeholder="Enter Username" required>
-                                    <label for="exampleInputEmail1 username">Your email</label>
+                                    
                                 </div>
     
                                 <div class="md-form form-sm">
                                     <i class="fa fa-lock prefix"></i>
+                                    <label for="password">Your Password</label>
                                     <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Password" required>
-                                    <label for="exampleInputPassword1">Your password</label>
+                                    
                                 </div>
                                 <div class="text-center mt-2">
                                     <button type="submit" style="cursor:pointer;" class="btn btn-info">Log in <i class="fa fa-sign-in ml-1"></i></button>
@@ -142,10 +144,10 @@ if(isset($_SESSION['error_msg'])) {
                             <!--Footer-->
                             <div class="modal-footer display-footer">
                                 <div class="options text-center text-md-right mt-1">
-                                    <p>Not a member? <a href="#" class="blue-text">Sign Up</a></p>
+                                    <p>Not a member? <a href="register.php" class="blue-text">Sign Up</a></p>
                                     <p>Forgot <a href="#" class="blue-text">Password?</a></p>
                                 </div>
-                                <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">Close</button>
+                                <button style="cursor: pointer;" type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">Close</button>
                             </div>
     
                         </div>

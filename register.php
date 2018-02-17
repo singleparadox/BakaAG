@@ -29,7 +29,7 @@ include "backend/connection.php";
 					<input type="text" name="firstname" class="form-control" placeholder="First Name" id="firstname" required>
 
 	      			<label class="col-form-label" for="lastname">Last Name</label>
-					<input type="text" name="firstname" class="form-control" placeholder="Last Name" id="firstname" required>
+					<input type="text" name="firstname" class="form-control" placeholder="Last Name" id="lastname" required>
 
 					<label class="col-form-label birthday" for="birthday">Birthday</label>
 					<input type="date" name="birthday" class="form-control" required>
