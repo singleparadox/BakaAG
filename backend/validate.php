@@ -17,7 +17,7 @@ $conn->close();
 
 if($result->num_rows < 1) {
 	$_SESSION['error_msg'] = "Invalid username or password";
-	header("Location: ../templogin.php");
+	header("Location: ../login.php");
 	exit;
 }
 else if($result->num_rows > 0) {

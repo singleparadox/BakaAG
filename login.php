@@ -6,7 +6,7 @@ include "backend/connection.php";
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Administartor Login</title>
+		<title>Login Page</title>
 		<link rel="stylesheet" type="text/css" href="css/templogin.css">
 		<link rel="stylesheet" type="text/css" href="css/style_global.css">
 	</head>
@@ -17,20 +17,13 @@ include "backend/connection.php";
 				<center><h3>LOGIN</h3></center>
 			</div>			
 			<form id="login" action="backend/validate.php" method="POST">
-				<table>
-					<tr>
-						<td>
-							<label for="username">Email</label>
-							<input placeholder="Enter Email" type="text" id="username" name="username" />
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<label for="username">Password</label>
-							<input placeholder="Enter Password" type="password" id="password" name="password" />
-						</td>
-					</tr>
-				</table>
+
+				<label for="exampleInputEmail1">Username</label>
+				<input type="text" class="form-control" id="exampleInputEmail1 username" name="username" aria-describedby="emailHelp" placeholder="Enter Username" required>
+
+				<label for="exampleInputPassword1">Password</label>
+				<input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
+						
 
 
 				<div id="error"><?php echo $error_msg; ?></div>
@@ -39,6 +32,8 @@ include "backend/connection.php";
 				<center><button type="submit" style="cursor:pointer;" class="btn btn-secondary">Submit</button></center>
 			</form>
 
+			<div id="d_account"><p>Don't have an account? Register <a id="reg" href="register.php">here</a></p></div>
 		</div>
 		<?php include "footer.php"; ?>
 	</body>
+</html>
