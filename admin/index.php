@@ -50,8 +50,8 @@
 								<!--notifications of menu start -->
 								<ul class="nofitications-dropdown">
 									<li class="dropdown head-dpdn">
-										<a href="#" class="dropdown-toggle" aria-expanded="false"  data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-plus">Add a new product</i></a>
-									</li>		
+										<a href="#" class="dropdown-toggle" aria-expanded="false"  data-toggle="modal" data-target=".product_modal"><i class="fa fa-plus">Add a new product</i></a>
+									</li>	
 								</ul>
 								<div class="clearfix"> </div>
 							</div>
@@ -112,7 +112,7 @@
 	</div>
 
 	<!--Add New Product-->
-	<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+	<div class="modal fade bs-example-modal-lg product_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
 	  <div class="modal-dialog modal-lg" role="document">
 	    <div class="modal-content">
 	    	<form action="pages/backend/addproduct.php" method="POST" enctype="multipart/form-data">
@@ -172,6 +172,33 @@
 	</div>
 	<!--Add New Product End-->
 
+	<!--Add New Category-->
+	<div class="modal fade bs-example-modal-lg category" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+	  <div class="modal-dialog modal-lg" role="document">
+	    <div class="modal-content">
+	    	<form action="pages/backend/addcategory.php" method="POST" enctype="multipart/form-data">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel">Add New Category</h4>
+	      </div>
+	      <div class="modal-body">
+	      	<label for="new-categ-pic">Category Picture:</label>
+				<input type="file" id="new-categ-pic" name="new-categ-pic" class="form-control-file" aria-describedby="basic-addon1">
+	      	<label for="new-categ-name">Category Name:</label>
+				<input type="text" id="new-categ-name" name="new-categ-name" class="form-control" placeholder="Title" aria-describedby="basic-addon1">
+			<label for="new-categ-desc">Category Description:</label>
+				<input type="textarea" id="new-categ-desc" name="new-categ-desc" class="form-control" placeholder="Enter Description" aria-describedby="basic-addon1">
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        <button type="submit" class="btn btn-primary">Confirm</button>
+	      </div>
+	      </form>
+	    </div>
+	  </div>
+	</div>
+	<!--Add New Category End-->
+
 <!-- - - Main Pages End - - -->
 
 <!--slider menu-->
@@ -183,7 +210,10 @@
 		        <li><a href="#Products" onclick="chPage()"><i class="fa fa-cogs"></i><span>Products</span><span class="fa fa-angle-right" style="float: right"></span></a>
 		          <ul>
 		            <li><a href="#">Anime</a></li>
-		            <li><a href="#">Game</a></li>		            
+		            <li><a href="#">Game</a></li>	
+					<li>
+						<a href="#"  data-toggle="modal" data-target=".category">Add Category</a>
+					</li>		            
 		          </ul>
 		        </li>
 		        <li id="menu-home" ><a href="#"><i class="fa fa-user"></i><span>User Accounts</span></a></li>
