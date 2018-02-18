@@ -72,6 +72,14 @@
 
 }
 
+.login_button {
+    cursor: pointer;
+}
+
+.login_button:hover {
+    color: white;
+}
+
 h3 {
     color: white !important;
     margin-left: -50px;
