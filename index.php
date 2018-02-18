@@ -114,7 +114,7 @@ include_once("header.php");
 							$id = $categ_row['prod_genre_id'];
 							$categ_1 = $categ_row['prod_genre_name'];
 							if (!is_null($categ_1)) {
-								echo "<a href='categories.php?id=$id'><li class='list-group-item d-flex justify-content-between align-items-center'>$categ_1</li></a>";
+								echo "<a href='items.php?id=$id'><li class='list-group-item d-flex justify-content-between align-items-center'>$categ_1</li></a>";
 							}
 							else {
 								echo "<li class='list-group-item d-flex justify-content-between align-items-center'>Empty</li>";
@@ -143,7 +143,7 @@ include_once("header.php");
 							$id = $categ_row['prod_genre_id'];
 							$categ_1 = $categ_row['prod_genre_name'];
 							if (!is_null($categ_1)) {
-								echo "<a href='categories.php?id=$id'><li class='list-group-item d-flex justify-content-between align-items-center'>$categ_1</li></a>";
+								echo "<a href='items.php?id=$id'><li class='list-group-item d-flex justify-content-between align-items-center'>$categ_1</li></a>";
 							}
 							else {
 								echo "<li class='list-group-item d-flex justify-content-between align-items-center'>Empty</li>";
@@ -161,7 +161,7 @@ include_once("header.php");
 							$id = $categ_row['prod_genre_id'];
 							$categ_1 = $categ_row['prod_genre_name'];
 							if (!is_null($categ_1)) {
-								echo "<a href='categories.php?id=$id'><li class='list-group-item d-flex justify-content-between align-items-center'>$categ_1</li></a>";
+								echo "<a href='items.php?id=$id'><li class='list-group-item d-flex justify-content-between align-items-center'>$categ_1</li></a>";
 							}
 							else {
 								echo "<li class='list-group-item d-flex justify-content-between align-items-center'>Empty</li>";
