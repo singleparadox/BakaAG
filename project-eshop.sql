@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.7.0
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 10, 2018 at 02:19 PM
--- Server version: 10.1.19-MariaDB
--- PHP Version: 5.6.28
+-- Generation Time: Feb 18, 2018 at 02:17 PM
+-- Server version: 10.1.25-MariaDB
+-- PHP Version: 7.1.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -40,7 +42,7 @@ CREATE TABLE `account` (
 --
 
 INSERT INTO `account` (`acc_id`, `acc_email`, `acc_pass`, `acc_fname`, `acc_lname`, `acc_type_id`) VALUES
-(1, 'email@test.com', 'pass', 'Glenn', 'Yanzon', 2);
+(1, 'email@test.com', 'pass', 'Glenn', 'Perez', 2);
 
 -- --------------------------------------------------------
 
@@ -233,16 +235,29 @@ INSERT INTO `product` (`prod_id`, `prod_name`, `prod_desc`, `prod_picture_link`,
 
 CREATE TABLE `product_genre` (
   `prod_genre_id` int(11) NOT NULL,
-  `prod_genre_name` varchar(100) NOT NULL
+  `prod_genre_name` varchar(100) NOT NULL,
+  `prod_genre_desc` longtext NOT NULL,
+  `prod_genre_link` varchar(700) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `product_genre`
 --
 
-INSERT INTO `product_genre` (`prod_genre_id`, `prod_genre_name`) VALUES
-(1, 'Adventure'),
-(2, 'Action');
+INSERT INTO `product_genre` (`prod_genre_id`, `prod_genre_name`, `prod_genre_desc`, `prod_genre_link`) VALUES
+(1, 'Adventure', '', NULL),
+(2, 'Action', '', NULL),
+(3, 'Hentai', '', NULL),
+(4, 'Ecchi', '', NULL),
+(5, 'Harem', '', NULL),
+(6, 'Demons', '', NULL),
+(7, 'Mecha', '', NULL),
+(8, 'Fantasy', '', NULL),
+(9, 'Magic', '', NULL),
+(10, 'Supernatural', '', NULL),
+(11, 'Shoujo', '', NULL),
+(12, 'Shounen', '', NULL),
+(13, 'Erotic', 'The Erotica', 'data/Category/Erotic-18-02-18-12157/Erotic-18-02-18-12157');
 
 -- --------------------------------------------------------
 
@@ -398,12 +413,13 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT for table `product_genre`
 --
 ALTER TABLE `product_genre`
-  MODIFY `prod_genre_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `prod_genre_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `product_type`
 --
 ALTER TABLE `product_type`
-  MODIFY `prod_type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `prod_type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
