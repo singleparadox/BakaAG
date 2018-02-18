@@ -7,12 +7,19 @@ if(isset($_SESSION['error_msg'])) {
 	$error_msg = '<label class="show_error" style="position:absolute;">'.$_SESSION['error_msg'].'</label>';
 	unset($_SESSION['error_msg']);
 }
+if(!isset($_SESSION['arry']))
+    $_SESSION['arry']=1;
+if(is_array($_SESSION['arry'])!=true){
+   $_SESSION['arry'] = array();
+}
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/style_navbar.css">
+	 <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
 
 </head>
 <body>
@@ -47,8 +54,9 @@ if(isset($_SESSION['error_msg'])) {
 					        		}
 					        		else {
 					        			echo '
+					        				<li><a class="btn btn-primary" data-toggle="modal" data-target="#cartModal" >Cart</span></a></li>
 											<li class="nav-item login">
-												<a class="login_button" data-toggle="modal" data-target="#loginModal" >Login</span></a>
+                      	<a class="login_button" data-toggle="modal" data-target="#loginModal" >Login</span></a>
 											</li>';
 					        		} // Delete until this line
 
@@ -101,21 +109,21 @@ if(isset($_SESSION['error_msg'])) {
 			} 
 		?>
 	</header>
+
+
+	<!--Login Modal-->
 	 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog cascading-modal" role="document">
             <!--Content-->
             <div class="modal-content">
-    
                 <!--Modal cascading tabs-->
                 <div class="modal-c-tabs">
-    
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs tabs-2 light-blue darken-3" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" data-toggle="tab" href="#panel7" role="tab"><i class="fa fa-user mr-1"></i> Login</a>
                         </li>
                     </ul>
-    
                     <!-- Tab panels -->
                     <div class="tab-content">
                         <!--Panel 7-->
@@ -158,7 +166,68 @@ if(isset($_SESSION['error_msg'])) {
             <!--/.Content-->
         </div>
     </div>
-    <!--Modal: Login / Register Form-->
+  <!--Login Modal End-->
+
+<!-- Modal: modalCart -->
+<div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Your cart</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+            	<div id="user-cart">
+                <?php
+                   $num = 0;
+                    $sql = "SELECT * FROM product,inventory WHERE inventory.inv_id=product.inv_id";
+                    $result = $conn->query($sql);
+                    echo '
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Product name</th>
+                                    <th>Price</th>
+                                    <th>Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                        ';
+                    while($row = $result->fetch_assoc()){
+                        if(in_array($row['prod_id'], $_SESSION['arry'])==true){
+                            $num++;
+                            echo '
+                                <tr>
+                                    <th scope="row">'.$num.'</th>
+                                    <td>'.$row['prod_name'].'</td>
+                                     <td>'.$row['inv_price'].'$</td>
+                                     <td><a onclick="removefrcart('.$row['prod_id'].')" style="cursor:pointer;"><i class="fa fa-remove"></i></a></td>
+                                </tr>
+                                ';
+                        }
+                    }
+                    echo '
+                        </tbody>
+                       </table>
+                        ';
+                ?>
+                </div>
+            </div>
+            <!--Footer-->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>
+                <button class="btn btn-primary">Checkout</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal: modalCart -->
+
  <!-- JQuery -->
     <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
     <!-- Bootstrap tooltips -->
@@ -167,5 +236,6 @@ if(isset($_SESSION['error_msg'])) {
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="js/mdb.min.js"></script>
+    <script type="text/javascript" src="js/funcs.js"></script>
 </body>
 </html>
