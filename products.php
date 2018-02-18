@@ -95,6 +95,8 @@ $result = $result->fetch_assoc();
 	
 </div>
 </div>
+
+<script type="text/javascript" src="js/funcs.js"></script>
 </body>
 </html>
 <?php 

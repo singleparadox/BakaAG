@@ -7,6 +7,11 @@ if(isset($_SESSION['error_msg'])) {
 	$error_msg = '<label class="show_error" style="position:absolute;">'.$_SESSION['error_msg'].'</label>';
 	unset($_SESSION['error_msg']);
 }
+if(!isset($_SESSION['arry']))
+    $_SESSION['arry']=1;
+if(is_array($_SESSION['arry'])!=true){
+   $_SESSION['arry'] = array();
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -49,9 +54,9 @@ if(isset($_SESSION['error_msg'])) {
 					        		}
 					        		else {
 					        			echo '
-					        				<li><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cartModal" >Cart</span></button></li>
+					        				<li><a class="btn btn-primary" data-toggle="modal" data-target="#cartModal" >Cart</span></a></li>
 											<li class="nav-item login">
-												<button type="button" style="cursor:pointer;" class="btn btn-primary" data-toggle="modal" data-target="#loginModal" >Login</span></button>
+												<a style="cursor:pointer;" class="btn btn-primary" data-toggle="modal" data-target="#loginModal" >Login</span></a>
 											</li>';
 					        		} // Delete until this line
 
@@ -174,32 +179,42 @@ if(isset($_SESSION['error_msg'])) {
             </div>
             <!--Body-->
             <div class="modal-body">
-
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Product name</th>
-                            <th>Price</th>
-                            <th>Remove</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Product 1</td>
-                            <td>100$</td>
-                            <td><a><i class="fa fa-remove"></i></a></td>
-                        </tr>
-                        <tr class="total">
-                            <th scope="row">5</th>
-                            <td>Total</td>
-                            <td>400$</td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
-
+            	<div id="user-cart">
+                <?php
+                   $num = 0;
+                    $sql = "SELECT * FROM product,inventory WHERE inventory.inv_id=product.inv_id";
+                    $result = $conn->query($sql);
+                    echo '
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Product name</th>
+                                    <th>Price</th>
+                                    <th>Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                        ';
+                    while($row = $result->fetch_assoc()){
+                        if(in_array($row['prod_id'], $_SESSION['arry'])==true){
+                            $num++;
+                            echo '
+                                <tr>
+                                    <th scope="row">'.$num.'</th>
+                                    <td>'.$row['prod_name'].'</td>
+                                     <td>'.$row['inv_price'].'$</td>
+                                     <td><a onclick="removefrcart('.$row['prod_id'].')" style="cursor:pointer;"><i class="fa fa-remove"></i></a></td>
+                                </tr>
+                                ';
+                        }
+                    }
+                    echo '
+                        </tbody>
+                       </table>
+                        ';
+                ?>
+                </div>
             </div>
             <!--Footer-->
             <div class="modal-footer">
@@ -219,5 +234,6 @@ if(isset($_SESSION['error_msg'])) {
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="js/mdb.min.js"></script>
+    <script type="text/javascript" src="js/funcs.js"></script>
 </body>
 </html>
