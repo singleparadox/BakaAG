@@ -49,8 +49,8 @@ $result = $result->fetch_assoc();
   <div class="card-body text-primary">
     <h4 class="card-title">$<?php echo $result['inv_price']?></h4>
     <p class="card-text">
-      <button type="button" class="btn btn-primary" onclick="addtocart(<?php echo $result['prod_id']?>)">Add to cart</button>
-    	<span class="glyphicon glyphicon-shopping-heart"></span><button type="button" class="btn btn-primary">Add to wishlist</button>
+      <button type="button" class="btn btn-primary" style="cursor: pointer;" onclick="addtocart(<?php echo $result['prod_id']?>)">Add to cart</button>
+    	<span class="glyphicon glyphicon-shopping-heart"></span><button type="button" style="cursor: pointer;" class="btn btn-primary">Add to wishlist</button>
     	<table class="table table-hover">
   <thead>
     <tr>
