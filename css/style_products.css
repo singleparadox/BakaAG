@@ -41,3 +41,17 @@
   background-repeat: no-repeat;
   border: 4px solid transparent;
 }
+
+.small-thumbnail {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.container-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.data-container {
+  
+}

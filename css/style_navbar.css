@@ -72,12 +72,16 @@
 
 }
 
-.login_button {
+#login_button {
     cursor: pointer;
 }
 
-.login_button:hover {
+#login_button:hover {
     color: white;
+}
+
+#cursor-pointer {
+    cursor: pointer;
 }
 
 h3 {
