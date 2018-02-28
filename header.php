@@ -54,9 +54,9 @@ if(is_array($_SESSION['arry'])!=true){
 					        		}
 					        		else {
 					        			echo '
-					        				<li><a class="btn btn-primary" data-toggle="modal" data-target="#cartModal" >Cart</span></a></li>
+					        				<li><a class="login-button" id="login_button" data-toggle="modal" data-target="#cartModal" >Cart</span></a></li>
 											<li class="nav-item login">
-                      	<a class="login_button" data-toggle="modal" data-target="#loginModal" >Login</span></a>
+                      	<a class="login-button" id="login_button" data-toggle="modal" data-target="#loginModal" >Login</span></a>
 											</li>';
 					        		} // Delete until this line
 
@@ -220,8 +220,8 @@ if(is_array($_SESSION['arry'])!=true){
             </div>
             <!--Footer-->
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>
-                <button class="btn btn-primary">Checkout</button>
+                <button type="button" class="btn btn-outline-primary" id="cursor-pointer" data-dismiss="modal">Close</button>
+                <button class="btn btn-primary" id="cursor-pointer">Checkout</button>
             </div>
         </div>
     </div>

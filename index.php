@@ -106,10 +106,23 @@ include_once("header.php");
 				</h3>
 
 				<ul class="list-group" style="width: 31%; display: inline-block;">
-					<li class="list-group-item d-flex justify-content-between align-items-center">
-					Fantasy
+					<?php
+						$category_sql = "SELECT * FROM product_genre ORDER BY prod_genre_name ASC LIMIT 3";
+						$category_result = $conn->query($category_sql);
 
-					</li>
+						while ($categ_row = $category_result->fetch_assoc()) {
+							$id = $categ_row['prod_genre_id'];
+							$categ_1 = $categ_row['prod_genre_name'];
+							if (!is_null($categ_1)) {
+								echo "<a href='items.php?id=$id'><li class='list-group-item d-flex justify-content-between align-items-center'>$categ_1</li></a>";
+							}
+							else {
+								echo "<li class='list-group-item d-flex justify-content-between align-items-center'>Empty</li>";
+							}
+						}
+					?>
+
+					<!--<li class="list-group-item d-flex justify-content-between align-items-center">Fantasy</li>
 
 					<li class="list-group-item d-flex justify-content-between align-items-center">
 					Action
@@ -118,44 +131,46 @@ include_once("header.php");
 
 					<li class="list-group-item d-flex justify-content-between align-items-center">
 					Harem
-					</li>
+					</li>-->
 				</ul>
 
 				<ul class="list-group" style="width: 31%; display: inline-block;">
-					<li class="list-group-item d-flex justify-content-between align-items-center">
-					Ecchi
+					<?php
+						$category_sql = "SELECT * FROM product_genre ORDER BY prod_genre_name ASC LIMIT 3,3";
+						$category_result = $conn->query($category_sql);
 
-					</li>
-
-					<li class="list-group-item d-flex justify-content-between align-items-center">
-					Demons
-
-					</li>
-
-					<li class="list-group-item d-flex justify-content-between align-items-center">
-					Shoujo
-
-					</li>
+						while ($categ_row = $category_result->fetch_assoc()) {
+							$id = $categ_row['prod_genre_id'];
+							$categ_1 = $categ_row['prod_genre_name'];
+							if (!is_null($categ_1)) {
+								echo "<a href='items.php?id=$id'><li class='list-group-item d-flex justify-content-between align-items-center'>$categ_1</li></a>";
+							}
+							else {
+								echo "<li class='list-group-item d-flex justify-content-between align-items-center'>Empty</li>";
+							}
+						}
+					?>
 				</ul>
 
 				<ul class="list-group" style="width: 31%; display: inline-block;">
-					<li class="list-group-item d-flex justify-content-between align-items-center">
-					Shounen
+					<?php
+						$category_sql = "SELECT * FROM product_genre ORDER BY prod_genre_name ASC LIMIT 6,3";
+						$category_result = $conn->query($category_sql);
 
-					</li>
-
-					<li class="list-group-item d-flex justify-content-between align-items-center">
-					Josei
-
-					</li>
-
-					<li class="list-group-item d-flex justify-content-between align-items-center">
-					Magic
-
-					</li>
+						while ($categ_row = $category_result->fetch_assoc()) {
+							$id = $categ_row['prod_genre_id'];
+							$categ_1 = $categ_row['prod_genre_name'];
+							if (!is_null($categ_1)) {
+								echo "<a href='items.php?id=$id'><li class='list-group-item d-flex justify-content-between align-items-center'>$categ_1</li></a>";
+							}
+							else {
+								echo "<li class='list-group-item d-flex justify-content-between align-items-center'>Empty</li>";
+							}
+						}
+					?>
 				</ul>
 
-				<p id='more_categ'><a href="#">More Categories...</a></p>
+				<p id='more_categ'><a href="categories.php">More Categories...</a></p>
 
 
 			</div>

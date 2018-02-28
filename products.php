@@ -18,22 +18,23 @@ $result = $result->fetch_assoc();
 </head>
 
 <body>
+  <? echo $result['prod_picture_link'];?>
 <br><br>
 <div class="container-fluid">
-<div class="row">
-	<div class="col-lg-4">
+<div class="row container-center">
+	<div class="col-lg-5">
 	<div class="bs-component">
 	<div class="card border-primary mb-3" style="max-width: 30rem;">
   <div class="card-header"><h4><?php echo $result['prod_name']?></h4></div>
   <div class="card-body text-primary">
     <h4 class="card-title"></h4>
-    <p class="card-text">
-    	<?php echo '<img src="'.$result['prod_picture_link'].'" height="300px" width="430px" class="img-responsive">';?>
-    	<div class="row">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    		<a href="#"><img src="img/1.jpg" height="90px" width="90px" class="img-responsive"></a>&nbsp;
-    		<a href="#"><img src="img/2.jpg" height="90px" width="90px" class="img-responsive"></a>&nbsp;
-    		<a href="#"><img src="img/3.jpg" height="90px" width="90px" class="img-responsive"></a>&nbsp;
-    		<a href="#"><img src="img/4.jpg" height="90px" width="90px" class="img-responsive"></a>&nbsp;
+    <p class="card-text"> 
+    	<?php echo '<div style="width: 350px; height: 250px;  background-image: url(\''.$result['prod_picture_link'].'\'); background-size: cover; background-repeat: no-repeat; background-position:center center;" class="img-responsive"></div>';?>
+    	<div class="row small-thumbnail">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="#"><div style="width: 60px; height: 60px;  background-image: url('img/1.jpg'); background-size: cover; background-repeat: no-repeat; background-position: 50% 50%;" class="img-responsive"></div></a>&nbsp;
+        <a href="#"><div style="width: 60px; height: 60px;  background-image: url('img/2.jpg'); background-size: cover; background-repeat: no-repeat; background-position: 50% 50%;" class="img-responsive"></div></a>&nbsp;
+        <a href="#"><div style="width: 60px; height: 60px;  background-image: url('img/3.jpg'); background-size: cover; background-repeat: no-repeat; background-position: 50% 50%;" class="img-responsive"></div></a>&nbsp;
+        <a href="#"><div style="width: 60px; height: 60px;  background-image: url('img/4.jpg'); background-size: cover; background-repeat: no-repeat; background-position: 50% 50%;" class="img-responsive"></div></a>&nbsp;
     	</div>
     </p>
     </div>
@@ -41,15 +42,15 @@ $result = $result->fetch_assoc();
 </div>
 </div>
 		
-	<div class="col-lg-8">
+	<div class="col-lg-7 data-container">
 	<div class="bs-component">
 	<div class="card border-primary mb-3" style="max-width: 65rem;">
   <div class="card-header">Product Details</div>
   <div class="card-body text-primary">
     <h4 class="card-title">$<?php echo $result['inv_price']?></h4>
     <p class="card-text">
-    	<button type="button" class="btn btn-primary" onclick="addtocart(<?php echo $result['prod_id']?>)">Add to cart</button>
-    	<span class="glyphicon glyphicon-shopping-heart"></span><button type="button" class="btn btn-primary">Add to wishlist</button>
+      <button type="button" class="btn btn-primary" style="cursor: pointer;" onclick="addtocart(<?php echo $result['prod_id']?>)">Add to cart</button>
+    	<span class="glyphicon glyphicon-shopping-heart"></span><button type="button" style="cursor: pointer;" class="btn btn-primary">Add to wishlist</button>
     	<table class="table table-hover">
   <thead>
     <tr>

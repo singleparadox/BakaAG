@@ -1,0 +1,33 @@
+#invis-margin {
+	width: 100%;
+	margin-bottom: 20px;
+
+}
+main {
+	width: 100%;
+	display: inline-block;
+}
+
+.categ_container {
+	display: inline-block;
+	margin-left: 100px;
+	margin: 0 auto;
+	height: 200px;
+	margin-top: 50px;
+	margin-left: 220px;
+}
+
+h4 {
+	text-align: center;
+	position: relative;
+	margin: 0 auto;
+	color: white !important;
+}
+
+#image {
+	margin: 0 auto;
+	border-radius: 50%;
+	background-size: cover; background-repeat: no-repeat; background-position: 50% 50%;
+	height: 150px;
+	width: 150px;
+}
