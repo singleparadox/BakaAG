@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 10, 2018 at 02:19 PM
+-- Generation Time: Feb 28, 2018 at 03:10 PM
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 5.6.28
 
@@ -40,7 +40,8 @@ CREATE TABLE `account` (
 --
 
 INSERT INTO `account` (`acc_id`, `acc_email`, `acc_pass`, `acc_fname`, `acc_lname`, `acc_type_id`) VALUES
-(1, 'email@test.com', 'pass', 'Glenn', 'Yanzon', 2);
+(1, 'email@test.com', 'pass', 'Glenn', 'Perez', 2),
+(2, 'user@test.com', 'pass', 'Alejandre', 'Papina', 1);
 
 -- --------------------------------------------------------
 
@@ -64,7 +65,8 @@ CREATE TABLE `account_address` (
 --
 
 INSERT INTO `account_address` (`acc_address_id`, `acc_id`, `address_province`, `address_country`, `address_city`, `address_zipcode`, `address_line1`, `address_line2`) VALUES
-(1, 1, 'Test Province', 'Test Country', 'Test City', '1111', 'Test Address1', 'Test Address2');
+(1, 1, 'Test Province', 'Test Country', 'Test City', '1111', 'Test Address1', 'Test Address2'),
+(2, 2, 'Albay', 'Philippines', 'Legazpi', '4503', 'Legazpi,Albay', 'Legazpi,Albay');
 
 -- --------------------------------------------------------
 
@@ -108,7 +110,8 @@ CREATE TABLE `account_details` (
 --
 
 INSERT INTO `account_details` (`acc_details_id`, `acc_id`, `acc_details_gender`, `acc_details_bday`, `acc_details_pnum`) VALUES
-(1, 1, 'Trans', '2017-12-17', '0976542321');
+(1, 1, 'Trans', '2017-12-17', '0976542321'),
+(2, 2, 'Male', '1997-10-22', '09363712548');
 
 -- --------------------------------------------------------
 
@@ -127,7 +130,10 @@ CREATE TABLE `account_type` (
 
 INSERT INTO `account_type` (`acc_type_id`, `acc_type_name`) VALUES
 (1, 'User'),
-(2, 'Admin');
+(2, 'Admin-Store Manger'),
+(3, 'Warehouse-Manager'),
+(4, 'Account-Manager'),
+(5, 'Master Admin');
 
 -- --------------------------------------------------------
 
@@ -204,6 +210,7 @@ CREATE TABLE `order_status` (
 
 CREATE TABLE `product` (
   `prod_id` int(11) NOT NULL,
+  `prod_codeid` varchar(767) NOT NULL DEFAULT 'Empty',
   `prod_name` varchar(32) NOT NULL,
   `prod_desc` longtext NOT NULL,
   `prod_picture_link` varchar(700) NOT NULL DEFAULT 'data/Products/default.jpg',
@@ -217,13 +224,13 @@ CREATE TABLE `product` (
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`prod_id`, `prod_name`, `prod_desc`, `prod_picture_link`, `prod_featured`, `prod_genre_id`, `prod_type_id`, `inv_id`) VALUES
-(1, 'Laptop', 'Test Desc', 'data/Products/default.jpg', 'Yes', 2, 3, 1),
-(3, 'joe', 'show', 'data/Products/default.jpg', 'Yes', 2, 2, 7),
-(6, 'Test Image', 'Test Image', 'data/Products/Test Image-17-12-28-42295/Test Image-17-12-28-42295', 'Yes', 2, 2, 10),
-(7, 'Test Image(No Image)', 'No image', 'data/Products/default.jpg', 'Yes', 2, 3, 11),
-(8, 'Steins;Gate', '', 'data/Products/Steins;Gate-18-01-10-16257/Steins;Gate-18-01-10-16257', 'Yes', 2, 2, 12),
-(9, 'Mob Psycho', '', 'data/Products/Mob Psycho-18-01-10-69665/Mob Psycho-18-01-10-69665', 'Yes', 2, 2, 13);
+INSERT INTO `product` (`prod_id`, `prod_codeid`, `prod_name`, `prod_desc`, `prod_picture_link`, `prod_featured`, `prod_genre_id`, `prod_type_id`, `inv_id`) VALUES
+(1, 'Empty', 'Laptop', 'Test Desc', 'data/Products/default.jpg', 'Yes', 2, 3, 1),
+(3, 'Empty', 'joe', 'show', 'data/Products/default.jpg', 'Yes', 2, 2, 7),
+(6, 'Empty', 'Test Image', 'Test Image', 'data/Products/Test Image-17-12-28-42295/Test Image-17-12-28-42295', 'Yes', 2, 2, 10),
+(7, 'Empty', 'Test Image(No Image)', 'No image', 'data/Products/default.jpg', 'Yes', 2, 3, 11),
+(8, 'Empty', 'Steins;Gate', '', 'data/Products/Steins;Gate-18-01-10-16257/Steins;Gate-18-01-10-16257', 'Yes', 2, 2, 12),
+(9, 'Empty', 'Mob Psycho', '', 'data/Products/Mob Psycho-18-01-10-69665/Mob Psycho-18-01-10-69665', 'Yes', 2, 2, 13);
 
 -- --------------------------------------------------------
 
@@ -233,16 +240,29 @@ INSERT INTO `product` (`prod_id`, `prod_name`, `prod_desc`, `prod_picture_link`,
 
 CREATE TABLE `product_genre` (
   `prod_genre_id` int(11) NOT NULL,
-  `prod_genre_name` varchar(100) NOT NULL
+  `prod_genre_name` varchar(100) NOT NULL,
+  `prod_genre_desc` longtext NOT NULL,
+  `prod_genre_link` varchar(700) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `product_genre`
 --
 
-INSERT INTO `product_genre` (`prod_genre_id`, `prod_genre_name`) VALUES
-(1, 'Adventure'),
-(2, 'Action');
+INSERT INTO `product_genre` (`prod_genre_id`, `prod_genre_name`, `prod_genre_desc`, `prod_genre_link`) VALUES
+(1, 'Adventure', '', NULL),
+(2, 'Action', '', NULL),
+(3, 'Hentai', '', NULL),
+(4, 'Ecchi', '', NULL),
+(5, 'Harem', '', NULL),
+(6, 'Demons', '', NULL),
+(7, 'Mecha', '', NULL),
+(8, 'Fantasy', '', NULL),
+(9, 'Magic', '', NULL),
+(10, 'Supernatural', '', NULL),
+(11, 'Shoujo', '', NULL),
+(12, 'Shounen', '', NULL),
+(13, 'Erotic', 'The Erotica', 'data/Category/Erotic-18-02-18-12157/Erotic-18-02-18-12157');
 
 -- --------------------------------------------------------
 
@@ -353,12 +373,12 @@ ALTER TABLE `product_type`
 -- AUTO_INCREMENT for table `account`
 --
 ALTER TABLE `account`
-  MODIFY `acc_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `acc_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `account_address`
 --
 ALTER TABLE `account_address`
-  MODIFY `acc_address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `acc_address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `account_billing`
 --
@@ -368,12 +388,12 @@ ALTER TABLE `account_billing`
 -- AUTO_INCREMENT for table `account_details`
 --
 ALTER TABLE `account_details`
-  MODIFY `acc_details_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `acc_details_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `account_type`
 --
 ALTER TABLE `account_type`
-  MODIFY `acc_type_id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `acc_type_id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `inventory`
 --
@@ -398,7 +418,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT for table `product_genre`
 --
 ALTER TABLE `product_genre`
-  MODIFY `prod_genre_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `prod_genre_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `product_type`
 --
