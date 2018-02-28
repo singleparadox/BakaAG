@@ -17,20 +17,20 @@ $conn->close();
 
 if($result->num_rows < 1) {
 	$_SESSION['error_msg'] = "Invalid username or password";
-	header("Location: ../index.php");
+	header("Location: ../login.php");
 	exit;
 }
 else if($result->num_rows > 0) {
 	$row = $result->fetch_assoc();
-	if($row["acc_type_id"]==2){
+	if($row["acc_type_id"]==1){
 		$_SESSION['error_msg'] = "Invalid username or password";
-		header("Location: ../index.php");
+		header("Location: ../login.php");
 		exit;
 	}
 	else{
 		$_SESSION['acc_id'] = $row["acc_id"];
 		$_SESSION['acc_type_id'] = $row["acc_type_id"];
-		header("Location:../index.php");
+		header("Location:../admin/index.php");
 	}
 }
 
