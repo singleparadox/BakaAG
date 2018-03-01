@@ -57,7 +57,9 @@ if(is_array($_SESSION['arry'])!=true){
 					        				<li><a class="login-button" id="login_button" data-toggle="modal" data-target="#cartModal" >Cart</span></a></li>
 											<li class="nav-item login">
                       	<a class="login-button" id="login_button" data-toggle="modal" data-target="#loginModal" >Login</span></a>
-											</li>';
+											</li>
+                                            <li><a class="search-btn" id="search-btn">Search</span></a></li>
+                                            ';
 					        		} // Delete until this line
 
 					        		/*if(isset($_SESSION['acc_id']))
@@ -97,16 +99,12 @@ if(is_array($_SESSION['arry'])!=true){
 			//This code will check if the page is the homepage, if it is true, then
 			//it will show the searchbox
 
-			$search = '<div class="search_container"><div class="search" style="display: block; width: 1000px; margin: auto auto; margin-top: 10%; margin-bottom:15%;">
+			echo '<div class="search_container hidden" id="search_container"><div class="search" style="display: block; width: 1000px; margin: auto auto; margin-top: 10%; margin-bottom:15%;">
+            <a class="close-search" id="close-search">X</a>
 			<h3>Search</h3><br>
-			<form class="form-inline my-2 my-lg-0">
-				<input class="form-control mr-sm-2" type="text" placeholder="Search" style="width: 80%;">
-				<button style="cursor:pointer;" class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-			</form>
+				<input class="form-control mr-sm-2" type="text" placeholder="Search" style="display:inline-block !important; width:70% !important; margin-left:5% !important;"><br>
+				<button style="cursor:pointer; display:inline-block !important; margin-left:63.9%; margin-top:5px !important;" class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
 		</div></div>';
-			if (basename($_SERVER['PHP_SELF']) == "index.php") {
-				echo $search;
-			} 
 		?>
 	</header>
 
