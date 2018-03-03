@@ -86,13 +86,47 @@
 
 h3 {
     color: white !important;
-    margin-left: -50px;
+    margin-left: 10%;
 }
 
 .search_container {
+    position: fixed;
     top: 0;
     padding-top:1px;
     height: 100%;
     background-image: url("../img/searchbg.gif");
     background-size: cover;
+    z-index: 200;
+    width: 100%;
+    opacity: 1;
+    transition: opacity 0.3s;
 }
+
+.search_container.fade {
+    opacity: 1;
+}
+
+.hidden {
+    display: none;
+}
+
+.search-btn {
+    cursor: pointer;
+}
+
+.search-btn:hover {
+    color: white !important;
+}
+
+.close-search { 
+    font-size: 30px;
+    padding-bottom: 10px;
+    cursor: pointer;
+    margin-left: 73%;
+}
+
+.close-search:hover { 
+    transition: 0.3s;
+    color: white !important;
+}
+

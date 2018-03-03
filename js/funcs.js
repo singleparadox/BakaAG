@@ -22,3 +22,21 @@ function removefrcart(id){
   xhttp.open("GET", "backend/remvcart.php?id="+id, true);
   xhttp.send();
 }
+
+
+var a = document.getElementById('search-btn');
+var removeHiddenClassForSearch = document.getElementById('search_container');
+
+var close = document.getElementById('close-search');
+
+a.onclick = function(e) {
+  removeHiddenClassForSearch.classList.remove('hidden');
+  removeHiddenClassForSearch.classList.toggle('fade');
+}
+
+
+close.onclick = function(e) {
+  removeHiddenClassForSearch.classList.add('hidden');
+  removeHiddenClassForSearch.classList.toggle('fade');
+
+}
