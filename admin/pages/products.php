@@ -1,5 +1,5 @@
 <?php
-	//include "../../backend/connection.php";
+	include "../../backend/connection.php";
 ?>
 	<div class="product-block">
     	<div class="pro-head">
