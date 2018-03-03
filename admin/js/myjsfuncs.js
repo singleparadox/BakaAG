@@ -6,7 +6,7 @@ function chPage() {
      document.getElementById("main-page").innerHTML = this.responseText;
     }
   };
-  xhttp.open("GET", "pages/products.php", true);
+  xhttp.open("GET", "pages/warehouse.php", true);
   xhttp.send();
 }
 
