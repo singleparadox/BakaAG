@@ -1,16 +1,14 @@
 <?php
-	include "../../backend/connection.php";
-	$sql = "SELECT * FROM product,inventory,product_genre,product_type WHERE inventory.inv_id=product.inv_id AND product_genre.prod_genre_id=product.prod_genre_id AND product_type.prod_type_id=product.prod_type_id";
-	$result = $conn->query($sql);
+	//include "../../backend/connection.php";
 ?>
-<div class="inner-block">
-	<div class="blank">
 	<div class="product-block">
     	<div class="pro-head">
     		<h2>Products</h2>
     	</div>
     	<div id="product-content">
     	<?php
+    		$sql = "SELECT * FROM product,inventory,product_genre,product_type WHERE inventory.inv_id=product.inv_id AND product_genre.prod_genre_id=product.prod_genre_id AND product_type.prod_type_id=product.prod_type_id";
+	$result = $conn->query($sql);
     		while($row = $result->fetch_assoc()){
     			echo '
     					<div class="col-md-3 product-grid">
@@ -129,5 +127,3 @@
    	</div>
       <div class="clearfix"> </div>
     </div>
-    </div>
-</div>
