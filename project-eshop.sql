@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 28, 2018 at 03:10 PM
+-- Generation Time: Mar 03, 2018 at 12:44 PM
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 5.6.28
 
@@ -41,7 +41,10 @@ CREATE TABLE `account` (
 
 INSERT INTO `account` (`acc_id`, `acc_email`, `acc_pass`, `acc_fname`, `acc_lname`, `acc_type_id`) VALUES
 (1, 'email@test.com', 'pass', 'Glenn', 'Perez', 2),
-(2, 'user@test.com', 'pass', 'Alejandre', 'Papina', 1);
+(2, 'user@test.com', 'pass', 'Alejandre', 'Papina', 1),
+(3, 'email2@test.com', 'pass', 'Warehouse', 'Manager', 3),
+(4, 'email3@test.com', 'pass', 'Account', 'Manager', 4),
+(5, 'master@email.com', 'pass', 'Master', 'Account', 5);
 
 -- --------------------------------------------------------
 
@@ -66,7 +69,8 @@ CREATE TABLE `account_address` (
 
 INSERT INTO `account_address` (`acc_address_id`, `acc_id`, `address_province`, `address_country`, `address_city`, `address_zipcode`, `address_line1`, `address_line2`) VALUES
 (1, 1, 'Test Province', 'Test Country', 'Test City', '1111', 'Test Address1', 'Test Address2'),
-(2, 2, 'Albay', 'Philippines', 'Legazpi', '4503', 'Legazpi,Albay', 'Legazpi,Albay');
+(2, 2, 'Albay', 'Philippines', 'Legazpi', '4503', 'Legazpi,Albay', 'Legazpi,Albay'),
+(3, 5, 'Albay', 'Philippines', 'Legazpi', '4503', 'Maguiron Guinobatan Albay', 'Maguiron Guinobatan Albay');
 
 -- --------------------------------------------------------
 
@@ -111,7 +115,9 @@ CREATE TABLE `account_details` (
 
 INSERT INTO `account_details` (`acc_details_id`, `acc_id`, `acc_details_gender`, `acc_details_bday`, `acc_details_pnum`) VALUES
 (1, 1, 'Trans', '2017-12-17', '0976542321'),
-(2, 2, 'Male', '1997-10-22', '09363712548');
+(2, 2, 'Male', '1997-10-22', '09363712548'),
+(3, 4, 'male', '2018-03-12', '09363712548'),
+(4, 5, 'male', '2018-03-16', '09363712548');
 
 -- --------------------------------------------------------
 
@@ -226,7 +232,7 @@ CREATE TABLE `product` (
 
 INSERT INTO `product` (`prod_id`, `prod_codeid`, `prod_name`, `prod_desc`, `prod_picture_link`, `prod_featured`, `prod_genre_id`, `prod_type_id`, `inv_id`) VALUES
 (1, 'Empty', 'Laptop', 'Test Desc', 'data/Products/default.jpg', 'Yes', 2, 3, 1),
-(3, 'Empty', 'joe', 'show', 'data/Products/default.jpg', 'Yes', 2, 2, 7),
+(3, 'Empty', 'joeasas', 'show', 'data/Products/default.jpg', 'Yes', 2, 2, 7),
 (6, 'Empty', 'Test Image', 'Test Image', 'data/Products/Test Image-17-12-28-42295/Test Image-17-12-28-42295', 'Yes', 2, 2, 10),
 (7, 'Empty', 'Test Image(No Image)', 'No image', 'data/Products/default.jpg', 'Yes', 2, 3, 11),
 (8, 'Empty', 'Steins;Gate', '', 'data/Products/Steins;Gate-18-01-10-16257/Steins;Gate-18-01-10-16257', 'Yes', 2, 2, 12),
@@ -373,12 +379,12 @@ ALTER TABLE `product_type`
 -- AUTO_INCREMENT for table `account`
 --
 ALTER TABLE `account`
-  MODIFY `acc_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `acc_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `account_address`
 --
 ALTER TABLE `account_address`
-  MODIFY `acc_address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `acc_address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `account_billing`
 --
@@ -388,7 +394,7 @@ ALTER TABLE `account_billing`
 -- AUTO_INCREMENT for table `account_details`
 --
 ALTER TABLE `account_details`
-  MODIFY `acc_details_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `acc_details_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `account_type`
 --
