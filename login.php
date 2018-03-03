@@ -16,7 +16,7 @@ include "backend/connection.php";
 			<div class="title">
 				<center><h3>LOGIN</h3></center>
 			</div>			
-			<form id="login" action="backend/validate.php" method="POST">
+			<form id="login" action="backend/validate-admin.php" method="POST">
 
 				<label for="exampleInputEmail1">Username</label>
 				<input type="text" class="form-control" id="exampleInputEmail1 username" name="username" aria-describedby="emailHelp" placeholder="Enter Username" required>

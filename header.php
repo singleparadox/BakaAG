@@ -24,11 +24,6 @@ if(is_array($_SESSION['arry'])!=true){
 </head>
 <body>
 	<header>
-			<?php
-				if(isset($_SESSION['acc_type_id'])) 
-					if(($_SESSION['acc_type_id'])==2)
-						echo '<div style="background-color: green"><center><a href="admin/index.php" class="btn btn-primary"> Go to Admin Panel</a></center></div>';
-			?>
 		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 			<a class="navbar-brand" href="index.php">Baka<span id="logo">AG</span></a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,6 +38,7 @@ if(is_array($_SESSION['arry'])!=true){
 					        	<?php
 					        		if (isset($_SESSION['acc_id'])) { // Delete this and uncomment below to get back old code...
 					        			echo '
+                                            <li><a class="login-button" id="login_button" data-toggle="modal" data-target="#cartModal" >Cart</span></a></li>
 					        				<li>
 					                			<a href="#"><img id="profile_logo" src="img/profile.png"></a>
 					                				<ul class="sub-menu">

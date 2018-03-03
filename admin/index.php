@@ -5,9 +5,9 @@
 	if($acc_id==NULL){
 		header("Location:../index.php");
 	}
-	$sql = "SELECT * FROM account WHERE acc_id=$acc_id";
-	$result = $conn->query($sql);
-	$row = $result->fetch_assoc()
+	$sqlacc = "SELECT * FROM account WHERE acc_id=$acc_id";
+	$resultacc = $conn->query($sqlacc);
+	$rowacc = $resultacc->fetch_assoc()
 ?><!DOCTYPE html>
 <html>
 <head>
@@ -47,40 +47,9 @@
 						</div>
 						<div class="header-right">
 							<div class="profile_details_left">
-								<!--notifications of menu start -->
-								<ul class="nofitications-dropdown">
-									<li class="dropdown head-dpdn">
-										<a href="#" class="dropdown-toggle" aria-expanded="false"  data-toggle="modal" data-target=".product_modal"><i class="fa fa-plus">Add a new product</i></a>
-									</li>	
-								</ul>
 								<div class="clearfix"> </div>
 							</div>
 							<!--notification menu end -->
-							<!--Profile menu start-->
-							<div class="profile_details">		
-								<ul>
-									<li class="dropdown profile_details_drop">
-										<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-											<div class="profile_img">	
-												<span class="prfil-img"><img src="images/p1.png" alt=""> </span> 
-												<div class="user-name">
-													<p><?php echo $row['acc_fname']." "; echo $row['acc_lname']?></p>
-													<span>Administrator</span>
-												</div>
-												<i class="fa fa-angle-down lnr"></i>
-												<i class="fa fa-angle-up lnr"></i>
-												<div class="clearfix"></div>	
-											</div>	
-										</a>
-										<ul class="dropdown-menu drp-mnu">
-											<li> <a href="#"><i class="fa fa-cog"></i> Settings</a> </li> 
-											<li> <a href="#"><i class="fa fa-user"></i> Profile</a> </li> 
-											<li> <a href="../backend/logout.php"><i class="fa fa-sign-out"></i> Logout</a> </li>
-										</ul>
-									</li>
-								</ul>
-							</div>
-							<!--Profile menu end-->
 							<div class="clearfix"> </div>				
 						</div>
 				     <div class="clearfix"> </div>	
@@ -270,23 +239,13 @@
 	<!--Add New Category End-->
 
 <!-- - - Main Pages End - - -->
-
 <!--slider menu-->
     <div class="sidebar-menu">	
 		    <div class="menu">
-		      <ul id="menu" >
-		        <li id="menu-home" ><a href="../index.php"><i class="fa fa-home"></i><span>Return to Store</span></a></li>
-		        <li id="menu-home" ><a href="index.php"><i class="fa fa-tachometer"></i><span>Dashboard</span></a></li>
-		        <li><a href="#Products" onclick="chPage()"><i class="fa fa-cogs"></i><span>Products</span><span class="fa fa-angle-right" style="float: right"></span></a>
-		          <ul>
-		            <li><a href="#">Anime</a></li>
-		            <li><a href="#">Game</a></li>	
-					<li>
-						<a href="#"  data-toggle="modal" data-target=".category">Add Category</a>
-					</li>		            
-		          </ul>
-		        </li>
-		        <li id="menu-home" ><a href="#"><i class="fa fa-user"></i><span>User Accounts</span></a></li>
+		      <ul id="menu">
+		        <li id="menu-home" ><a href="#"><i class="fa fa-"><img src="../img/maki.png" height="170px" width="170px"></i><span><?php echo $rowacc['acc_fname']." "; echo $rowacc['acc_lname']?></span></a></li>
+		        <li><a href="#"><i class="fa fa-cogs"></i><span>Account Settings</span></a></li>
+		        <li id="menu-home" ><a href="pages/backend/admin-logout.php"><i class="fa fa-home"></i><span>Logout</span></a></li>
 		      </ul>
 		    </div>
 	 </div>
