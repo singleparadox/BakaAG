@@ -1,16 +1,3 @@
-<?php
-	$sql = "SELECT COUNT(*) as TOTALprod FROM product";
-	$result = $conn->query($sql);
-	$prod = $result->fetch_assoc();
-
-	$sql = "SELECT COUNT(*) as TOTALuser FROM account";
-	$result = $conn->query($sql);
-	$user = $result->fetch_assoc();
-
-	$sql = "SELECT SUM(inv_no_of_sold) as TOTALsold FROM inventory";
-	$result = $conn->query($sql);
-	$sold = $result->fetch_assoc();
-?>
 <!--inner block start here-->
 <div class="inner-block">
 <!--market updates updates-->
@@ -28,9 +15,7 @@
 		  <!-- Tab panes -->
 		  <div class="tab-content">
 		    <div role="tabpanel" class="tab-pane active" id="products-tab">
-		    	<?php
-		    		include "products.php";
-		    		?>
+		    	<center><button class="btn btn-default btn-lg" onclick="chPage()">View all products</button></center>
 		    </div>
 		  </div>
 
