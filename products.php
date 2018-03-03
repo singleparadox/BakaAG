@@ -5,6 +5,9 @@ $_GET['prod_id'];
 $sql = "SELECT * FROM product,inventory WHERE product.inv_id=inventory.inv_id AND prod_id=".$_GET['prod_id'];
 $result = $conn->query($sql);
 $result = $result->fetch_assoc();
+
+$TTS_data = $result['prod_name'].". Price. ".$result['inv_price']." . Pesos";
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -25,7 +28,7 @@ $result = $result->fetch_assoc();
 	<div class="col-lg-5">
 	<div class="bs-component">
 	<div class="card border-primary mb-3" style="max-width: 30rem;">
-  <div class="card-header"><h4><?php echo $result['prod_name']?></h4></div>
+  <div class="card-header"><h4><?php echo $result['prod_name']?></h4><input onclick='responsiveVoice.speak(<?php echo "\"".$TTS_data."\""; ?>);' type='button' value='🔊 Play' /></div>
   <div class="card-body text-primary">
     <h4 class="card-title"></h4>
     <p class="card-text"> 
@@ -47,7 +50,7 @@ $result = $result->fetch_assoc();
 	<div class="card border-primary mb-3" style="max-width: 65rem;">
   <div class="card-header">Product Details</div>
   <div class="card-body text-primary">
-    <h4 class="card-title">$<?php echo $result['inv_price']?></h4>
+    <h4 class="card-title">PHP <?php echo $result['inv_price']?></h4>
     <p class="card-text">
       <button type="button" class="btn btn-primary" style="cursor: pointer;" onclick="addtocart(<?php echo $result['prod_id']?>)">Add to cart</button>
     	<span class="glyphicon glyphicon-shopping-heart"></span><button type="button" style="cursor: pointer;" class="btn btn-primary">Add to wishlist</button>
@@ -98,6 +101,7 @@ $result = $result->fetch_assoc();
 </div>
 
 <script type="text/javascript" src="js/funcs.js"></script>
+<script src='https://code.responsivevoice.org/responsivevoice.js'></script>
 </body>
 </html>
 <?php 
