@@ -38,7 +38,8 @@ if(is_array($_SESSION['arry'])!=true){
 					        	<?php
 					        		if (isset($_SESSION['acc_id'])) { // Delete this and uncomment below to get back old code...
 					        			echo '
-                                            <li><a class="login-button" id="login_button" data-toggle="modal" data-target="#cartModal" >Cart</span></a></li>
+                                            <li><a class="search-btn" id="search-btn">Search</span></a></li>
+                                            <li><a class="login-button" id="cart_button" data-toggle="modal" data-target="#cartModal" >Cart</span></a></li>
 					        				<li>
 					                			<a href="#"><img id="profile_logo" src="img/profile.png"></a>
 					                				<ul class="sub-menu">
@@ -50,11 +51,11 @@ if(is_array($_SESSION['arry'])!=true){
 					        		}
 					        		else {
 					        			echo '
-					        				<li><a class="login-button" id="login_button" data-toggle="modal" data-target="#cartModal" >Cart</span></a></li>
+                                            <li><a class="search-btn" id="search-btn">Search</span></a></li>
+					        				<li><a class="login-button" id="cart_button" data-toggle="modal" data-target="#cartModal" >Cart</span></a></li>
 											<li class="nav-item login">
                       	<a class="login-button" id="login_button" data-toggle="modal" data-target="#loginModal" >Login</span></a>
 											</li>
-                                            <li><a class="search-btn" id="search-btn">Search</span></a></li>
                                             ';
 					        		} // Delete until this line
 
