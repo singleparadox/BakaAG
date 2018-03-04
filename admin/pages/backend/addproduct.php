@@ -7,6 +7,10 @@
 	$newprodtype = $_POST['new-prod-type'];
 	$newprodprice = $_POST['new-prod-price'];
 	$newprodstock = $_POST['new-prod-stock'];
+	$newproddate = $_POST['new-prod-date'];
+
+	$newprodcodeid = $newprodname+$newprodgenre+$newprodtype;
+	$newprodcodeid = sha1($newprodcodeid);
 	
 	$newprodpic = $_FILES['new-prod-pic']['tmp_name'];
 	$newprodpicname = $newprodname."-".date("y-m-d")."-".rand(10000,90987);
@@ -27,14 +31,14 @@
 	if(empty($_FILES['new-prod-pic']['tmp_name'])){
 			$sql = "INSERT INTO inventory (inv_price, inv_stock) VALUES (".$newprodprice.", ".$newprodstock.")";
 			$conn->query($sql);
-			$sql = "INSERT INTO product SET prod_name = '".$newprodname."', prod_desc = '".$newproddesc."', prod_genre_id = '".$newprodgenre."', prod_type_id = '".$newprodtype."', inv_id = LAST_INSERT_ID()";
+			$sql = "INSERT INTO product SET prod_codeid = '".$newprodcodeid."', prod_name = '".$newprodname."', prod_desc = '".$newproddesc."', prod_genre_id = '".$newprodgenre."', prod_type_id = '".$newprodtype."', prod_dateadd = '".$newproddate."', inv_id = LAST_INSERT_ID()";
 			$conn->query($sql);
 	}
 	else{
 		move_uploaded_file($newprodpic,'../../../data/Products/'.$newprodpicname.'/'.$newprodpicname);
 		$sql = "INSERT INTO inventory (inv_price, inv_stock) VALUES (".$newprodprice.", ".$newprodstock.")";
 		$conn->query($sql);
-		$sql = "INSERT INTO product SET prod_name = '".$newprodname."', prod_desc = '".$newproddesc."', prod_picture_link = '".$newprodpath."', prod_genre_id = '".$newprodgenre."', prod_type_id = '".$newprodtype."', inv_id = LAST_INSERT_ID()";
+		$sql = "INSERT INTO product SET prod_codeid = '".$newprodcodeid."', prod_name = '".$newprodname."', prod_desc = '".$newproddesc."', prod_picture_link = '".$newprodpath."', prod_genre_id = '".$newprodgenre."', prod_type_id = '".$newprodtype."', prod_dateadd = '".$newproddate."', inv_id = LAST_INSERT_ID()";
 		$conn->query($sql);
 	}
 	header("Location:../../index.php")

@@ -35,8 +35,15 @@
 	        <h4 class="modal-title" id="myModalLabel">Add New Product</h4>
 	      </div>
 	      <div class="modal-body">
-	      	<label for="new-prod-pic">Product Picture:</label>
-				<input type="file" id="new-prod-pic" name="new-prod-pic" class="form-control-file" placeholder="Title" aria-describedby="basic-addon1">
+	      	<div class="form-group col-md-6">
+	      		<label for="new-prod-pic">Product Picture:</label>
+					<input type="file" id="new-prod-pic" name="new-prod-pic" class="form-control-file" placeholder="Title" aria-describedby="basic-addon1">
+			</div>
+			<div class="form-group col-md-6">
+	      		<label for="date">Date:</label>
+					  <span id="date" class="input-group-addon" id="basic-addon3"><?php echo date("Y-m-d")?></span>
+					  <input id="new-prod-date" name="new-prod-date" type="date" value="<?php echo date('Y-m-d')?>" hidden>
+			</div>
 	      	<label for="new-prod-name">Product Name:</label>
 				<input type="text" id="new-prod-name" name="new-prod-name" class="form-control" placeholder="Title" aria-describedby="basic-addon1">
 			<label for="new-prod-desc">Product Description:</label>
