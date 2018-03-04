@@ -31,10 +31,13 @@
 		      <div class="modal-header">
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 		        <h4 class="modal-title" id="myModalLabel">'.$row['prod_name'].'</h4>
+		        <h6 class="modal-title" id="myModalLabel">Product Code: '.$row['prod_codeid'].'</h6>
 		      </div>
 		      <div id="modal-alert-'.$row['prod_id'].'" class="alert alert-success hidden" role="alert">Updated Successfully</div>
 		      <div class="modal-body" id="modal-test">
-		      	<h4><i>Details</i></h4><hr>
+		      	<h4><i>Details</i></h4>
+		      	<h5>Date Added: '.$row['prod_dateadd'].'</h5>
+		      	<hr>
 		      	 <label for="prod-Name-'.$row['prod_id'].'">Name:</label>
 		       	 <input type="text" id="prod-name-'.$row['prod_id'].'" class="form-control" placeholder="Title" aria-describedby="basic-addon1" value="'.$row['prod_name'].'">
 		       	 <label for="prod-desc-'.$row['prod_id'].'">Description:</label>
