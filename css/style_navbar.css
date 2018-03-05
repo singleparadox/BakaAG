@@ -73,15 +73,19 @@
 }
 
 #login_button {
-    cursor: pointer;
+    cursor: pointer !important;
 }
 
 #login_button:hover {
-    color: white;
+    color: white !important;
 }
 
 #cursor-pointer {
-    cursor: pointer;
+    cursor: pointer !important;
+}
+
+#cart_button:hover {
+    color: white !important;
 }
 
 h3 {

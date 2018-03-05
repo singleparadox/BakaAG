@@ -13,7 +13,8 @@
 
 	$categ_name = $fetch['prod_genre_name'];
 	$link = $fetch['prod_genre_link'];
-	$desc = $fetch['prod_genre_desc'];
+	$desc = "<p class='card-text'>".$fetch['prod_genre_desc']."</p>";
+	$desc2 = $fetch['prod_genre_desc'];
 ?>
 
 <!DOCTYPE html>
@@ -29,17 +30,20 @@
 		
 	</div>
 	<main>
-		<div class="readmore_content hidden" id="read_hidden">
-			<a class="close_hidden" id="close_hidden">X</a>
-			<h4>DESCRIPTION</h4>
 
-			<div class="readmore_content_inner">
-			<?php
-				echo $desc;
-			?>
+
+		<a class="close_hidden" id="close_hidden">
+			<div class="card border-primary mb-3 readmore_content" style="position: fixed; display: none; width: 500px !important;" id="read_hidden">
+				<div class="card-header"><h4>DESCRIPTION</h4></div>
+
+				<div class="card-body readmore_content_inner">
+				<?php
+					echo $desc;
+				?>
+				</div>
+
 			</div>
-
-		</div>
+		</a>
 
 		<div class="categ_desc">
 				<?php
@@ -47,13 +51,13 @@
 						$link = "data/Category/default.svg";
 					}
 
-					if (strlen($desc) > 250) {
+					if (strlen($desc2) > 250) {
 						$read = "<a class='read_more' id='read_more'>Read More</a>";
 					} else {
 						$read = "";
 					}
 
-					$truncated = (strlen($desc) > 20) ? substr($desc, 0, 450) . '...' : $desc;
+					$truncated = (strlen($desc2) > 20) ? substr($desc2, 0, 450) . '...' : $desc2;
 					echo "
 							<div id='image' style='background-image: url($link);'></div>
 							<h4>$categ_name</h4>
@@ -102,12 +106,35 @@
 				
 			</div>
 
-			<?php
-				$sql = "SELECT * FROM product,inventory WHERE product.inv_id=inventory.inv_id AND product.prod_genre_id=".$id." ORDER BY inv_rate ASC LIMIT 10";
+
+			<div class="m_popular">
+			<?php 
+				echo "
+					<h3>
+						".$fetch['prod_genre_name']." PRODUCTS
+					</h3>
+				";
+				if (isset($_GET['page'])) {
+					if ($_GET['page'] == 1) {
+						$zero = 0;
+						$offset = $zero.',';
+					}
+					else if ($_GET['page'] == 2) {
+						$eighteen = 18;
+						$offset = $eighteen.',';
+					} else {
+						$page = ($_GET['page'] * 18) - 18;
+						$offset = $page.',';
+					}
+				} else {
+					$offset = '';
+				}
+
+				$sql = "SELECT * FROM product,inventory WHERE product.inv_id=inventory.inv_id AND product.prod_genre_id=".$id." ORDER BY inv_views DESC LIMIT ".$offset."18";
 				$result = $conn->query($sql);
 
 				while($row = $result->fetch_assoc()){
-					echo "
+					/*echo "
 						<a href='"."products.php?prod_id=".$row['prod_id']."'>
 							<div class='products'>
 							<img src='".$row['prod_picture_link']."' alt=Avatar >
@@ -117,11 +144,124 @@
 
 						</div></a>
 
-					";
+					";*/
+					echo '<a href="products.php?prod_id='.$row['prod_id'].'"><div class="card" style="display:  inline-block; margin: 2px;">
+								<img src="'.$row['prod_picture_link'].'" alt="Avatar" style="width:100%">
+									
+								<div class="container">
+									<h4><b>'.$row['prod_name'].'</b></h4> 
+									<p><span id="price">PHP '.$row['inv_price'].'.00</span></p> 
+								</div>
+							</div></a>';
 				}
 			?>
+			<?php
+				$get_num_page_sql = "SELECT COUNT(prod_id) AS numPages FROM product WHERE prod_genre_id=".$id;
+				$page_res = $conn->query($get_num_page_sql);
 
-			<h1 style="color: white;">PAGINAGTION GOES HERE</h1>
+				if (isset($_GET['page'])) {
+					$page = $_GET['page'];
+					$fetch_page = $page_res->fetch_assoc();
+					$numPages = ceil($fetch_page['numPages'] / 18);
+
+					echo '
+						<ul class="pagination pagination-sm">
+						';		
+
+
+					if ($page == 1) {
+						echo '
+								<li class="page-item disabled">
+									<a class="page-link" href="#">&laquo;</a>
+								</li>
+							';		
+					} else {
+						$page = $_GET['page'] - 1;
+						echo '
+								<li class="page-item">
+									<a class="page-link" href="items.php?id='.$id.'&page='.$page.'">&laquo;</a>
+								</li>
+							';		
+					}
+
+					for ($i=1; $i <= $numPages; $i++) {
+						$page = $_GET['page'];
+						if ($i == $page) {
+							echo '
+								<li class="page-item active">
+									<a class="page-link" href="items.php?id='.$id.'&page='.$i.'">'.$i.'</a>
+								</li>
+							';
+						} else {
+							echo '
+								<li class="page-item">
+									<a class="page-link" href="items.php?id='.$id.'&page='.$i.'">'.$i.'</a>
+								</li>
+							';	
+						}
+					}
+
+					//$page = $_GET['page'];
+					if ($page == $numPages) {
+						echo '
+							<li class="page-item disabled">
+								<a class="page-link" href="#">&raquo;</a>
+							</li>
+						';
+					} else {
+						$page = $_GET['page'] + 1;
+						echo '
+							<li class="page-item">
+								<a class="page-link" href="items.php?id='.$id.'&page='.$page.'">&raquo;</a>
+							</li>
+						';
+					}
+
+					echo '
+						</ul>
+						';					
+
+
+
+
+				} else {
+					$fetch_page = $page_res->fetch_assoc();
+					$numPages = ceil($fetch_page['numPages'] / 18);
+			
+					echo '
+						<ul class="pagination pagination-sm">
+							<li class="page-item disabled">
+								<a class="page-link" href="#">&laquo;</a>
+							</li>';
+					for ($i=1; $i <= $numPages; $i++) { 
+						if ($i == 1) {
+							echo '
+								<li class="page-item active">
+									<a class="page-link" href="items.php?id='.$id.'&page='.$i.'">1</a>
+								</li>
+							';
+						} else {
+							echo '
+								<li class="page-item">
+									<a class="page-link" href="items.php?id='.$id.'&page='.$i.'">'.$i.'</a>
+								</li>
+							';
+						}
+
+					}
+					
+					echo '<li class="page-item">
+								<a class="page-link" href="items.php?id='.$id.'&page=2">&raquo;</a>
+							</li>
+						</ul>
+						';
+
+				}
+
+			?>
+
+			</div>
+
 
 	</main>
 	
@@ -136,11 +276,11 @@
 
 	readmore.onclick = function(e) {
 
-		hidden_div.classList.remove("hidden");
+		hidden_div.style.display = 'block';
 	}
 
 	close.onclick = function(e) {
-		hidden_div.classList.add("hidden");
+		hidden_div.style.display = 'none';
 	}
 
 </script>
