@@ -28,7 +28,7 @@ $TTS_data = $result['prod_name'].". Price. ".$result['inv_price']." . Pesos";
 	<div class="col-lg-5">
 	<div class="bs-component">
 	<div class="card border-primary mb-3" style="max-width: 30rem;">
-  <div class="card-header"><h4><?php echo $result['prod_name']?></h4><input onclick='responsiveVoice.speak(<?php echo "\"".$TTS_data."\""; ?>);' type='button' value='🔊 Play' /></div>
+  <div class="card-header"><h4><?php echo $result['prod_name']?></h4><input onclick='responsiveVoice.speak(<?php echo "\"".$TTS_data."\""; ?>, "Japanese Female");' type='button' value='🔊 Play' /></div>
   <div class="card-body text-primary">
     <h4 class="card-title"></h4>
     <p class="card-text"> 
