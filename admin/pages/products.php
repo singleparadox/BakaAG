@@ -8,14 +8,14 @@
     	<div id="product-content">
     	<?php
     		$sql = "SELECT * FROM product,inventory,product_genre,product_type WHERE inventory.inv_id=product.inv_id AND product_genre.prod_genre_id=product.prod_genre_id AND product_type.prod_type_id=product.prod_type_id";
-	$result = $conn->query($sql);
+			$result = $conn->query($sql);
     		while($row = $result->fetch_assoc()){
     			echo '
-    					<div class="col-md-3 product-grid">
+    					<div class="col-md-2 product-grid">
 				    		<div class="product-items">
 					    		    <div class="project-eff">
 										<div id="nivo-lightbox-demo"> <p> <a href="#'.$row['prod_id'].'" id="nivo-lightbox-demo" data-toggle="modal" data-target=".prod-modal-'.$row['prod_id'].'"><span class="rollover1"> </span> </a></p></div>     
-											<img src="../'.$row['prod_picture_link'].'" alt="" height="320px" width="290px">
+											<img src="../'.$row['prod_picture_link'].'" alt="" height="120px" width="173px">
 									</div>
 					    		<div class="produ-cost">
 					    			<h4>'.$row['prod_name'].'</h4>

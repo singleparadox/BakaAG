@@ -9,12 +9,11 @@
 	$sql = "INSERT INTO account SET acc_email = '".$accemail."', acc_pass = '".$accpass."', acc_fname = '".$accfname."', acc_lname = '".$acclname."', acc_type_id = '1'";
 	$conn->query($sql);
 
-
 	$sql = "SELECT acc_id FROM account WHERE acc_email = '".$accemail."'";
 	$result = $conn->query($sql);
 	$result = $result->fetch_assoc();
 	$accid = $result['acc_id'];
-
+	mkdir("../../../data/userdata/".$accid.$accfname.$acclname.);
 
 	$accdetailsgender = $_POST['gender'];
 	$accdetailsbday = $_POST['birthday'];
