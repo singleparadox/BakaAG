@@ -40,3 +40,31 @@ close.onclick = function(e) {
   removeHiddenClassForSearch.classList.toggle('fade');
 
 }
+
+function incrdecr(id){
+  var quant;
+  var currttl;
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+     document.getElementById("total-price").innerHTML = this.responseText;
+    }
+  };
+  quant = document.getElementById("prod-quant-"+id).value;
+  currttl = document.getElementById("total-price").innerHTML;
+  xhttp.open("GET", "backend/quantchcg.php?id="+id+"&quant="+quant+"&currttl="+currttl, true);
+  xhttp.send();
+}
+
+function payuscard(){
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+     document.getElementById("card-modal-content").innerHTML = this.responseText;
+    }
+  };
+  var totalprice = document.getElementById("total-price").innerHTML;
+  console.log(totalprice);
+  xhttp.open("GET", "backend/pay-card.php?totalprice="+totalprice, true);
+  xhttp.send();
+}

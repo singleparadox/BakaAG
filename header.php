@@ -216,7 +216,7 @@ if(is_array($_SESSION['arry'])!=true){
             <!--Footer-->
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-primary" id="cursor-pointer" data-dismiss="modal">Close</button>
-                <button class="btn btn-primary" id="cursor-pointer">Checkout</button>
+                <a href="checkout.php"><button class="btn btn-primary" id="cursor-pointer">Checkout</button></a>
             </div>
         </div>
     </div>
