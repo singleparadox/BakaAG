@@ -36,14 +36,14 @@ if(is_array($_SESSION['arry'])!=true){
 					        <ul class="clearfix">
 
 					        	<?php
-					        		if (isset($_SESSION['acc_id'])) { // Delete this and uncomment below to get back old code...
+					        		if (isset($_SESSION['acc_id'])) {
 					        			echo '
                                             <li><a class="search-btn" id="search-btn">Search</span></a></li>
                                             <li><a class="login-button" id="cart_button" data-toggle="modal" data-target="#cartModal" style="cursor:pointer;" >Cart</span></a></li>
 					        				<li>
 					                			<a href="#"><img id="profile_logo" src="img/profile.png"></a>
 					                				<ul class="sub-menu">
-					                    				<li><a href="viewprofile.php">Profile</a></li>
+					                    				<li><a href="#">Profile</a></li>
 					                    				<li><a href="#">Settings</a></li>
 					                    				<li><a href="backend/logout.php">Logout</a></li>
 					                				</ul>
@@ -57,33 +57,7 @@ if(is_array($_SESSION['arry'])!=true){
                       	<a class="login-button" id="login_button" data-toggle="modal" data-target="#loginModal" >Login</span></a>
 											</li>
                                             ';
-					        		} // Delete until this line
-
-					        		/*if(isset($_SESSION['acc_id']))
-					        			echo '
-					        				<li>
-					                			<a href="#"><img id="profile_logo" src="img/profile.png"></a>
-					                				<ul class="sub-menu">
-					                    				<li><a href="#">Profile</a></li>
-					                    				<li><a href="#">Settings</a></li>
-					                    				<li><a href="#">Logout</a></li>
-					                				</ul>
-					            			</li>';
-					            	else
-					            		echo '
-					            			<li>
-					                			<a href="#"><img id="profile_logo" src="img/profile.png"></a>
-					                				<ul class="sub-menu">
-					                					<form action="backend/validate.php" method="POST">
-					                    						<li><label for="username">Email</label>
-							<input placeholder="Enter Email" type="text" id="username" name="username" /></li>
-					                    						<li><label for="username">Password</label>
-							<input placeholder="Enter Password" type="password" id="password" name="password" /></li>
-					                    						<li><button type="submit" style="cursor:pointer;" class="btn btn-secondary">Submit</button></li>
-					                    				</form>
-					                				</ul>
-					            			</li>
-					            			';*/
+					        		} 
 					        	?>
 					        </ul>
 					    </div>
@@ -92,17 +66,20 @@ if(is_array($_SESSION['arry'])!=true){
 			</div>
 		</nav>
 
-		<?php
-			//This code will check if the page is the homepage, if it is true, then
-			//it will show the searchbox
 
-			echo '<div class="search_container hidden" id="search_container"><div class="search" style="display: block; width: 1000px; margin: auto auto; margin-top: 10%; margin-bottom:15%;">
-            <a class="close-search" id="close-search">X</a>
-			<h3>Search</h3><br>
-				<input class="form-control mr-sm-2" type="text" placeholder="Search" style="display:inline-block !important; width:70% !important; margin-left:5% !important;"><br>
-				<button style="cursor:pointer; display:inline-block !important; margin-left:63.9%; margin-top:5px !important;" class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-		</div></div>';
-		?>
+
+    <div class="search_container hidden" id="search_container">
+        <div class="search" style="display: block; width: 1000px; margin: auto auto; margin-top: 10%; margin-bottom:15%;">
+                <a class="close-search" id="close-search">X</a>
+    			<h3>Search</h3><br>
+    			<input id="search_input" onkeyup="showSearchHint(this.value);" autocomplete="false" class="form-control mr-sm-2" type="text" placeholder="Search" style="display:inline-block !important; width:70% !important; margin-left:5% !important;" >
+                <div style="position:fixed !important;z-index: 300 !important; margin-left: 5% !important; width: 550px !important;" id='txtHint'></div>
+
+                <br>
+    			<a id="search_button" style="cursor:pointer; display:inline-block !important; margin-left:63.9%; margin-top:5px !important;" class="btn btn-primary my-2 my-sm-0" type="submit" >Search</a>
+        </div>
+    </div>
+
 	</header>
 
 
@@ -216,7 +193,7 @@ if(is_array($_SESSION['arry'])!=true){
             <!--Footer-->
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-primary" id="cursor-pointer" data-dismiss="modal">Close</button>
-                <a href="checkout.php"><button class="btn btn-primary" id="cursor-pointer">Checkout</button></a>
+                <button class="btn btn-primary" id="cursor-pointer">Checkout</button>
             </div>
         </div>
     </div>

@@ -1,0 +1,65 @@
+main {
+	height: 100%;
+	margin-left: 5%;
+}
+
+
+h4 {
+	text-align: center;
+	color: white !important;
+}
+p {
+	text-align: center;
+	text-overflow: none;
+	height: 100px;
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 15%;
+    height: 280px;
+    overflow: hidden;
+}
+
+.card img {
+	width: auto;
+	height: 140px;
+	width: 100%;
+}
+
+.card:hover {
+    box-shadow: 1px 0px 5px 1px rgba(255,255,255, 0.9);
+}
+
+.container {
+    padding: 2px 16px;
+}
+
+.container h4 {
+	font-size: 1vw;
+	color: black !important;
+}
+
+.m_popular {
+	margin-top: 5px;
+	margin-left: 75px;
+}
+
+.m_popular h3 {
+	color: white;
+}
+
+.flash_sales {
+	margin-top: 5px;
+	margin-left: 75px;
+}
+
+.flash_sales h3 {
+	color: white;
+}
+
+#price {
+	color: orange;
+}
+

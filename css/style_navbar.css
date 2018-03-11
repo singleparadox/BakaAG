@@ -134,3 +134,17 @@ h3 {
     color: white !important;
 }
 
+#txtHint div{
+        background-color: white !important;
+
+}
+#txtHint a {
+    background-color: white !important;
+    display: block;
+    border-top: black 1px;
+    width: 100% !important;
+}
+
+#txtHint a:hover {
+    background-color: lightblue !important;
+}
