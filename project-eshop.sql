@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.7.0
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 03, 2018 at 12:44 PM
--- Server version: 10.1.19-MariaDB
--- PHP Version: 5.6.28
+-- Generation Time: Mar 11, 2018 at 05:59 AM
+-- Server version: 10.1.25-MariaDB
+-- PHP Version: 7.1.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -174,8 +176,8 @@ CREATE TABLE `inventory` (
 --
 
 INSERT INTO `inventory` (`inv_id`, `inv_price`, `inv_stock`, `inv_no_of_sold`, `inv_views`, `inv_rate`, `inv_discount`) VALUES
-(1, 1001, 2, 0, 0, 0, 20),
-(7, 111, 11, 0, 0, 0, 10),
+(1, 1001, 2, 0, 1, 0, 20),
+(7, 111, 11, 0, 2, 0, 10),
 (8, 10, 100, 0, 0, 0, 0),
 (9, 0, 0, 0, 0, 0, 0),
 (10, 10000, 222, 0, 0, 0, 50),
@@ -292,6 +294,19 @@ INSERT INTO `product_type` (`prod_type_id`, `prod_type_name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `search`
+--
+
+CREATE TABLE `search` (
+  `search_id` int(11) NOT NULL,
+  `search_query` longtext NOT NULL,
+  `user_searches` bigint(20) NOT NULL COMMENT 'Number of people who have searched the query',
+  `search_rank` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `wishlist`
 --
 
@@ -358,18 +373,26 @@ ALTER TABLE `order_status`
 --
 ALTER TABLE `product`
   ADD PRIMARY KEY (`prod_id`);
+ALTER TABLE `product` ADD FULLTEXT KEY `prod_name` (`prod_name`);
 
 --
 -- Indexes for table `product_genre`
 --
 ALTER TABLE `product_genre`
   ADD PRIMARY KEY (`prod_genre_id`);
+ALTER TABLE `product_genre` ADD FULLTEXT KEY `prod_genre_name` (`prod_genre_name`);
 
 --
 -- Indexes for table `product_type`
 --
 ALTER TABLE `product_type`
   ADD PRIMARY KEY (`prod_type_id`);
+
+--
+-- Indexes for table `search`
+--
+ALTER TABLE `search`
+  ADD PRIMARY KEY (`search_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -430,6 +453,12 @@ ALTER TABLE `product_genre`
 --
 ALTER TABLE `product_type`
   MODIFY `prod_type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `search`
+--
+ALTER TABLE `search`
+  MODIFY `search_id` int(11) NOT NULL AUTO_INCREMENT;COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
