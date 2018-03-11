@@ -6,6 +6,19 @@
 
 	$id = $_GET['id'];
 
+
+	if (empty($_GET['page'])) {
+		$_GET['page'] = 1;
+	}
+
+	if (empty($_GET['filter']) || is_null($_GET['filter'])) {
+		$_GET['filter'] = 1;
+	}
+
+
+
+
+
 	$sql = "SELECT prod_genre_id, prod_genre_name, prod_genre_link, prod_genre_desc FROM product_genre WHERE prod_genre_id="."'".$id."'"." ORDER BY prod_genre_name ASC";
 	$result = $conn->query($sql);
 
@@ -106,14 +119,35 @@
 				
 			</div>
 
-
 			<div class="m_popular">
+
 			<?php 
 				echo "
 					<h3>
 						".$fetch['prod_genre_name']." PRODUCTS
 					</h3>
 				";
+
+			?>
+
+			<div>
+			<span>
+			<small style="color: white !important; display: inline-block !important;">Filter: </small>			
+			<?php
+				echo '
+				
+					<a class="btn btn-secondary" id="filter" href="items.php?id='.$id.'&page='.$_GET['page'].'&filter=1" style="display: inline-block; cursor: pointer;">Popularity</a>
+					<a class="btn btn-secondary" id="filter" href="items.php?id='.$id.'&page='.$_GET['page'].'&filter=2" style="display: inline-block; cursor: pointer;">Views</a>
+					<a class="btn btn-secondary" id="filter" href="items.php?id='.$id.'&page='.$_GET['page'].'&filter=3" style="display: inline-block; cursor: pointer;">Name</a>
+
+				';
+
+			?>
+			</span>
+			</div>
+
+
+			<?php
 				if (isset($_GET['page'])) {
 					if ($_GET['page'] == 1) {
 						$zero = 0;
@@ -130,21 +164,19 @@
 					$offset = '';
 				}
 
-				$sql = "SELECT * FROM product,inventory WHERE product.inv_id=inventory.inv_id AND product.prod_genre_id=".$id." ORDER BY inv_views DESC LIMIT ".$offset."18";
+				if ($_GET['filter'] == 1) { // Popularity
+					$sql = "SELECT * FROM product,inventory WHERE product.inv_id=inventory.inv_id AND product.prod_genre_id=".$id." ORDER BY inv_rate DESC LIMIT ".$offset."18";
+				} elseif ($_GET['filter'] == 2) { // Views
+					$sql = "SELECT * FROM product,inventory WHERE product.inv_id=inventory.inv_id AND product.prod_genre_id=".$id." ORDER BY inv_views DESC LIMIT ".$offset."18";
+				} elseif ($_GET['filter'] == 3) { // Name
+					$sql = "SELECT * FROM product,inventory WHERE product.inv_id=inventory.inv_id AND product.prod_genre_id=".$id." ORDER BY prod_name ASC LIMIT ".$offset."18";
+				} else {
+					$sql = "SELECT * FROM product,inventory WHERE product.inv_id=inventory.inv_id AND product.prod_genre_id=".$id." ORDER BY inv_views DESC LIMIT ".$offset."18";
+				}
+
 				$result = $conn->query($sql);
 
 				while($row = $result->fetch_assoc()){
-					/*echo "
-						<a href='"."products.php?prod_id=".$row['prod_id']."'>
-							<div class='products'>
-							<img src='".$row['prod_picture_link']."' alt=Avatar >
-
-							<h2>".$row['prod_name']."</h2>
-							<h2><span id='price'>PHP ".$row['inv_price']."</span></h2> 
-
-						</div></a>
-
-					";*/
 					echo '<a href="products.php?prod_id='.$row['prod_id'].'"><div class="card" style="display:  inline-block; margin: 2px;">
 								<img src="'.$row['prod_picture_link'].'" alt="Avatar" style="width:100%">
 									
@@ -179,7 +211,7 @@
 						$page = $_GET['page'] - 1;
 						echo '
 								<li class="page-item">
-									<a class="page-link" href="items.php?id='.$id.'&page='.$page.'">&laquo;</a>
+									<a class="page-link" href="items.php?id='.$id.'&page='.$page.'&filter='.$_GET['filter'].'">&laquo;</a>
 								</li>
 							';		
 					}
@@ -189,13 +221,13 @@
 						if ($i == $page) {
 							echo '
 								<li class="page-item active">
-									<a class="page-link" href="items.php?id='.$id.'&page='.$i.'">'.$i.'</a>
+									<a class="page-link" href="items.php?id='.$id.'&page='.$i.'&filter='.$_GET['filter'].'">'.$i.'</a>
 								</li>
 							';
 						} else {
 							echo '
 								<li class="page-item">
-									<a class="page-link" href="items.php?id='.$id.'&page='.$i.'">'.$i.'</a>
+									<a class="page-link" href="items.php?id='.$id.'&page='.$i.'&filter='.$_GET['filter'].'">'.$i.'</a>
 								</li>
 							';	
 						}
@@ -212,7 +244,7 @@
 						$page = $_GET['page'] + 1;
 						echo '
 							<li class="page-item">
-								<a class="page-link" href="items.php?id='.$id.'&page='.$page.'">&raquo;</a>
+								<a class="page-link" href="items.php?id='.$id.'&page='.$page.'&filter='.$_GET['filter'].'">&raquo;</a>
 							</li>
 						';
 					}
@@ -237,13 +269,13 @@
 						if ($i == 1) {
 							echo '
 								<li class="page-item active">
-									<a class="page-link" href="items.php?id='.$id.'&page='.$i.'">1</a>
+									<a class="page-link" href="items.php?id='.$id.'&page='.$i.'&filter='.$_GET['filter'].'">1</a>
 								</li>
 							';
 						} else {
 							echo '
 								<li class="page-item">
-									<a class="page-link" href="items.php?id='.$id.'&page='.$i.'">'.$i.'</a>
+									<a class="page-link" href="items.php?id='.$id.'&page='.$i.'&filter='.$_GET['filter'].'">'.$i.'</a>
 								</li>
 							';
 						}
@@ -251,7 +283,7 @@
 					}
 					
 					echo '<li class="page-item">
-								<a class="page-link" href="items.php?id='.$id.'&page=2">&raquo;</a>
+								<a class="page-link" href="items.php?id='.$id.'&page=2&filter='.$_GET['filter'].'">&raquo;</a>
 							</li>
 						</ul>
 						';
@@ -282,6 +314,7 @@
 	close.onclick = function(e) {
 		hidden_div.style.display = 'none';
 	}
+
 
 </script>
 
