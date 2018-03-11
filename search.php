@@ -95,7 +95,7 @@ if (isset($_GET['q'])) {
 				} elseif ($_GET['filter'] == 3) { // Name
 					$sql = "SELECT *, MATCH (prod_name)
     						AGAINST ('".$q."' IN NATURAL LANGUAGE MODE WITH QUERY EXPANSION) AS search_percent
-    						FROM product,inventory WHERE product.inv_id=inventory.inv_id ORDER BY search_percent DESC, prod_name DESC LIMIT ".$offset."18";
+    						FROM product,inventory WHERE product.inv_id=inventory.inv_id ORDER BY search_percent DESC, prod_name ASC LIMIT ".$offset."18";
 				} else {
 					$sql = "SELECT *, MATCH (prod_name)
     						AGAINST ('".$q."' IN NATURAL LANGUAGE MODE WITH QUERY EXPANSION) AS search_percent
@@ -118,9 +118,9 @@ if (isset($_GET['q'])) {
 				}
 			?>
 			<?php
-				$get_num_page_sql = "SELECT COUNT(*) AS numPages, MATCH (prod_name)
+				$get_num_page_sql = "SELECT COUNT(prod_name) AS numPages, MATCH (prod_name)
     						AGAINST ('".$q."' IN NATURAL LANGUAGE MODE WITH QUERY EXPANSION) AS search_percent
-    						FROM product,inventory WHERE product.inv_id=inventory.inv_id ORDER BY search_percent DESC, inv_rate DESC LIMIT ".$offset."18";
+    						FROM product,inventory WHERE product.inv_id=inventory.inv_id AND (MATCH (prod_name) AGAINST ('".$q."' IN NATURAL LANGUAGE MODE WITH QUERY EXPANSION))!=0 ORDER BY search_percent DESC, inv_rate DESC";
 				$page_res = $conn->query($get_num_page_sql);
 
 				if (isset($_GET['page'])) {
@@ -130,8 +130,7 @@ if (isset($_GET['q'])) {
 
 					echo '
 						<ul class="pagination pagination-sm">
-						';		
-
+						';	
 
 					if ($page == 1) {
 						echo '
@@ -143,29 +142,29 @@ if (isset($_GET['q'])) {
 						$page = $_GET['page'] - 1;
 						echo '
 								<li class="page-item">
-									<a class="page-link" href="search?q='.$q.'&page='.$page.'&filter='.$_GET['filter'].'">&laquo;</a>
+									<a class="page-link" href="search.php?q='.$q.'&page='.$page.'&filter='.$_GET['filter'].'">&laquo;</a>
 								</li>
 							';		
 					}
-
+				
 					for ($i=1; $i <= $numPages; $i++) {
 						$page = $_GET['page'];
 						if ($i == $page) {
 							echo '
 								<li class="page-item active">
-									<a class="page-link" href="search?q='.$q.'&page='.$i.'&filter='.$_GET['filter'].'">'.$i.'</a>
+									<a class="page-link" href="search.php?q='.$q.'&page='.$i.'&filter='.$_GET['filter'].'">'.$i.'</a>
 								</li>
 							';
 						} else {
 							echo '
 								<li class="page-item">
-									<a class="page-link" href="search?q='.$q.'&page='.$i.'&filter='.$_GET['filter'].'">'.$i.'</a>
+									<a class="page-link" href="search.php?q='.$q.'&page='.$i.'&filter='.$_GET['filter'].'">'.$i.'</a>
 								</li>
 							';	
 						}
 					}
 
-					//$page = $_GET['page'];
+					$page = $_GET['page'];
 					if ($page == $numPages) {
 						echo '
 							<li class="page-item disabled">

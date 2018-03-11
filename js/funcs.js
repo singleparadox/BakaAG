@@ -84,3 +84,10 @@ function showSearchHint(str) {
         xmlhttp.send();
     }
 }
+
+var string = "search.php?q=";
+
+document.getElementById("search_button").onclick = function (e) {
+  document.getElementById("search_button").href = string + document.getElementById("search_input").value;
+
+}
