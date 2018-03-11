@@ -6,7 +6,12 @@ $sql = "SELECT * FROM product,inventory WHERE product.inv_id=inventory.inv_id AN
 $result = $conn->query($sql);
 $result = $result->fetch_assoc();
 
+$addToViews = "UPDATE product,inventory SET inv_views = inv_views + 1 WHERE product.inv_id=inventory.inv_id AND prod_id=".$_GET['prod_id'];
+$conn->query($addToViews);
+
 $TTS_data = $result['prod_name'].". Price. ".$result['inv_price']." . Pesos";
+
+
 
 ?>
 <!DOCTYPE html>
@@ -28,16 +33,16 @@ $TTS_data = $result['prod_name'].". Price. ".$result['inv_price']." . Pesos";
 	<div class="col-lg-5">
 	<div class="bs-component">
 	<div class="card border-primary mb-3" style="max-width: 30rem;">
-  <div class="card-header"><h4><?php echo $result['prod_name']?></h4><input onclick='responsiveVoice.speak(<?php echo "\"".$TTS_data."\""; ?>, "Japanese Female");' type='button' value='🔊 Play' /></div>
+  <div class="card-header"><h4 style="display: inline-block !important;"><?php echo $result['prod_name']?></h4><input class="btn btn-link" style="display: inline-block !important; cursor: pointer;" onclick='responsiveVoice.speak(<?php echo "\"".$TTS_data."\""; ?>, "Japanese Female");' type='button' value='🔊' /></div>
   <div class="card-body text-primary">
     <h4 class="card-title"></h4>
     <p class="card-text"> 
     	<?php echo '<div style="width: 350px; height: 250px;  background-image: url(\''.$result['prod_picture_link'].'\'); background-size: cover; background-repeat: no-repeat; background-position:center center;" class="img-responsive"></div>';?>
     	<div class="row small-thumbnail">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="#"><div style="width: 60px; height: 60px;  background-image: url('img/1.jpg'); background-size: cover; background-repeat: no-repeat; background-position: 50% 50%;" class="img-responsive"></div></a>&nbsp;
-        <a href="#"><div style="width: 60px; height: 60px;  background-image: url('img/2.jpg'); background-size: cover; background-repeat: no-repeat; background-position: 50% 50%;" class="img-responsive"></div></a>&nbsp;
-        <a href="#"><div style="width: 60px; height: 60px;  background-image: url('img/3.jpg'); background-size: cover; background-repeat: no-repeat; background-position: 50% 50%;" class="img-responsive"></div></a>&nbsp;
-        <a href="#"><div style="width: 60px; height: 60px;  background-image: url('img/4.jpg'); background-size: cover; background-repeat: no-repeat; background-position: 50% 50%;" class="img-responsive"></div></a>&nbsp;
+        <a href="#1"><div style="width: 60px; height: 60px;  background-image: url('img/1.jpg'); background-size: cover; background-repeat: no-repeat; background-position: 50% 50%;" class="img-responsive"></div></a>&nbsp;
+        <a href="#2"><div style="width: 60px; height: 60px;  background-image: url('img/2.jpg'); background-size: cover; background-repeat: no-repeat; background-position: 50% 50%;" class="img-responsive"></div></a>&nbsp;
+        <a href="#3"><div style="width: 60px; height: 60px;  background-image: url('img/3.jpg'); background-size: cover; background-repeat: no-repeat; background-position: 50% 50%;" class="img-responsive"></div></a>&nbsp;
+        <a href="#4"><div style="width: 60px; height: 60px;  background-image: url('img/4.jpg'); background-size: cover; background-repeat: no-repeat; background-position: 50% 50%;" class="img-responsive"></div></a>&nbsp;
     	</div>
     </p>
     </div>
