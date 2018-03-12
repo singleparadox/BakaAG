@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 11, 2018 at 05:59 AM
--- Server version: 10.1.25-MariaDB
--- PHP Version: 7.1.7
+-- Generation Time: Mar 12, 2018 at 02:49 PM
+-- Server version: 10.1.19-MariaDB
+-- PHP Version: 5.6.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -184,7 +182,7 @@ INSERT INTO `inventory` (`inv_id`, `inv_price`, `inv_stock`, `inv_no_of_sold`, `
 (10, 10000, 222, 0, 0, 0, 50),
 (11, 111, 777, 0, 0, 0, 40),
 (12, 100, 2, 0, 0, 0, 30),
-(13, 100, 3, 0, 0, 0, 75),
+(13, 100, 3, 0, 1, 0, 75),
 (14, 0, 0, 0, 0, 0, 0),
 (15, 500000000, 1, 0, 0, 0, 0),
 (16, 0, 0, 0, 0, 0, 0),
@@ -485,8 +483,7 @@ ALTER TABLE `product_type`
 -- AUTO_INCREMENT for table `search`
 --
 ALTER TABLE `search`
-  MODIFY `search_id` int(11) NOT NULL AUTO_INCREMENT;COMMIT;
-
+  MODIFY `search_id` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
