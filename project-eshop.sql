@@ -6,11 +6,11 @@
 -- Generation Time: Mar 11, 2018 at 02:16 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
+ 	 
+ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+-SET AUTOCOMMIT = 0;	
+-START TRANSACTION;	
+ SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
