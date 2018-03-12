@@ -43,7 +43,7 @@ if(is_array($_SESSION['arry'])!=true){
 					        				<li>
 					                			<a href="#"><img id="profile_logo" src="img/profile.png"></a>
 					                				<ul class="sub-menu">
-					                    				<li><a href="#">Profile</a></li>
+					                    				<li><a href="viewprofile.php">Profile</a></li>
 					                    				<li><a href="#">Settings</a></li>
 					                    				<li><a href="backend/logout.php">Logout</a></li>
 					                				</ul>
@@ -193,7 +193,7 @@ if(is_array($_SESSION['arry'])!=true){
             <!--Footer-->
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-primary" id="cursor-pointer" data-dismiss="modal">Close</button>
-                <button class="btn btn-primary" id="cursor-pointer">Checkout</button>
+                <a href="checkout.php"><button class="btn btn-primary" id="cursor-pointer">Checkout</button></a>
             </div>
         </div>
     </div>
