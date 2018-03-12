@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 12, 2018 at 02:49 PM
--- Server version: 10.1.19-MariaDB
--- PHP Version: 5.6.28
+-- Generation Time: Mar 11, 2018 at 02:16 PM
+-- Server version: 10.1.25-MariaDB
+-- PHP Version: 7.1.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -93,8 +93,7 @@ CREATE TABLE `account_billing` (
 --
 
 INSERT INTO `account_billing` (`acc_billing_id`, `acc_id`, `billing_province`, `billing_country`, `billing_city`, `billing_phonenum`, `billing_compaddress`) VALUES
-(1, 1, 'Test B. Province', 'Test B. Country', 'Test B. City', '091111111', 'Test B. CompAdd'),
-(2, 2, 'Albay', 'Philippines', 'Legazpi', '09363712548', 'Legazpi City Albay');
+(1, 1, 'Test B. Province', 'Test B. Country', 'Test B. City', '091111111', 'Test B. CompAdd');
 
 -- --------------------------------------------------------
 
@@ -175,26 +174,15 @@ CREATE TABLE `inventory` (
 --
 
 INSERT INTO `inventory` (`inv_id`, `inv_price`, `inv_stock`, `inv_no_of_sold`, `inv_views`, `inv_rate`, `inv_discount`) VALUES
-(1, 1001, 2, 0, 1, 0, 20),
-(7, 111, 11, 0, 2, 0, 10),
+(1, 1001, 2, 0, 3, 0, 20),
+(7, 111, 11, 0, 3, 0, 10),
 (8, 10, 100, 0, 0, 0, 0),
 (9, 0, 0, 0, 0, 0, 0),
 (10, 10000, 222, 0, 0, 0, 50),
-(11, 111, 777, 0, 0, 0, 40),
-(12, 100, 2, 0, 0, 0, 30),
-(13, 100, 3, 0, 1, 0, 75),
-(14, 0, 0, 0, 0, 0, 0),
-(15, 500000000, 1, 0, 0, 0, 0),
-(16, 0, 0, 0, 0, 0, 0),
-(17, 0, 0, 0, 0, 0, 0),
-(18, 0, 0, 0, 0, 0, 0),
-(19, 0, 0, 0, 0, 0, 0),
-(20, 0, 0, 0, 0, 0, 0),
-(21, 0, 0, 0, 0, 0, 0),
-(22, 0, 0, 0, 0, 0, 0),
-(23, 0, 0, 0, 0, 0, 0),
-(24, 0, 0, 0, 0, 0, 0),
-(25, 0, 0, 0, 0, 0, 0);
+
+(11, 111, 777, 0, 1, 0, 40),
+(12, 100, 2, 0, 3, 0, 30),
+(13, 100, 3, 0, 1, 0, 75);
 
 -- --------------------------------------------------------
 
@@ -205,19 +193,10 @@ INSERT INTO `inventory` (`inv_id`, `inv_price`, `inv_stock`, `inv_no_of_sold`, `
 CREATE TABLE `orders` (
   `order_id` int(11) NOT NULL,
   `acc_id` int(11) NOT NULL,
-  `order_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `order_total_amt` int(9) NOT NULL,
   `order_product_list` varchar(700) NOT NULL,
   `order_status_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `orders`
---
-
-INSERT INTO `orders` (`order_id`, `acc_id`, `order_date`, `order_total_amt`, `order_product_list`, `order_status_id`) VALUES
-(1, 2, '2018-03-10 04:20:12', 200, '8;9;', 1),
-(3, 2, '2018-03-11 03:54:05', 300, '8;', 1);
 
 -- --------------------------------------------------------
 
@@ -229,15 +208,6 @@ CREATE TABLE `order_status` (
   `order_status_id` int(11) NOT NULL,
   `order_status_name` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `order_status`
---
-
-INSERT INTO `order_status` (`order_status_id`, `order_status_name`) VALUES
-(1, 'Proccessing'),
-(2, 'Shipped'),
-(3, 'Delivered');
 
 -- --------------------------------------------------------
 
@@ -252,7 +222,6 @@ CREATE TABLE `product` (
   `prod_desc` longtext NOT NULL,
   `prod_picture_link` varchar(700) NOT NULL DEFAULT 'data/Products/default.jpg',
   `prod_featured` varchar(3) NOT NULL DEFAULT 'No',
-  `prod_dateadd` date NOT NULL,
   `prod_genre_id` int(11) NOT NULL,
   `prod_type_id` int(11) NOT NULL,
   `inv_id` int(11) NOT NULL
@@ -262,9 +231,13 @@ CREATE TABLE `product` (
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`prod_id`, `prod_codeid`, `prod_name`, `prod_desc`, `prod_picture_link`, `prod_featured`, `prod_dateadd`, `prod_genre_id`, `prod_type_id`, `inv_id`) VALUES
-(8, 'Empty', 'Steins;Gate', '', 'data/Products/Steins;Gate-18-01-10-16257/Steins;Gate-18-01-10-16257', 'Yes', '0000-00-00', 10, 2, 12),
-(9, 'Empty', 'Mob Psycho', '', 'data/Products/Mob Psycho-18-01-10-69665/Mob Psycho-18-01-10-69665', 'Yes', '0000-00-00', 2, 2, 13);
+INSERT INTO `product` (`prod_id`, `prod_codeid`, `prod_name`, `prod_desc`, `prod_picture_link`, `prod_featured`, `prod_genre_id`, `prod_type_id`, `inv_id`) VALUES
+(1, 'Empty', 'Laptop', 'Test Desc', 'data/Products/default.jpg', 'Yes', 2, 3, 1),
+(3, 'Empty', 'joeasas', 'show', 'data/Products/default.jpg', 'Yes', 2, 2, 7),
+(6, 'Empty', 'Test Image', 'Test Image', 'data/Products/Test Image-17-12-28-42295/Test Image-17-12-28-42295', 'Yes', 2, 2, 10),
+(7, 'Empty', 'Test Image(No Image)', 'No image', 'data/Products/default.jpg', 'Yes', 2, 3, 11),
+(8, 'Empty', 'Steins;Gate', '', 'data/Products/Steins;Gate-18-01-10-16257/Steins;Gate-18-01-10-16257', 'Yes', 3, 2, 12),
+(9, 'Empty', 'Mob Psycho', '', 'data/Products/Mob Psycho-18-01-10-69665/Mob Psycho-18-01-10-69665', 'Yes', 2, 2, 13);
 
 -- --------------------------------------------------------
 
@@ -285,7 +258,7 @@ CREATE TABLE `product_genre` (
 
 INSERT INTO `product_genre` (`prod_genre_id`, `prod_genre_name`, `prod_genre_desc`, `prod_genre_link`) VALUES
 (1, 'Adventure', '', NULL),
-(2, 'Action', '', NULL),
+(2, 'Action', 'Khalifa', NULL),
 (3, 'Hentai', '', NULL),
 (4, 'Ecchi', '', NULL),
 (5, 'Harem', '', NULL),
@@ -326,9 +299,20 @@ INSERT INTO `product_type` (`prod_type_id`, `prod_type_name`) VALUES
 CREATE TABLE `search` (
   `search_id` int(11) NOT NULL,
   `search_query` longtext NOT NULL,
-  `user_searches` bigint(20) NOT NULL COMMENT 'Number of people who have searched the query',
-  `search_rank` int(11) NOT NULL
+  `user_searches` bigint(20) NOT NULL COMMENT 'Number of people who have searched the query'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `search`
+--
+
+INSERT INTO `search` (`search_id`, `search_query`, `user_searches`) VALUES
+(1, 'psycho test', 1),
+(2, 'test psycho', 1),
+(3, 'test', 1),
+(4, 'test mob', 1),
+(5, 'test mob gate', 2),
+(6, 'mob gate', 3);
 
 -- --------------------------------------------------------
 
@@ -419,6 +403,7 @@ ALTER TABLE `product_type`
 --
 ALTER TABLE `search`
   ADD PRIMARY KEY (`search_id`);
+ALTER TABLE `search` ADD FULLTEXT KEY `search_query` (`search_query`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -438,7 +423,7 @@ ALTER TABLE `account_address`
 -- AUTO_INCREMENT for table `account_billing`
 --
 ALTER TABLE `account_billing`
-  MODIFY `acc_billing_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `acc_billing_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `account_details`
 --
@@ -453,17 +438,17 @@ ALTER TABLE `account_type`
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `inv_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `inv_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `order_status`
 --
 ALTER TABLE `order_status`
-  MODIFY `order_status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `order_status_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `product`
 --
@@ -483,7 +468,8 @@ ALTER TABLE `product_type`
 -- AUTO_INCREMENT for table `search`
 --
 ALTER TABLE `search`
-  MODIFY `search_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `search_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

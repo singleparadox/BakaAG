@@ -16,9 +16,6 @@
 	}
 
 
-
-
-
 	$sql = "SELECT prod_genre_id, prod_genre_name, prod_genre_link, prod_genre_desc FROM product_genre WHERE prod_genre_id="."'".$id."'"." ORDER BY prod_genre_name ASC";
 	$result = $conn->query($sql);
 
