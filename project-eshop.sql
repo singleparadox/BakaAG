@@ -1,14 +1,16 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.7.0
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
 -- Generation Time: Mar 11, 2018 at 02:16 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
+ 	 
+ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+-SET AUTOCOMMIT = 0;	
+-START TRANSACTION;	
+ SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -179,7 +181,6 @@ INSERT INTO `inventory` (`inv_id`, `inv_price`, `inv_stock`, `inv_no_of_sold`, `
 (8, 10, 100, 0, 0, 0, 0),
 (9, 0, 0, 0, 0, 0, 0),
 (10, 10000, 222, 0, 0, 0, 50),
-
 (11, 111, 777, 0, 1, 0, 40),
 (12, 100, 2, 0, 3, 0, 30),
 (13, 100, 3, 0, 1, 0, 75);
