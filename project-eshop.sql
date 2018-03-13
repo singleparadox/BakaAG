@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 12, 2018 at 03:46 PM
+-- Generation Time: Mar 13, 2018 at 03:25 PM
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 5.6.28
 
@@ -176,12 +176,12 @@ CREATE TABLE `inventory` (
 
 INSERT INTO `inventory` (`inv_id`, `inv_price`, `inv_stock`, `inv_no_of_sold`, `inv_views`, `inv_rate`, `inv_discount`) VALUES
 (1, 1001, 2, 0, 3, 0, 20),
-(7, 111, 11, 0, 3, 0, 10),
+(7, 111, 11, 0, 6, 0, 10),
 (8, 10, 100, 0, 0, 0, 0),
 (9, 0, 0, 0, 0, 0, 0),
-(10, 10000, 222, 0, 2, 0, 50),
-(11, 111, 777, 0, 1, 0, 40),
-(12, 100, 2, 0, 6, 0, 30),
+(10, 10000, 222, 0, 3, 0, 50),
+(11, 111, 777, 0, 2, 0, 40),
+(12, 100, 2, 0, 8, 0, 30),
 (13, 100, 3, 0, 1, 0, 75);
 
 -- --------------------------------------------------------
@@ -195,8 +195,17 @@ CREATE TABLE `orders` (
   `acc_id` int(11) NOT NULL,
   `order_total_amt` int(9) NOT NULL,
   `order_product_list` varchar(700) NOT NULL,
+  `order_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `order_status_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`order_id`, `acc_id`, `order_total_amt`, `order_product_list`, `order_date`, `order_status_id`) VALUES
+(1, 2, 10000, '6;', '2018-03-13 13:35:18', 2),
+(2, 2, 100, '8;', '2018-03-13 13:35:18', 1);
 
 -- --------------------------------------------------------
 
@@ -208,6 +217,15 @@ CREATE TABLE `order_status` (
   `order_status_id` int(11) NOT NULL,
   `order_status_name` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `order_status`
+--
+
+INSERT INTO `order_status` (`order_status_id`, `order_status_name`) VALUES
+(1, 'Proccessing'),
+(2, 'Shipped'),
+(3, 'Delivered');
 
 -- --------------------------------------------------------
 
@@ -221,6 +239,7 @@ CREATE TABLE `product` (
   `prod_name` varchar(32) NOT NULL,
   `prod_desc` longtext NOT NULL,
   `prod_picture_link` varchar(700) NOT NULL DEFAULT 'data/Products/default.jpg',
+  `prod_dateadd` date NOT NULL,
   `prod_featured` varchar(3) NOT NULL DEFAULT 'No',
   `prod_genre_id` int(11) NOT NULL,
   `prod_type_id` int(11) NOT NULL,
@@ -231,13 +250,13 @@ CREATE TABLE `product` (
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`prod_id`, `prod_codeid`, `prod_name`, `prod_desc`, `prod_picture_link`, `prod_featured`, `prod_genre_id`, `prod_type_id`, `inv_id`) VALUES
-(1, 'Empty', 'Laptop', 'Test Desc', 'data/Products/default.jpg', 'Yes', 2, 3, 1),
-(3, 'Empty', 'joeasas', 'show', 'data/Products/default.jpg', 'Yes', 2, 2, 7),
-(6, 'Empty', 'Test Image', 'Test Image', 'data/Products/Test Image-17-12-28-42295/Test Image-17-12-28-42295', 'Yes', 2, 2, 10),
-(7, 'Empty', 'Test Image(No Image)', 'No image', 'data/Products/default.jpg', 'Yes', 2, 3, 11),
-(8, 'Empty', 'Steins;Gate', '', 'data/Products/Steins;Gate-18-01-10-16257/Steins;Gate-18-01-10-16257', 'Yes', 3, 2, 12),
-(9, 'Empty', 'Mob Psycho', '', 'data/Products/Mob Psycho-18-01-10-69665/Mob Psycho-18-01-10-69665', 'Yes', 2, 2, 13);
+INSERT INTO `product` (`prod_id`, `prod_codeid`, `prod_name`, `prod_desc`, `prod_picture_link`, `prod_dateadd`, `prod_featured`, `prod_genre_id`, `prod_type_id`, `inv_id`) VALUES
+(1, 'Empty', 'Laptop', 'Test Desc', 'data/Products/default.jpg', '0000-00-00', 'Yes', 2, 3, 1),
+(3, 'Empty', 'joeasas', 'show', 'data/Products/default.jpg', '0000-00-00', 'Yes', 2, 2, 7),
+(6, 'Empty', 'Test Image', 'Test Image', 'data/Products/Test Image-17-12-28-42295/Test Image-17-12-28-42295', '0000-00-00', 'Yes', 2, 2, 10),
+(7, 'Empty', 'Test Image(No Image)', 'No image', 'data/Products/default.jpg', '0000-00-00', 'Yes', 2, 3, 11),
+(8, 'Empty', 'Steins;Gate', '', 'data/Products/Steins;Gate-18-01-10-16257/Steins;Gate-18-01-10-16257', '0000-00-00', 'Yes', 3, 2, 12),
+(9, 'Empty', 'Mob Psycho', '', 'data/Products/Mob Psycho-18-01-10-69665/Mob Psycho-18-01-10-69665', '0000-00-00', 'Yes', 2, 2, 13);
 
 -- --------------------------------------------------------
 
@@ -443,12 +462,12 @@ ALTER TABLE `inventory`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `order_status`
 --
 ALTER TABLE `order_status`
-  MODIFY `order_status_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `order_status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `product`
 --
