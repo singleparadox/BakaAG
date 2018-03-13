@@ -18,7 +18,7 @@ if (isset($_GET['q'])) {
 		exit;
 	}
 
-	//TO DO : add queries to database, increment user views, create algorithm for page rank
+	
 
 	$search_sql = "SELECT * FROM search WHERE search_query='".$q."'";
 	$result = $conn->query($search_sql);

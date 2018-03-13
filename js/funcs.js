@@ -91,3 +91,82 @@ document.getElementById("search_button").onclick = function (e) {
   document.getElementById("search_button").href = string + document.getElementById("search_input").value;
 
 }
+
+
+var addToWishlist = document.getElementById("addToWishlist");
+
+addToWishlist.onclick = function (e) {
+  var xhttp = new XMLHttpRequest();
+  var getUID = document.getElementById("acc_id").value;
+  var getPID = document.getElementById("prod_id").value;
+  var params = "uid="+getUID+"&pid="+getPID;
+
+  xhttp.open("POST", "backend/addToWishlist.php", true);
+
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      if (this.responseText == '1') {
+        setTimeout(function(){
+            document.getElementById("success").style.display = 'none';
+        }, 3000);
+        addToWishlist.remove();
+        document.getElementById("success").style.display = 'block';
+      } else {
+        setTimeout(function(){
+            document.getElementById("error").style.display = 'none';
+        }, 3000);
+        document.getElementById("error").style.display = 'block';
+      }    
+     
+    }
+  };
+  
+  xhttp.send(params);
+}
+
+function remove_row(str) {
+  var getUID = document.getElementById("acc_id").value;
+  var getPID = document.getElementById("prod_id").value;
+  var params = "uid="+getUID+"&pid="+getPID;
+
+  var xhttp = new XMLHttpRequest();
+
+  xhttp.open("POST", "backend/removeFromWishlist.php", true);
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log(this.status);
+      document.getElementById(str).remove(); 
+     
+    }
+  };
+  xhttp.send(params);
+}
+
+var thumbnailA = document.getElementById("thumbA");
+var thumbnailB = document.getElementById("thumbB");
+var thumbnailC = document.getElementById("thumbC");
+var thumbnailD = document.getElementById("thumbD");
+var main_image = document.getElementById("main-image");
+
+var originalThumb = main_image.style.backgroundImage;
+
+thumbnailA.onclick = function(e) {
+  main_image.style.backgroundImage = this.style.backgroundImage;
+}
+thumbnailB.onclick = function(e) {
+  main_image.style.backgroundImage = this.style.backgroundImage;
+}
+thumbnailC.onclick = function(e) {
+  main_image.style.backgroundImage = this.style.backgroundImage;
+}
+thumbnailD.onclick = function(e) {
+  main_image.style.backgroundImage = this.style.backgroundImage;
+}
+
+main_image.onclick = function(e) {
+  main_image.style.backgroundImage = originalThumb.style.backgroundImage;
+}
