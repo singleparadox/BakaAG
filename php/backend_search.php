@@ -7,7 +7,7 @@
 
 
 	//sql codes
-	$sql = "
+	/*$sql = "
 	SELECT prod_name, MATCH (prod_name)
     AGAINST ('".$q."' IN NATURAL LANGUAGE MODE WITH QUERY EXPANSION) AS search_percent
     FROM product ORDER BY search_percent DESC LIMIT 5
@@ -17,7 +17,7 @@
 	SELECT prod_genre_name, MATCH (prod_genre_name)
     AGAINST ('".$q."' IN NATURAL LANGUAGE MODE WITH QUERY EXPANSION) AS search_percent
     FROM product_genre ORDER BY search_percent DESC LIMIT 5
-    ";
+    ";*/
 
     $sql_search_table = "
 	SELECT user_searches, search_query, MATCH (search_query)
@@ -25,12 +25,12 @@
     FROM search ORDER BY search_percent DESC, user_searches DESC LIMIT 5
     ";
 
-    $result = $conn->query($sql);
-    $result_genre = $conn->query($sql_genre);
+    //$result = $conn->query($sql);
+    //$result_genre = $conn->query($sql_genre);
     $result_search = $conn->query($sql_search_table);
     $a[] = 'none';
 
-    while ($row = $result->fetch_assoc()) {
+    /*while ($row = $result->fetch_assoc()) {
     	if ($row['search_percent'] == 0) {
     		//Do nothing
     	} else {
@@ -48,7 +48,7 @@
   				$a[] .= $row_genre['prod_genre_name'];
     		}    
     	}
-    }
+    }*/
 
     while ($row_search = $result_search->fetch_assoc()) {
     	if ($row_search['search_percent'] == 0) {

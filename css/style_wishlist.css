@@ -1,0 +1,14 @@
+h1 {
+	color: white !important;
+}
+
+.main-table {
+	width: 80%;
+	color: white;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+
+.main-table tbody {
+	color: black;
+}

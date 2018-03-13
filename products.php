@@ -1,15 +1,22 @@
 <?php
 include_once("backend/connection.php");
 include_once("header.php");
-$_GET['prod_id'];
-$sql = "SELECT * FROM product,inventory WHERE product.inv_id=inventory.inv_id AND prod_id=".$_GET['prod_id'];
+$productid = $_GET['prod_id'];
+$sql = "SELECT * FROM product,inventory WHERE product.inv_id=inventory.inv_id AND prod_id=".$productid;
 $result = $conn->query($sql);
 $result = $result->fetch_assoc();
 
-$addToViews = "UPDATE product,inventory SET inv_views = inv_views + 1 WHERE product.inv_id=inventory.inv_id AND prod_id=".$_GET['prod_id'];
+if ($result['inv_discount'] == 0) {
+  $tts_price = number_format($result['inv_price'] ,2);
+} else {
+  $tts_price = number_format($result['inv_price'] - ($result['inv_price'] * ($result['inv_discount'] * 0.01)),2);
+
+}
+
+$addToViews = "UPDATE product,inventory SET inv_views = inv_views + 1 WHERE product.inv_id=inventory.inv_id AND prod_id=".$productid;
 $conn->query($addToViews);
 
-$TTS_data = $result['prod_name'].". Price. ".$result['inv_price']." . Pesos";
+$TTS_data = $result['prod_name'].". Price. ".$tts_price." . Pesos";
 
 
 
@@ -37,28 +44,69 @@ $TTS_data = $result['prod_name'].". Price. ".$result['inv_price']." . Pesos";
   <div class="card-body text-primary">
     <h4 class="card-title"></h4>
     <p class="card-text"> 
-    	<?php echo '<div style="width: 350px; height: 250px;  background-image: url(\''.$result['prod_picture_link'].'\'); background-size: cover; background-repeat: no-repeat; background-position:center center;" class="img-responsive"></div>';?>
+    	<?php echo '<div id="main-image" style="width: 350px; height: 250px;  background-image: url(\''.$result['prod_picture_link'].'\'); background-size: cover; background-repeat: no-repeat; background-position:center center;" class="img-responsive"></div>';?>
     	<div class="row small-thumbnail">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="#1"><div style="width: 60px; height: 60px;  background-image: url('img/1.jpg'); background-size: cover; background-repeat: no-repeat; background-position: 50% 50%;" class="img-responsive"></div></a>&nbsp;
-        <a href="#2"><div style="width: 60px; height: 60px;  background-image: url('img/2.jpg'); background-size: cover; background-repeat: no-repeat; background-position: 50% 50%;" class="img-responsive"></div></a>&nbsp;
-        <a href="#3"><div style="width: 60px; height: 60px;  background-image: url('img/3.jpg'); background-size: cover; background-repeat: no-repeat; background-position: 50% 50%;" class="img-responsive"></div></a>&nbsp;
-        <a href="#4"><div style="width: 60px; height: 60px;  background-image: url('img/4.jpg'); background-size: cover; background-repeat: no-repeat; background-position: 50% 50%;" class="img-responsive"></div></a>&nbsp;
+        <a href="#1"><div id="thumbA" style="width: 60px; height: 60px;  background-image: url('img/1.jpg'); background-size: cover; background-repeat: no-repeat; background-position: 50% 50%;" class="img-responsive"></div></a>&nbsp;
+        <a href="#2"><div id="thumbB" style="width: 60px; height: 60px;  background-image: url('img/2.jpg'); background-size: cover; background-repeat: no-repeat; background-position: 50% 50%;" class="img-responsive"></div></a>&nbsp;
+        <a href="#3"><div id="thumbC" style="width: 60px; height: 60px;  background-image: url('img/3.jpg'); background-size: cover; background-repeat: no-repeat; background-position: 50% 50%;" class="img-responsive"></div></a>&nbsp;
+        <a href="#4"><div id="thumbD" style="width: 60px; height: 60px;  background-image: url('img/4.jpg'); background-size: cover; background-repeat: no-repeat; background-position: 50% 50%;" class="img-responsive"></div></a>&nbsp;
     	</div>
     </p>
     </div>
   </div>
 </div>
 </div>
-		
+	
+  <div id="success" style="display: none; position: fixed; width: 25%; top: 80%; left: 70%; z-index: 100;"
+  class="alert alert-dismissible alert-success"> 
+    <strong>Product successfully added to Wishlist!</strong> 
+  </div>
+
+  <div id="error" style="display: none; position: fixed; width: 25%; top: 80%; left: 70%; z-index: 100;"
+  class="alert alert-dismissible alert-danger"> 
+    <strong>Product failed to be added to Wishlist!</strong> 
+  </div>
+
 	<div class="col-lg-7 data-container">
 	<div class="bs-component">
 	<div class="card border-primary mb-3" style="max-width: 65rem;">
   <div class="card-header">Product Details</div>
   <div class="card-body text-primary">
-    <h4 class="card-title">PHP <?php echo $result['inv_price']?></h4>
+    <h4 class="card-title">PHP 
+      <?php 
+
+        if ($result['inv_discount'] == 0) {
+          echo number_format($result['inv_price'] ,2);
+        } else {
+          echo number_format($result['inv_price'] - ($result['inv_price'] * ($result['inv_discount'] * 0.01)),2);
+          echo "<p style='color:orange;'>".$result['inv_discount']."% OFF! </p>";
+        }
+        
+        
+        ?>
+          
+    </h4>
     <p class="card-text">
       <button type="button" class="btn btn-primary" style="cursor: pointer;" onclick="addtocart(<?php echo $result['prod_id']?>)">Add to cart</button>
-    	<span class="glyphicon glyphicon-shopping-heart"></span><button type="button" style="cursor: pointer;" class="btn btn-primary">Add to wishlist</button>
+    	<span class="glyphicon glyphicon-shopping-heart"></span>
+        <?php
+          if (isset($_SESSION['acc_id'])) {
+            $sql_wish = "SELECT * FROM wishlist WHERE acc_id=".$_SESSION['acc_id']." AND prod_id=".$_GET['prod_id'];
+            $result_wish = $conn->query($sql_wish);
+
+            if (mysqli_num_rows($result_wish) > 0) {
+              echo '<button type="button" class="btn btn-primary disabled">Product already in wishlist</button>';
+            } else {
+              echo '<button type="button" id="addToWishlist" style="cursor: pointer;" class="btn btn-primary">Add to wishlist</button>';
+            }
+           
+          }
+
+          echo '<input id="acc_id" type="number" class="hidden" value="'.$_SESSION['acc_id'].'" >';
+          echo '<input id="prod_id" type="number" class="hidden" value="'.$_GET['prod_id'].'" >';
+
+
+        ?>
     	<table class="table table-hover">
   <thead>
     <tr>

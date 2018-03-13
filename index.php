@@ -56,13 +56,14 @@ include_once("header.php");
 					$sql = "SELECT * FROM product,inventory WHERE product.inv_id=inventory.inv_id ORDER BY inv_rate ASC LIMIT 6";
 					$result = $conn->query($sql);
 					while($row = $result->fetch_assoc()){
+						$price = number_format($row['inv_price'], 2);
 						echo '
 								<a href="products.php?prod_id='.$row['prod_id'].'"><div class="card" style="display:  inline-block; margin: 2px;">
 								<img src="'.$row['prod_picture_link'].'" alt="Avatar" style="width:100%">
 									
 								<div class="container">
 									<h4><b>'.$row['prod_name'].'</b></h4> 
-									<p><span id="price">PHP '.$row['inv_price'].'.00</span></p> 
+									<p><span id="price">PHP '.$price.'</span></p> 
 								</div>
 							</div></a>
 						
@@ -84,13 +85,17 @@ include_once("header.php");
 						$discount = $row['inv_discount'] / 100;
 						$discount = $row['inv_price'] * $discount;
 						$saleprice = $row['inv_price'] - $discount;
+
+						$saleprice_ = number_format($saleprice,2);
+						$inv_price = number_format(($row['inv_price']),2);
+
 						echo '
 								<a href="products.php?prod_id='.$row['prod_id'].'"><div class="card" style="display:  inline-block; margin: 2px;">
 								<img src="'.$row['prod_picture_link'].'" alt="Avatar" style="width:100%">
 									
 								<div class="container">
 									<h4><b>'.$row['prod_name'].'</b></h4> 
-									<p><p><span id="price"><strike>'.$row['inv_price'].'</strike><br>PHP '.$saleprice.'<br>'.$row['inv_discount'].'% off!</span></p></p> 
+									<p><p><span id="price"><strike>PHP '.$inv_price.'</strike><br>PHP '.$saleprice_.'<br>'.$row['inv_discount'].'% off!</span></p></p> 
 								</div>
 							</div></a>
 						
