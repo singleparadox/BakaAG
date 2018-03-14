@@ -57,10 +57,130 @@
 				</div>
 			</div></a>
 		   <div class="clearfix"> </div>
+		</div><br>
+		<div class="container-fluid">
+			<div class="row">
+			  <div class="col-md-6">
+			  		<div class="panel panel-default">
+					  <div class="panel-heading">
+					    <h3 class="panel-title">Sales</h3>
+					  </div>
+					  <div class="panel-body">
+					    <canvas id="sales-report" width="400" height="200"></canvas>
+						<script>
+						var ctx = document.getElementById("sales-report").getContext('2d');
+						var myChart = new Chart(ctx, {
+						    type: 'line',
+						    data: {
+						        labels: [<?php
+						        			$sql ="SELECT * FROM orders";
+						        			$result = $conn->query($sql);
+											while($row = $result->fetch_assoc()){
+												echo '"'.$row['order_date'].'",';
+											}
+						        		?>],
+						        datasets: [{
+						            label: 'Order Income',
+						            data: [<?php
+						        			$sql ="SELECT * FROM orders";
+						        			$result = $conn->query($sql);
+											while($row = $result->fetch_assoc()){
+												echo $row['order_total_amt'].",";
+											}
+						        		?>],
+						            backgroundColor: [
+						                'rgba(255, 99, 132, 0.2)',
+						                'rgba(54, 162, 235, 0.2)',
+						                'rgba(255, 206, 86, 0.2)',
+						                'rgba(75, 192, 192, 0.2)',
+						                'rgba(153, 102, 255, 0.2)',
+						                'rgba(255, 159, 64, 0.2)'
+						            ],
+						            borderColor: [
+						                'rgba(255,99,132,1)',
+						                'rgba(54, 162, 235, 1)',
+						                'rgba(255, 206, 86, 1)',
+						                'rgba(75, 192, 192, 1)',
+						                'rgba(153, 102, 255, 1)',
+						                'rgba(255, 159, 64, 1)'
+						            ],
+						            borderWidth: 1,
+						            fill:false
+						        }]
+						    },
+						    options: {
+						        scales: {
+						            yAxes: [{
+						                ticks: {
+						                    beginAtZero:true
+						                }
+						            }]
+						        }
+						    }
+						});
+						</script>
+					  </div>
+					</div>
+			  </div>
+			  <div class="col-md-6">
+			  	<div class="panel panel-default">
+				<div class="panel-heading">
+				<h3 class="panel-title">Most Orders Placed</h3>
+				</div>
+				<div class="panel-body">
+			  	<canvas id="user-order-chart" width="400" height="200"></canvas>
+				<script>
+				var ctx = document.getElementById("user-order-chart").getContext('2d');
+				var myChart = new Chart(ctx, {
+				    type: 'bar',
+				    data: {
+				        labels: [<?php
+				        			$sql="SELECT DISTINCT acc_fname FROM orders,account WHERE orders.acc_id=account.acc_id";
+				        			$result = $conn->query($sql);
+									while($row = $result->fetch_assoc()){
+										echo '"'.$row['acc_fname'].'",';
+									}
+				        		?>],
+				        datasets: [{
+				            label: '# of orders placed',
+				            data: [<?php
+				        			$sql="SELECT DISTINCT COUNT(order_id) AS totORDERS FROM orders,account WHERE orders.acc_id=account.acc_id";
+				        			$result = $conn->query($sql);
+									while($row = $result->fetch_assoc()){
+										echo '"'.$row['totORDERS'].'",';
+									}
+				        		?>],
+				            backgroundColor: [
+				                'rgba(75, 192, 192, 0.2)',
+				                'rgba(153, 102, 255, 0.2)',
+				                'rgba(255, 159, 64, 0.2)'
+				            ],
+				            borderColor: [
+				                'rgba(75, 192, 192, 1)',
+				                'rgba(153, 102, 255, 1)',
+				                'rgba(255, 159, 64, 1)'
+				            ],
+				            borderWidth: 1
+				        }]
+				    },
+				    options: {
+				        scales: {
+				            yAxes: [{
+				                ticks: {
+				                    beginAtZero:true
+				                }
+				            }]
+				        }
+				    }
+				});
+				</script>
+				</div>
+				</div>
+			  </div>
+			</div>
 		</div>
 	</div>
 </div>
-
 
 <div class="modal fade bs-example-modal-lg category" tabindex="-1" role="dialog" aria-labelledby="user-report-modal" id="user-report-modal">
 	<a class="btn link" id="edit-button">User Graph Report</a>
@@ -79,7 +199,7 @@
                   data: {
                     labels: ["Accounts"],
                     datasets: [{
-                      label: 'User Accpunts',
+                      label: 'User Accounts',
                       data: [<?php echo $prod['TOTALprod']?>],
                       backgroundColor: "rgba(153,255,51,1)"
                     }]
@@ -110,7 +230,7 @@
                 var myChart = new Chart(ctx, {
                   type: 'doughnut',
                   data: {
-                    labels: ["Products"],
+                    labels: ["Anime","Games"],
                     datasets: [
                       <?php
                       		$sql = "SELECT COUNT(*) as TOTALanime FROM product WHERE prod_type_id='2'";
@@ -120,14 +240,9 @@
                       		$result = $conn->query($sql);
 							$TOTgame = $result->fetch_assoc();
                       ?>{
-                      label: 'Anime',
-                      data: [<?php echo $TOTanime['TOTALanime']?>],
-                      backgroundColor: "#2ecc71"
-                    },
-                    {
-                      label: 'Game',
-                      data: [<?php echo $TOTgame['TOTALgame']?>],
-                      backgroundColor: "rgba(255,153,0,1)"
+                      data: [<?php echo $TOTanime['TOTALanime']?>,<?php echo $TOTgame['TOTALgame']?>],
+                      backgroundColor: ["#2ecc71","rgba(255,153,0,1)"],
+                      label: "datasets	"
                     }]
                   }
                 });

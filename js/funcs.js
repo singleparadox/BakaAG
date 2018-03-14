@@ -64,6 +64,7 @@ function payuscard(){
     }
   };
   var totalprice = document.getElementById("total-price").innerHTML;
+  document.getElementById("pay-card-chckout").style.visibility = "hidden";
   console.log(totalprice);
   xhttp.open("GET", "backend/pay-card.php?totalprice="+totalprice, true);
   xhttp.send();

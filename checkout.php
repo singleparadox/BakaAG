@@ -43,6 +43,7 @@ include_once("header.php");
     				$sql = "SELECT * FROM product,inventory WHERE inventory.inv_id=product.inv_id";
 		                $result = $conn->query($sql);
 		                $totprice = 0;
+		                $totprod = 0;
 		                $_SESSION['prodlist'] = "";
 		                while($row = $result->fetch_assoc()){
 		                    if(in_array($row['prod_id'], $_SESSION['arry'])==true){
@@ -115,7 +116,7 @@ include_once("header.php");
         </p>
       </div>
       <div class="modal-footer">
-       	<button type="button" class="btn btn-primary" onclick="payuscard()">Pay</button>
+       	<button type="button" id="pay-card-chckout" class="btn btn-primary" onclick="payuscard()">Pay</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
