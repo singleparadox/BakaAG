@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.7.0
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 13, 2018 at 03:25 PM
--- Server version: 10.1.19-MariaDB
--- PHP Version: 5.6.28
+-- Generation Time: Mar 14, 2018 at 05:32 PM
+-- Server version: 10.1.25-MariaDB
+-- PHP Version: 7.1.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -157,6 +159,20 @@ CREATE TABLE `cart` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `comments`
+--
+
+CREATE TABLE `comments` (
+  `comment_id` int(11) NOT NULL,
+  `acc_id` int(11) NOT NULL,
+  `prod_id` int(11) NOT NULL,
+  `content` longtext NOT NULL,
+  `comment_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `inventory`
 --
 
@@ -175,14 +191,14 @@ CREATE TABLE `inventory` (
 --
 
 INSERT INTO `inventory` (`inv_id`, `inv_price`, `inv_stock`, `inv_no_of_sold`, `inv_views`, `inv_rate`, `inv_discount`) VALUES
-(1, 1001, 2, 0, 3, 0, 20),
-(7, 111, 11, 0, 6, 0, 10),
+(1, 1001, 2, 0, 33, 0, 20),
+(7, 111, 11, 0, 70, 0, 10),
 (8, 10, 100, 0, 0, 0, 0),
 (9, 0, 0, 0, 0, 0, 0),
-(10, 10000, 222, 0, 3, 0, 50),
-(11, 111, 777, 0, 2, 0, 40),
-(12, 100, 2, 0, 8, 0, 30),
-(13, 100, 3, 0, 1, 0, 75);
+(10, 10000, 222, 0, 125, 0, 50),
+(11, 111, 777, 0, 16, 0, 40),
+(12, 100, 2, 0, 32, 0, 30),
+(13, 100, 3, 0, 3, 0, 75);
 
 -- --------------------------------------------------------
 
@@ -205,7 +221,8 @@ CREATE TABLE `orders` (
 
 INSERT INTO `orders` (`order_id`, `acc_id`, `order_total_amt`, `order_product_list`, `order_date`, `order_status_id`) VALUES
 (1, 2, 10000, '6;', '2018-03-13 13:35:18', 2),
-(2, 2, 100, '8;', '2018-03-13 13:35:18', 1);
+(2, 2, 100, '8;', '2018-03-13 13:35:18', 1),
+(3, 3, 100, '8;', '2018-03-14 13:50:53', 1);
 
 -- --------------------------------------------------------
 
@@ -312,6 +329,35 @@ INSERT INTO `product_type` (`prod_type_id`, `prod_type_name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `rating`
+--
+
+CREATE TABLE `rating` (
+  `rating_id` int(11) NOT NULL,
+  `inv_id` int(11) NOT NULL,
+  `acc_id` int(11) NOT NULL,
+  `rate_num` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `rating`
+--
+
+INSERT INTO `rating` (`rating_id`, `inv_id`, `acc_id`, `rate_num`) VALUES
+(1, 1, 3, 3),
+(2, 10, 3, 5),
+(3, 10, 4, 3),
+(4, 10, 5, 3),
+(5, 10, 6, 3),
+(6, 10, 7, 5),
+(7, 10, 8, 5),
+(8, 12, 3, 5),
+(9, 11, 3, 2),
+(10, 7, 3, 3);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `search`
 --
 
@@ -331,7 +377,9 @@ INSERT INTO `search` (`search_id`, `search_query`, `user_searches`) VALUES
 (3, 'test', 1),
 (4, 'test mob', 1),
 (5, 'test mob gate', 2),
-(6, 'mob gate', 3);
+(6, 'mob gate', 3),
+(7, 'alejandre papina dakikamura', 1),
+(8, 'test papina', 1);
 
 -- --------------------------------------------------------
 
@@ -380,6 +428,12 @@ ALTER TABLE `account_type`
   ADD PRIMARY KEY (`acc_type_id`);
 
 --
+-- Indexes for table `comments`
+--
+ALTER TABLE `comments`
+  ADD PRIMARY KEY (`comment_id`);
+
+--
 -- Indexes for table `inventory`
 --
 ALTER TABLE `inventory`
@@ -418,6 +472,12 @@ ALTER TABLE `product_type`
   ADD PRIMARY KEY (`prod_type_id`);
 
 --
+-- Indexes for table `rating`
+--
+ALTER TABLE `rating`
+  ADD PRIMARY KEY (`rating_id`);
+
+--
 -- Indexes for table `search`
 --
 ALTER TABLE `search`
@@ -454,6 +514,11 @@ ALTER TABLE `account_details`
 ALTER TABLE `account_type`
   MODIFY `acc_type_id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
+-- AUTO_INCREMENT for table `comments`
+--
+ALTER TABLE `comments`
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
@@ -462,7 +527,7 @@ ALTER TABLE `inventory`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `order_status`
 --
@@ -484,10 +549,16 @@ ALTER TABLE `product_genre`
 ALTER TABLE `product_type`
   MODIFY `prod_type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
+-- AUTO_INCREMENT for table `rating`
+--
+ALTER TABLE `rating`
+  MODIFY `rating_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+--
 -- AUTO_INCREMENT for table `search`
 --
 ALTER TABLE `search`
-  MODIFY `search_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `search_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
