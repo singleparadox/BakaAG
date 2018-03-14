@@ -16,6 +16,7 @@
 <div class="inner-block">
 <!--market updates updates-->
 	<div class="blank">
+	<h1>Graphs and Reports</h1><hr>
 	 <div class="market-updates">
 			<a href="#" data-toggle="modal" data-target="#product-report-modal"><div class="col-md-4 market-update-gd">
 				<div class="market-update-block clr-block-1">

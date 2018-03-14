@@ -38,12 +38,14 @@ function resetAlert(x) {
 
 function chcngordstat(id){
   var order_stat = document.getElementById("sel-stat").value;
+  var content = document.getElementById("transactions-tab").innerHTML;
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("transactions-tab").innerHTML = this.responseText;
     }
   };
-  console.log(order_stat);
+  console.log(content);
   xhttp.open("GET", "pages/backend/updateordstat.php?id="+id+"&orderstat="+order_stat, true);
   xhttp.send();
 }
