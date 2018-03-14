@@ -11,7 +11,7 @@ include "backend/connection.php";
 		<link rel="stylesheet" type="text/css" href="css/style_global.css">
 	</head>
 	<body>
-		<?php include "header.php"; ?>
+		<?php include "header-admin.php"; ?>
 		<div class="container">
 			<div class="title">
 				<center><h3>LOGIN</h3></center>
