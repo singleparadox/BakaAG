@@ -73,7 +73,7 @@ if(is_array($_SESSION['arry'])!=true){
         <div class="search" style="display: block; width: 1000px; margin: auto auto; margin-top: 10%; margin-bottom:15%;">
                 <a class="close-search" id="close-search">X</a>
     			<h3>Search</h3><br>
-    			<input id="search_input" onkeyup="showSearchHint(this.value);" autocomplete="false" class="form-control mr-sm-2" type="text" placeholder="Search" style="display:inline-block !important; width:70% !important; margin-left:5% !important;" >
+    			<input id="search_input" onkeyup="showSearchHint(this.value);" autocomplete="off" class="form-control mr-sm-2" type="text" placeholder="Search" style="display:inline-block !important; width:70% !important; margin-left:5% !important;" >
                 <div style="position:fixed !important;z-index: 300 !important; margin-left: 5% !important; width: 550px !important;" id='txtHint'></div>
 
                 <br>
@@ -173,12 +173,14 @@ if(is_array($_SESSION['arry'])!=true){
                         ';
                     while($row = $result->fetch_assoc()){
                         if(in_array($row['prod_id'], $_SESSION['arry'])==true){
+                            $a = $row['inv_price'] * ($row['inv_discount'] / 100);
+                            $b = $row['inv_price'] - $a;
                             $num++;
                             echo '
                                 <tr>
                                     <th scope="row">'.$num.'</th>
                                     <td>'.$row['prod_name'].'</td>
-                                     <td>'.$row['inv_price'].'$</td>
+                                     <td>PHP '.$b.'</td>
                                      <td><a onclick="removefrcart('.$row['prod_id'].')" style="cursor:pointer;"><i class="fa fa-remove"></i></a></td>
                                 </tr>
                                 ';

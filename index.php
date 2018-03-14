@@ -53,10 +53,13 @@ include_once("header.php");
 				</h3>
 
 				<?php
-					$sql = "SELECT * FROM product,inventory WHERE product.inv_id=inventory.inv_id ORDER BY inv_rate ASC LIMIT 6";
+					$sql = "SELECT * FROM product,inventory WHERE product.inv_id=inventory.inv_id ORDER BY inv_views DESC LIMIT 6";
 					$result = $conn->query($sql);
 					while($row = $result->fetch_assoc()){
-						$price = number_format($row['inv_price'], 2);
+						$a = $row['inv_price'] * ($row['inv_discount'] / 100);
+						$b = $row['inv_price'] - $a;
+
+						$price = number_format($b, 2);
 						echo '
 								<a href="products.php?prod_id='.$row['prod_id'].'"><div class="card" style="display:  inline-block; margin: 2px;">
 								<img src="'.$row['prod_picture_link'].'" alt="Avatar" style="width:100%">

@@ -15,8 +15,8 @@ include_once("header.php");
 </head>
 
 <body>
-<div class="container-fluid">
-<div class="row container-center">
+<div style="margin-top: 60px;" class="container-fluid">
+<div  class="row container-center">
 	<div class="col-lg-7 data-container">
 	<div class="bs-component">
 	<div class="card border-primary mb-3" style="max-width: 65rem;">
@@ -47,13 +47,15 @@ include_once("header.php");
 		                $_SESSION['prodlist'] = "";
 		                while($row = $result->fetch_assoc()){
 		                    if(in_array($row['prod_id'], $_SESSION['arry'])==true){
-		                        $totprice = $totprice + $row['inv_price'];
+	                            $a = $row['inv_price'] * ($row['inv_discount'] / 100);
+	                            $b = $row['inv_price'] - $a;
+		                        $totprice = $totprice + $b;
 		                        $_SESSION['prodlist'] = $_SESSION['prodlist'].$row['prod_id'].";";
 		                        echo '
 		                            <tr>
 		                                <th scope="row">'.$row['prod_name'].'</th>
 		                                <td><input id="prod-quant-'.$row['prod_id'].'" type="number" value="1" min="1" onchange="incrdecr('.$row['prod_id'].')"></td>
-		                                <td>'.$row['inv_price'].'</td>
+		                                <td>PHP '.number_format($b,2).'</td>
 		                                </tr>
 		                                ';
 		                    }
@@ -61,7 +63,7 @@ include_once("header.php");
 		        echo '
 		        	<tr class="table-active">
 				      <th scope="col">Total</th>
-				      <th scope="col" id="total-price" name="total-price">'.$totprice.'</th>
+				      <th scope="col" id="total-price" name="total-price">PHP '.number_format($totprice,2).'</th>
 				    </tr>
 				  </tbody>
 		</table>
