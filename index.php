@@ -20,25 +20,20 @@ include_once("header.php");
 				
 				<!-- Slideshow container -->
 				<div class="slideshow-container">
-
-				<!-- Full-width images with number and caption text -->
-				<div class="mySlides">
-					<div class="numbertext">1 / 3</div>
-					<a href="#1"><img src="img/1.jpg" style="width:100%"></a>
-					<div class="text">Anime</div>
-				</div>
-
-				<div class="mySlides">
-					<div class="numbertext">2 / 3</div>
-					<a href="#2"><img src="img/2.jpg" style="width:100%"></a>
-					<div class="text">Charlotte Merchs</div>
-				</div>
-
-				<div class="mySlides">
-					<div class="numbertext">3 / 3</div>
-					<a href="#3"><img src="img/3.jpg" style="width:100%"></a>
-					<div class="text">Strawberry</div>
-				</div>
+				<?php
+					$sql = "SELECT * FROM product WHERE prod_featured='Yes'";
+					$result = $conn->query($sql);
+					$num=1;
+					while($row = $result->fetch_assoc()){
+						echo '
+							<div class="mySlides">
+								<div class="numbertext">1 / 3</div>
+								<a href="#'.$num.'"><img src="'.$row['prod_picture_link'].'" style="width:100%"></a>
+								<div class="text">'.$row['prod_name'].'</div>
+							</div>
+							';
+					}
+				?>
 
 				<!-- Next and previous buttons -->
 				<a class="prev" onclick="plusDivs(-1)">&#10094;</a>
