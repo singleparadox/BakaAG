@@ -28,7 +28,7 @@ include_once("header.php");
 						echo '
 							<div class="mySlides">
 								<div class="numbertext">1 / 3</div>
-								<a href="#'.$num.'"><img src="'.$row['prod_picture_link'].'" style="width:100%"></a>
+								<a href="products.php?prod_id='.$row['prod_id'].'"><img src="'.$row['prod_picture_link'].'" style="width:100%"></a>
 								<div class="text">'.$row['prod_name'].'</div>
 							</div>
 							';

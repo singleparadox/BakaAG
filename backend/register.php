@@ -13,7 +13,7 @@
 	$result = $conn->query($sql);
 	$result = $result->fetch_assoc();
 	$accid = $result['acc_id'];
-	mkdir("../../../data/userdata/".$accid.$accfname.$acclname.);
+	mkdir("../../../data/userdata/".$accid.$accfname.$acclname);
 
 	$accdetailsgender = $_POST['gender'];
 	$accdetailsbday = $_POST['birthday'];

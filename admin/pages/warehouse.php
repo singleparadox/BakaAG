@@ -343,9 +343,9 @@
 	      </div>
 	      <div class="modal-body" id="">
 	      	<label for="new-categ-pic">Edit Category Picture:</label>
-	      	<input type="file" id="new-categ-pic" name="new-categ-pic" class="form-control-file" aria-describedby="basic-addon1">
-	      	<label for="new-categ-name"> Edit Category Name:</label><br>
-			<select type="text" id="new-categ-name" name="new-categ-name" onchange="changeInputData(this)" class="form-control" placeholder="Title" aria-describedby="basic-addon1" style="display:inline-block;width: 30%">
+	      	<input type="file" id="new-categ-pic-new" name="new-categ-pic-new" class="form-control-file" aria-describedby="basic-addon1">
+	      	<label for="new-categ-name-old"> Edit Category Name:</label><br>
+			<select type="text" id="new-categ-name" name="new-categ-name-old" onchange="changeInputData(this)" class="form-control" placeholder="Title" aria-describedby="basic-addon1" style="display:inline-block;width: 30%">
 				<option value="none">Select Category</option>
 				<?php
 					$sql = "SELECT prod_genre_id AS id, prod_genre_name AS genre FROM product_genre ORDER BY prod_genre_name ASC";

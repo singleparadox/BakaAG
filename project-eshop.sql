@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.7.0
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 15, 2018 at 02:00 AM
--- Server version: 10.1.19-MariaDB
--- PHP Version: 5.6.28
+-- Generation Time: Mar 15, 2018 at 05:51 AM
+-- Server version: 10.1.25-MariaDB
+-- PHP Version: 7.1.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -70,7 +72,9 @@ CREATE TABLE `account_address` (
 INSERT INTO `account_address` (`acc_address_id`, `acc_id`, `address_province`, `address_country`, `address_city`, `address_zipcode`, `address_line1`, `address_line2`) VALUES
 (1, 1, 'Test Province', 'Test Country', 'Test City', '1111', 'Test Address1', 'Test Address2'),
 (2, 2, 'Albay', 'Philippines', 'Legazpi', '4503', 'Legazpi,Albay', 'Legazpi,Albay'),
-(3, 5, 'Albay', 'Philippines', 'Legazpi', '4503', 'Maguiron Guinobatan Albay', 'Maguiron Guinobatan Albay');
+(3, 5, 'Albay', 'Philippines', 'Legazpi', '4503', 'Maguiron Guinobatan Albay', 'Maguiron Guinobatan Albay'),
+(4, 6, 'Albay', 'Philippines', 'Legazpi City', '1234', 'Albay', 'Albay'),
+(5, 6, 'Albay', 'Philippines', 'Legazpi City', '1234', 'Albay', 'Albay');
 
 -- --------------------------------------------------------
 
@@ -118,7 +122,9 @@ INSERT INTO `account_details` (`acc_details_id`, `acc_id`, `acc_details_gender`,
 (1, 1, 'Trans', '2017-12-17', '0976542321'),
 (2, 2, 'Male', '1997-10-22', '09363712548'),
 (3, 4, 'male', '2018-03-12', '09363712548'),
-(4, 5, 'male', '2018-03-16', '09363712548');
+(4, 5, 'male', '2018-03-16', '09363712548'),
+(5, 6, 'male', '1994-06-16', '09295988943'),
+(6, 6, 'male', '1994-07-14', '09295988943');
 
 -- --------------------------------------------------------
 
@@ -189,14 +195,15 @@ CREATE TABLE `inventory` (
 --
 
 INSERT INTO `inventory` (`inv_id`, `inv_price`, `inv_stock`, `inv_no_of_sold`, `inv_views`, `inv_rate`, `inv_discount`) VALUES
-(1, 60, 2, 0, 34, 0, 20),
-(7, 300, 11, 0, 70, 0, 10),
+(1, 60, 2, 0, 38, 0, 20),
+(7, 300, 11, 0, 71, 0, 10),
 (8, 10, 100, 0, 0, 0, 0),
 (9, 0, 0, 0, 0, 0, 0),
-(10, 200, 222, 0, 127, 0, 50),
-(11, 50, 777, 0, 16, 0, 40),
+(10, 200, 222, 0, 132, 0, 50),
+(11, 50, 777, 0, 21, 0, 40),
 (12, 100, 5, 0, 32, 0, 30),
-(13, 150, 3, 0, 5, 0, 75);
+(13, 150, 3, 0, 5, 0, 75),
+(14, 800, 20, 0, 50, 0, 20);
 
 -- --------------------------------------------------------
 
@@ -265,12 +272,13 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`prod_id`, `prod_codeid`, `prod_name`, `prod_desc`, `prod_picture_link`, `prod_dateadd`, `prod_featured`, `prod_genre_id`, `prod_type_id`, `inv_id`) VALUES
-(1, 'Empty', 'God Eater 2', 'n comparison to Gods Eater Burst there are new features and additions such as the four new weapons, the Boost Hammer, Charge Spear, the Variant Scythe and the Shotgun, each has its own function and abilities for the player to use. The Boost Hammer is a large hammer fitted with a rocket booster, which can be used to inflict heavy damage on an enemy. The Charge Spear is a large spear that can be "charged" to form a sharpened organic blade that can be used to stab foes.', 'data/Products/God Eater 2-18-03-04-37567/image.jpg', '2018-03-21', 'Yes', 2, 3, 1),
+(1, 'Empty', 'God Eater 2', 'n comparison to Gods Eater Burst there are new features and additions such as the four new weapons, the Boost Hammer, Charge Spear, the Variant Scythe and the Shotgun, each has its own function and abilities for the player to use. The Boost Hammer is a large hammer fitted with a rocket booster, which can be used to inflict heavy damage on an enemy. The Charge Spear is a large spear that can be \"charged\" to form a sharpened organic blade that can be used to stab foes.', 'data/Products/God Eater 2-18-03-04-37567/image.jpg', '2018-03-21', 'Yes', 2, 3, 1),
 (3, 'Empty', 'To Love Ru', 'The story of To Love-Ru revolves around Rito YÅ«ki, a shy and clumsy high-school student who cannot confess his love to the girl of his dreams, Haruna Sairenji. One day when sulking in the bathtub, a mysterious, naked devil-tailed girl appears out of nowhere. Her name is Lala, the runaway crown princess of the planet Deviluke. ', 'data/Products/To Love Ru-18-03-04-46309/image.jpg', '2018-03-12', 'Yes', 2, 2, 7),
 (6, 'Empty', 'Kakumeiki Valvrave', 'The story takes place in an unspecified future date, referred to as the 71st year of the True Era (çœŸæš¦ Shinreki). Seventy percent of all human beings have migrated from Earth to other planets of the Solar System and a Dyson sphere, constructed around an artificial Sun. ', 'data/Products/Test Image-17-12-28-42295/image.jpg', '2018-03-20', 'Yes', 2, 2, 10),
 (7, 'Empty', 'Gundam Breaker', 'Gundam Breaker is a video game for the Playstation 3 and PS Vita. It was first released for PS3 on June 27, 2013, and then for Vita on October 31, 2013. Both versions now have an online cross play component to share save data. Unlike most games in the Gundam series, Gundam Breaker focuses exclusively on gunplay rather than a specific story based on Gunpla Love and all Gundam universes. A sequel, titled Gundam Breaker 2, was released on December 18, 2014.', 'data/Products/Gundam Breaker-18-08-10-93874/image.jpg', '2018-03-20', 'Yes', 7, 3, 11),
 (8, 'Empty', 'Steins;Gate', 'Steins;Gate[a] is a visual novel video game developed by 5pb. and Nitroplus. It is the second game in the Science Adventure series, following Chaos;Head. The story follows a group of students as they discover and develop technology that gives them the means to change the past. The gameplay in Steins;Gate follows non-linear plot lines which offer branching scenarios with courses of interaction.', 'data/Products/Steins;Gate-18-01-10-16257/Steins;Gate-18-01-10-16257', '2018-03-13', 'Yes', 3, 2, 12),
-(9, 'Empty', 'Mob Psycho', 'Shigeo Kageyama is an average middle school boy, nicknamed Mob (ãƒ¢ãƒ– Mobu) (meaning â€œbackground characterâ€) for lacking a sense of presence. Although he looks like an inconspicuous person, he is in fact a powerful esper. As he grows older, Mob realizes that his psychic powers are strengthening and becoming more dangerous. To avoid his power getting out of control, he constantly lives a life under an emotional shackle. Mob wants to live a normal life just like the others, but a barrage of trouble keeps coming after him. With the suppressed emotions growing inside Mob little by little, his power threatens to break through its limits.', 'data/Products/Mob Psycho-18-01-10-69665/Mob Psycho-18-01-10-69665', '2018-03-20', 'Yes', 2, 2, 13);
+(9, 'Empty', 'Mob Psycho', 'Shigeo Kageyama is an average middle school boy, nicknamed Mob (ãƒ¢ãƒ– Mobu) (meaning â€œbackground characterâ€) for lacking a sense of presence. Although he looks like an inconspicuous person, he is in fact a powerful esper. As he grows older, Mob realizes that his psychic powers are strengthening and becoming more dangerous. To avoid his power getting out of control, he constantly lives a life under an emotional shackle. Mob wants to live a normal life just like the others, but a barrage of trouble keeps coming after him. With the suppressed emotions growing inside Mob little by little, his power threatens to break through its limits.', 'data/Products/Mob Psycho-18-01-10-69665/Mob Psycho-18-01-10-69665', '2018-03-20', 'Yes', 2, 2, 13),
+(10, 'b6589fc6ab0dc82cf12099d1c2d40ab994e8410c', 'Gintama', 'The Amanto, aliens from outer space, have invaded Earth and taken over feudal Japan. As a result, a prohibition on swords has been established, and the samurai of Japan are treated with disregard as a consequence.  However one man, Gintoki Sakata, still possesses the heart of the samurai, although from his love of sweets and work as a yorozuya, one might not expect it. Accompanying him in his jack-of-all-trades line of work are Shinpachi Shimura, a boy with glasses and a strong heart, Kagura with her umbrella and seemingly bottomless stomach, as well as Sadaharu, their oversized pet dog. Of course, these odd jobs are not always simple, as they frequently have run-ins with the police, ragtag rebels, and assassins, oftentimes leading to humorous but unfortunate consequences.  Who said life as an errand boy was easy?', 'data/Products/Gintama-18-03-15-53110/Gintama-18-03-15-53110', '2018-03-15', 'No', 3, 2, 14);
 
 -- --------------------------------------------------------
 
@@ -290,19 +298,16 @@ CREATE TABLE `product_genre` (
 --
 
 INSERT INTO `product_genre` (`prod_genre_id`, `prod_genre_name`, `prod_genre_desc`, `prod_genre_link`) VALUES
-(1, 'Adventure', '', NULL),
-(2, 'Action', 'Khalifa', NULL),
-(3, 'Hentai', '', NULL),
-(4, 'Ecchi', '', NULL),
-(5, 'Harem', '', NULL),
-(6, 'Demons', '', NULL),
-(7, 'Mecha', '', NULL),
-(8, 'Fantasy', '', NULL),
-(9, 'Magic', '', NULL),
-(10, 'Supernatural', '', NULL),
-(11, 'Shoujo', '', NULL),
-(12, 'Shounen', '', NULL),
-(13, 'Erotic', 'The Erotica', 'data/Category/Erotic-18-02-18-12157/Erotic-18-02-18-12157');
+(1, 'Action', 'Epic fights and heart-stomping scenes', 'data/Category/Action-18-03-15-29523/Action-18-03-15-29523'),
+(2, 'Adventure', 'Epic quests', 'data/Category/Adventure-18-03-15-72658/Adventure-18-03-15-72658'),
+(3, 'Comedy', 'Things that were made to laugh', 'data/Category/Comedy-18-03-15-44871/Comedy-18-03-15-44871'),
+(4, 'Drama', 'Intense feels', 'data/Category/Drama-18-03-15-33185/Drama-18-03-15-33185'),
+(5, 'Ecchi', 'Borderline hentai for the daring', 'data/Category/Ecchi-18-03-15-46014/Ecchi-18-03-15-46014'),
+(6, 'Fantasy', 'Epic Quests with magic in fantasy worlds!', 'data/Category/Fantasy-18-03-15-77547/Fantasy-18-03-15-77547'),
+(7, 'Romance', 'Sweet Stories about a man and a woman', 'data/Category/Romance-18-03-15-47446/Romance-18-03-15-47446'),
+(8, 'Shoujo', 'A genre made for women', 'data/Category/Shoujo-18-03-15-34833/Shoujo-18-03-15-34833'),
+(9, 'Shounen', 'A genre made for men', 'data/Category/Shounen-18-03-15-52573/Shounen-18-03-15-52573'),
+(10, 'Supernatural', 'In a modern or old world with strange powers and abilities', 'data/Category/Supernatural-18-03-15-40579/Supernatural-18-03-15-40579');
 
 -- --------------------------------------------------------
 
@@ -350,7 +355,8 @@ INSERT INTO `rating` (`rating_id`, `inv_id`, `acc_id`, `rate_num`) VALUES
 (7, 10, 8, 5),
 (8, 12, 3, 5),
 (9, 11, 3, 2),
-(10, 7, 3, 3);
+(10, 7, 3, 3),
+(11, 14, 3, 5);
 
 -- --------------------------------------------------------
 
@@ -376,7 +382,9 @@ INSERT INTO `search` (`search_id`, `search_query`, `user_searches`) VALUES
 (5, 'test mob gate', 2),
 (6, 'mob gate', 3),
 (7, 'alejandre papina dakikamura', 1),
-(8, 'test papina', 1);
+(8, 'test papina', 1),
+(9, 'gintama', 1),
+(10, 'gintama anime', 2);
 
 -- --------------------------------------------------------
 
@@ -494,7 +502,7 @@ ALTER TABLE `account`
 -- AUTO_INCREMENT for table `account_address`
 --
 ALTER TABLE `account_address`
-  MODIFY `acc_address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `acc_address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `account_billing`
 --
@@ -504,7 +512,7 @@ ALTER TABLE `account_billing`
 -- AUTO_INCREMENT for table `account_details`
 --
 ALTER TABLE `account_details`
-  MODIFY `acc_details_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `acc_details_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `account_type`
 --
@@ -519,7 +527,7 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `inv_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `inv_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `orders`
 --
@@ -534,12 +542,12 @@ ALTER TABLE `order_status`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `prod_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `prod_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `product_genre`
 --
 ALTER TABLE `product_genre`
-  MODIFY `prod_genre_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `prod_genre_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `product_type`
 --
@@ -549,12 +557,13 @@ ALTER TABLE `product_type`
 -- AUTO_INCREMENT for table `rating`
 --
 ALTER TABLE `rating`
-  MODIFY `rating_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `rating_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `search`
 --
 ALTER TABLE `search`
-  MODIFY `search_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `search_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
