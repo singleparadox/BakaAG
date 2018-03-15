@@ -23,8 +23,6 @@
 		    <div>
                 <span class="badge badge-info">'.$row['acc_fname']." ".$row['acc_lname'].'</span><br><br>
                 <p style="text-align: justify;">'.$row['content'].'</p>
-                <button style="cursor:pointer;" class="btn btn-primary btn-sm">View Replies</button>
-                <button style="cursor:pointer;" class="btn btn-primary btn-sm">Reply</button>
                 <small>'.date('g:ia \o\n l jS F Y', strtotime($row['comment_date'])).'</small>
               <hr>
             </div>

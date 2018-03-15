@@ -13,7 +13,7 @@
 	$result = $conn->query($sql);
 	$result = $result->fetch_assoc();
 	$accid = $result['acc_id'];
-	mkdir("../../../data/userdata/".$accid.$accfname.$acclname);
+	//mkdir("../../../data/userdata/".$accid.$accfname.$acclname);
 
 	$accdetailsgender = $_POST['gender'];
 	$accdetailsbday = $_POST['birthday'];
@@ -29,7 +29,8 @@
 	$addressline1 = $_POST['addr1'];
 	$addressline2 = $_POST['addr2'];
 
-	//$sql = "INSERT INTO account_address SET acc_id = '".$accid."', address_province = '".$addressprovince"', address_country = '".$addresscountry"', address_city = '".$addresscity"', address_zipcode = '".$addresszipcode"', address_line1 = '".$addressline1"', address_line2 = '".$addressline2"' ";
+	$sql = "INSERT INTO account_billing SET acc_id = '".$accid."', billing_province = '".$addressprovince."', billing_country = '".$addresscountry."', billing_city = '".$addresscity."', billing_phonenum='".$accdetailspnum."', billing_compaddress='".$addressline1."'";
+	$conn->query($sql);
 	$sql = "INSERT INTO account_address SET acc_id = '".$accid."', address_province = '".$addressprovince."', address_country = '".$addresscountry."', address_city = '".$addresscity."', address_zipcode = '".$addresszipcode."', address_line1 = '".$addressline1."', address_line2 = '".$addressline2."'";
 	$conn->query($sql);
 

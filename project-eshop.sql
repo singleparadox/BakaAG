@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 15, 2018 at 05:51 AM
+-- Generation Time: Mar 15, 2018 at 08:44 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -46,7 +46,8 @@ INSERT INTO `account` (`acc_id`, `acc_email`, `acc_pass`, `acc_fname`, `acc_lnam
 (2, 'user@test.com', 'pass', 'Alejandre', 'Papina', 1),
 (3, 'email2@test.com', 'pass', 'Warehouse', 'Manager', 3),
 (4, 'email3@test.com', 'pass', 'Account', 'Manager', 4),
-(5, 'master@email.com', 'pass', 'Master', 'Account', 5);
+(5, 'master@email.com', 'pass', 'Master', 'Account', 5),
+(6, 'user2@test.com', 'pass', 'Loyd', 'Yanzon', 1);
 
 -- --------------------------------------------------------
 
@@ -73,8 +74,7 @@ INSERT INTO `account_address` (`acc_address_id`, `acc_id`, `address_province`, `
 (1, 1, 'Test Province', 'Test Country', 'Test City', '1111', 'Test Address1', 'Test Address2'),
 (2, 2, 'Albay', 'Philippines', 'Legazpi', '4503', 'Legazpi,Albay', 'Legazpi,Albay'),
 (3, 5, 'Albay', 'Philippines', 'Legazpi', '4503', 'Maguiron Guinobatan Albay', 'Maguiron Guinobatan Albay'),
-(4, 6, 'Albay', 'Philippines', 'Legazpi City', '1234', 'Albay', 'Albay'),
-(5, 6, 'Albay', 'Philippines', 'Legazpi City', '1234', 'Albay', 'Albay');
+(4, 6, 'Albay', 'Philippines', 'Legazpi City', '1234', 'Albay', 'Albay');
 
 -- --------------------------------------------------------
 
@@ -98,7 +98,8 @@ CREATE TABLE `account_billing` (
 
 INSERT INTO `account_billing` (`acc_billing_id`, `acc_id`, `billing_province`, `billing_country`, `billing_city`, `billing_phonenum`, `billing_compaddress`) VALUES
 (1, 1, 'Test B. Province', 'Test B. Country', 'Test B. City', '091111111', 'Test B. CompAdd'),
-(2, 2, 'Albay', 'Philippines', 'Legazpu', '09363712548', 'Maguiron Guinobatan Albay');
+(2, 2, 'Albay', 'Philippines', 'Legazpu', '09363712548', 'Maguiron Guinobatan Albay'),
+(3, 6, 'Albay', 'Philippines', 'Legazpi City', '09295988943', 'Albay');
 
 -- --------------------------------------------------------
 
@@ -123,8 +124,7 @@ INSERT INTO `account_details` (`acc_details_id`, `acc_id`, `acc_details_gender`,
 (2, 2, 'Male', '1997-10-22', '09363712548'),
 (3, 4, 'male', '2018-03-12', '09363712548'),
 (4, 5, 'male', '2018-03-16', '09363712548'),
-(5, 6, 'male', '1994-06-16', '09295988943'),
-(6, 6, 'male', '1994-07-14', '09295988943');
+(5, 6, 'female', '2018-03-30', '09295988943');
 
 -- --------------------------------------------------------
 
@@ -174,6 +174,16 @@ CREATE TABLE `comments` (
   `comment_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `comments`
+--
+
+INSERT INTO `comments` (`comment_id`, `acc_id`, `prod_id`, `content`, `comment_date`) VALUES
+(1, 6, 10, 'This anime sucks', '2018-03-15 05:59:17'),
+(2, 6, 10, 'ãŠã¡ã‚“ã¡ã‚“ã™ã', '2018-03-15 06:01:29'),
+(3, 6, 10, 'Shut up you asian little boi', '2018-03-15 06:02:09'),
+(4, 2, 1, 'Paps x Loyd best ship', '2018-03-15 06:26:01');
+
 -- --------------------------------------------------------
 
 --
@@ -195,15 +205,15 @@ CREATE TABLE `inventory` (
 --
 
 INSERT INTO `inventory` (`inv_id`, `inv_price`, `inv_stock`, `inv_no_of_sold`, `inv_views`, `inv_rate`, `inv_discount`) VALUES
-(1, 60, 2, 0, 38, 0, 20),
-(7, 300, 11, 0, 71, 0, 10),
+(1, 60, 2, 0, 45, 0, 20),
+(7, 300, 11, 0, 80, 0, 10),
 (8, 10, 100, 0, 0, 0, 0),
 (9, 0, 0, 0, 0, 0, 0),
-(10, 200, 222, 0, 132, 0, 50),
-(11, 50, 777, 0, 21, 0, 40),
+(10, 200, 222, 0, 136, 0, 50),
+(11, 50, 777, 0, 22, 0, 40),
 (12, 100, 5, 0, 32, 0, 30),
 (13, 150, 3, 0, 5, 0, 75),
-(14, 800, 20, 0, 50, 0, 20);
+(14, 800, 20, 0, 59, 0, 20);
 
 -- --------------------------------------------------------
 
@@ -356,7 +366,10 @@ INSERT INTO `rating` (`rating_id`, `inv_id`, `acc_id`, `rate_num`) VALUES
 (8, 12, 3, 5),
 (9, 11, 3, 2),
 (10, 7, 3, 3),
-(11, 14, 3, 5);
+(11, 14, 3, 5),
+(12, 14, 6, 1),
+(13, 7, 6, 5),
+(14, 1, 2, 5);
 
 -- --------------------------------------------------------
 
@@ -383,8 +396,20 @@ INSERT INTO `search` (`search_id`, `search_query`, `user_searches`) VALUES
 (6, 'mob gate', 3),
 (7, 'alejandre papina dakikamura', 1),
 (8, 'test papina', 1),
-(9, 'gintama', 1),
-(10, 'gintama anime', 2);
+(9, 'gintama', 2),
+(10, 'gintama anime', 2),
+(11, 'love kakumeiki', 2),
+(12, 'love', 1),
+(13, 'kakumeiki', 1),
+(14, 'test gate love', 2),
+(15, 'test kid po', 1),
+(16, 'kakumeiki test love', 1),
+(17, 'kids', 1),
+(18, 'how to commit suicide', 2),
+(19, 'to love', 1),
+(20, 'man to man', 1),
+(21, 'papina loyd scandal', 2),
+(22, 'hentai', 1);
 
 -- --------------------------------------------------------
 
@@ -497,22 +522,22 @@ ALTER TABLE `search` ADD FULLTEXT KEY `search_query` (`search_query`);
 -- AUTO_INCREMENT for table `account`
 --
 ALTER TABLE `account`
-  MODIFY `acc_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `acc_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `account_address`
 --
 ALTER TABLE `account_address`
-  MODIFY `acc_address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `acc_address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `account_billing`
 --
 ALTER TABLE `account_billing`
-  MODIFY `acc_billing_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `acc_billing_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `account_details`
 --
 ALTER TABLE `account_details`
-  MODIFY `acc_details_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `acc_details_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `account_type`
 --
@@ -522,7 +547,7 @@ ALTER TABLE `account_type`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `inventory`
 --
@@ -532,7 +557,7 @@ ALTER TABLE `inventory`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `order_status`
 --
@@ -557,12 +582,12 @@ ALTER TABLE `product_type`
 -- AUTO_INCREMENT for table `rating`
 --
 ALTER TABLE `rating`
-  MODIFY `rating_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `rating_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `search`
 --
 ALTER TABLE `search`
-  MODIFY `search_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;COMMIT;
+  MODIFY `search_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
