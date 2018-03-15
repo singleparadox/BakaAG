@@ -67,8 +67,7 @@ include_once("header.php");
 				    </tr>
 				  </tbody>
 		</table>
-		<a href="#"><button class="btn btn-primary" id="cursor-pointer" data-toggle="modal" data-target="#card-modal">Pay using card</button></a>
-		<a href="#"><button class="btn btn-primary" id="cursor-pointer">Pay using PayPal</button></a>
+		<a href="#"><button class="btn btn-primary" id="cursor-pointer" data-toggle="modal" data-target="#card-modal">Choose payment method</button></a>
 		        	';
     		}
     	?>          
@@ -93,7 +92,59 @@ include_once("header.php");
       </div>
       <div class="modal-body" id="card-modal-content">
         <p>
-        	<div class="form-group">
+        <ul class="nav nav-tabs">
+		  <li class="nav-item">
+		    <a class="nav-link active show" data-toggle="tab" href="#cod-mode">Cash On Delivery</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" data-toggle="tab" href="#card-mode">Debit/Credit</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" data-toggle="tab" href="#paypal-mode">Paypal</a>
+		  </li>
+		</ul>
+		<div id="myTabContent" class="tab-content">
+		  <div class="tab-pane fade active show" id="cod-mode">
+		  		<?php
+					$sql ="SELECT* FROM account,account_details,account_billing,account_address WHERE account.acc_id='".$_SESSION['acc_id']."' AND account.acc_id=account_details.acc_id AND account.acc_id=account_billing.acc_id AND account.acc_id=account_address.acc_id";
+					$result = $conn->query($sql);
+					$row = $result->fetch_assoc();
+		  		?>
+		  		Address
+		  		<div class="form-group">
+				  <fieldset disabled="">
+				    <label class="control-label" for="province">Province</label>
+				    <input class="form-control" id="province" type="text" placeholder="<?php echo $row['billing_province'];?>" disabled="">
+				  </fieldset>
+				</div>
+				<div class="form-group">
+				  <fieldset disabled="">
+				    <label class="control-label" for="countr">Country</label>
+				    <input class="form-control" id="countr" type="text" placeholder="<?php echo $row['billing_country'];?>" disabled="">
+				  </fieldset>
+				</div>
+				<div class="form-group">
+				  <fieldset disabled="">
+				    <label class="control-label" for="city">City</label>
+				    <input class="form-control" id="city" type="text" placeholder="<?php echo $row['billing_city'];?>" disabled="">
+				  </fieldset>
+				</div>
+				<div class="form-group">
+				  <fieldset disabled="">
+				    <label class="control-label" for="pnum">Disabled input</label>
+				    <input class="form-control" id="pnum" type="text" placeholder="<?php echo $row['billing_phonenum'];?>" disabled="">
+				  </fieldset>
+				</div>
+				<div class="form-group">
+				  <fieldset disabled="">
+				    <label class="control-label" for="cadd">Disabled input</label>
+				    <input class="form-control" id="cadd" type="text" placeholder="<?php echo $row['billing_compaddress'];?>" disabled="">
+				  </fieldset>
+				</div>
+		    	 <br><center><button type="button" id="pay-card-chckout" class="btn btn-primary" onclick="payuscard()">Place Order</button></center>
+		  </div>
+		  <div class="tab-pane fade" id="card-mode">
+		   <div class="form-group">
 		      <label for="card-name">Name on Card</label>
 		      <input type="text" class="form-control" id="card-name" aria-describedby="emailHelp" placeholder="Name">
 		    </div>
@@ -115,10 +166,16 @@ include_once("header.php");
 		      <label for="card-cvv">Card CCV</label>
 		      <input type="text" class="form-control" id="card-cvv" aria-describedby="emailHelp" placeholder="CVV" maxlength="3">
 		    </div>
+		    <button type="button" id="pay-card-chckout" class="btn btn-primary" onclick="payuscard()">Pay</button>
+		  </div>
+		<div class="tab-pane fade" id="paypal-mode">
+		  <br>
+		  <center><button type="button" id="pay-card-chckout" class="btn btn-primary">Login to Paypal</button></center>
+		</div>
+		</div>
         </p>
       </div>
       <div class="modal-footer">
-       	<button type="button" id="pay-card-chckout" class="btn btn-primary" onclick="payuscard()">Pay</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
