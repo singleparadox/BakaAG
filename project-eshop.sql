@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 14, 2018 at 05:32 PM
--- Server version: 10.1.25-MariaDB
--- PHP Version: 7.1.7
+-- Generation Time: Mar 15, 2018 at 02:00 AM
+-- Server version: 10.1.19-MariaDB
+-- PHP Version: 5.6.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -42,7 +40,7 @@ CREATE TABLE `account` (
 --
 
 INSERT INTO `account` (`acc_id`, `acc_email`, `acc_pass`, `acc_fname`, `acc_lname`, `acc_type_id`) VALUES
-(1, 'email@test.com', 'pass', 'Glenn', 'Perez', 2),
+(1, 'email@test.com', 'pass', 'Store', 'Manager', 2),
 (2, 'user@test.com', 'pass', 'Alejandre', 'Papina', 1),
 (3, 'email2@test.com', 'pass', 'Warehouse', 'Manager', 3),
 (4, 'email3@test.com', 'pass', 'Account', 'Manager', 4),
@@ -191,14 +189,14 @@ CREATE TABLE `inventory` (
 --
 
 INSERT INTO `inventory` (`inv_id`, `inv_price`, `inv_stock`, `inv_no_of_sold`, `inv_views`, `inv_rate`, `inv_discount`) VALUES
-(1, 1001, 2, 0, 33, 0, 20),
-(7, 111, 11, 0, 70, 0, 10),
+(1, 60, 2, 0, 34, 0, 20),
+(7, 300, 11, 0, 70, 0, 10),
 (8, 10, 100, 0, 0, 0, 0),
 (9, 0, 0, 0, 0, 0, 0),
-(10, 10000, 222, 0, 125, 0, 50),
-(11, 111, 777, 0, 16, 0, 40),
-(12, 100, 2, 0, 32, 0, 30),
-(13, 100, 3, 0, 3, 0, 75);
+(10, 200, 222, 0, 127, 0, 50),
+(11, 50, 777, 0, 16, 0, 40),
+(12, 100, 5, 0, 32, 0, 30),
+(13, 150, 3, 0, 5, 0, 75);
 
 -- --------------------------------------------------------
 
@@ -220,9 +218,8 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `acc_id`, `order_total_amt`, `order_product_list`, `order_date`, `order_status_id`) VALUES
-(1, 2, 10000, '6;', '2018-03-13 13:35:18', 2),
-(2, 2, 100, '8;', '2018-03-13 13:35:18', 1),
-(3, 3, 100, '8;', '2018-03-14 13:50:53', 1);
+(2, 2, 300, '8;', '2018-03-13 13:35:18', 1),
+(3, 2, 100, '8;', '2018-03-14 13:50:53', 1);
 
 -- --------------------------------------------------------
 
@@ -268,12 +265,12 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`prod_id`, `prod_codeid`, `prod_name`, `prod_desc`, `prod_picture_link`, `prod_dateadd`, `prod_featured`, `prod_genre_id`, `prod_type_id`, `inv_id`) VALUES
-(1, 'Empty', 'Laptop', 'Test Desc', 'data/Products/default.jpg', '0000-00-00', 'Yes', 2, 3, 1),
-(3, 'Empty', 'joeasas', 'show', 'data/Products/default.jpg', '0000-00-00', 'Yes', 2, 2, 7),
-(6, 'Empty', 'Test Image', 'Test Image', 'data/Products/Test Image-17-12-28-42295/Test Image-17-12-28-42295', '0000-00-00', 'Yes', 2, 2, 10),
-(7, 'Empty', 'Test Image(No Image)', 'No image', 'data/Products/default.jpg', '0000-00-00', 'Yes', 2, 3, 11),
-(8, 'Empty', 'Steins;Gate', '', 'data/Products/Steins;Gate-18-01-10-16257/Steins;Gate-18-01-10-16257', '0000-00-00', 'Yes', 3, 2, 12),
-(9, 'Empty', 'Mob Psycho', '', 'data/Products/Mob Psycho-18-01-10-69665/Mob Psycho-18-01-10-69665', '0000-00-00', 'Yes', 2, 2, 13);
+(1, 'Empty', 'God Eater 2', 'n comparison to Gods Eater Burst there are new features and additions such as the four new weapons, the Boost Hammer, Charge Spear, the Variant Scythe and the Shotgun, each has its own function and abilities for the player to use. The Boost Hammer is a large hammer fitted with a rocket booster, which can be used to inflict heavy damage on an enemy. The Charge Spear is a large spear that can be "charged" to form a sharpened organic blade that can be used to stab foes.', 'data/Products/God Eater 2-18-03-04-37567/image.jpg', '2018-03-21', 'Yes', 2, 3, 1),
+(3, 'Empty', 'To Love Ru', 'The story of To Love-Ru revolves around Rito YÅ«ki, a shy and clumsy high-school student who cannot confess his love to the girl of his dreams, Haruna Sairenji. One day when sulking in the bathtub, a mysterious, naked devil-tailed girl appears out of nowhere. Her name is Lala, the runaway crown princess of the planet Deviluke. ', 'data/Products/To Love Ru-18-03-04-46309/image.jpg', '2018-03-12', 'Yes', 2, 2, 7),
+(6, 'Empty', 'Kakumeiki Valvrave', 'The story takes place in an unspecified future date, referred to as the 71st year of the True Era (çœŸæš¦ Shinreki). Seventy percent of all human beings have migrated from Earth to other planets of the Solar System and a Dyson sphere, constructed around an artificial Sun. ', 'data/Products/Test Image-17-12-28-42295/image.jpg', '2018-03-20', 'Yes', 2, 2, 10),
+(7, 'Empty', 'Gundam Breaker', 'Gundam Breaker is a video game for the Playstation 3 and PS Vita. It was first released for PS3 on June 27, 2013, and then for Vita on October 31, 2013. Both versions now have an online cross play component to share save data. Unlike most games in the Gundam series, Gundam Breaker focuses exclusively on gunplay rather than a specific story based on Gunpla Love and all Gundam universes. A sequel, titled Gundam Breaker 2, was released on December 18, 2014.', 'data/Products/Gundam Breaker-18-08-10-93874/image.jpg', '2018-03-20', 'Yes', 7, 3, 11),
+(8, 'Empty', 'Steins;Gate', 'Steins;Gate[a] is a visual novel video game developed by 5pb. and Nitroplus. It is the second game in the Science Adventure series, following Chaos;Head. The story follows a group of students as they discover and develop technology that gives them the means to change the past. The gameplay in Steins;Gate follows non-linear plot lines which offer branching scenarios with courses of interaction.', 'data/Products/Steins;Gate-18-01-10-16257/Steins;Gate-18-01-10-16257', '2018-03-13', 'Yes', 3, 2, 12),
+(9, 'Empty', 'Mob Psycho', 'Shigeo Kageyama is an average middle school boy, nicknamed Mob (ãƒ¢ãƒ– Mobu) (meaning â€œbackground characterâ€) for lacking a sense of presence. Although he looks like an inconspicuous person, he is in fact a powerful esper. As he grows older, Mob realizes that his psychic powers are strengthening and becoming more dangerous. To avoid his power getting out of control, he constantly lives a life under an emotional shackle. Mob wants to live a normal life just like the others, but a barrage of trouble keeps coming after him. With the suppressed emotions growing inside Mob little by little, his power threatens to break through its limits.', 'data/Products/Mob Psycho-18-01-10-69665/Mob Psycho-18-01-10-69665', '2018-03-20', 'Yes', 2, 2, 13);
 
 -- --------------------------------------------------------
 
@@ -527,7 +524,7 @@ ALTER TABLE `inventory`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `order_status`
 --
@@ -557,8 +554,7 @@ ALTER TABLE `rating`
 -- AUTO_INCREMENT for table `search`
 --
 ALTER TABLE `search`
-  MODIFY `search_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;COMMIT;
-
+  MODIFY `search_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
