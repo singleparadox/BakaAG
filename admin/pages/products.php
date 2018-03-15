@@ -3,7 +3,7 @@
 ?>
 	<div class="product-block">
     	<div class="pro-head">
-    		<h2>Products</h2>
+    		<h2>All Products</h2>
     	</div>
     	<div id="product-content">
     	<?php

@@ -16,6 +16,7 @@
 <div class="inner-block">
 <!--market updates updates-->
 	<div class="blank">
+	<h1>Graphs and Reports</h1><hr>
 	 <div class="market-updates">
 			<a href="#" data-toggle="modal" data-target="#product-report-modal"><div class="col-md-4 market-update-gd">
 				<div class="market-update-block clr-block-1">
@@ -135,7 +136,7 @@
 				    type: 'bar',
 				    data: {
 				        labels: [<?php
-				        			$sql="SELECT DISTINCT acc_fname FROM orders,account WHERE orders.acc_id=account.acc_id";
+				        			$sql="SELECT DISTINCT acc_fname FROM orders,account WHERE orders.acc_id=account.acc_id AND acc_type_id='1'";
 				        			$result = $conn->query($sql);
 									while($row = $result->fetch_assoc()){
 										echo '"'.$row['acc_fname'].'",';
@@ -144,7 +145,7 @@
 				        datasets: [{
 				            label: '# of orders placed',
 				            data: [<?php
-				        			$sql="SELECT DISTINCT COUNT(order_id) AS totORDERS FROM orders,account WHERE orders.acc_id=account.acc_id";
+				        			$sql="SELECT DISTINCT COUNT(order_id) AS totORDERS FROM orders,account WHERE orders.acc_id=account.acc_id AND acc_type_id='1'";
 				        			$result = $conn->query($sql);
 									while($row = $result->fetch_assoc()){
 										echo '"'.$row['totORDERS'].'",';
