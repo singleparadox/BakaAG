@@ -87,7 +87,7 @@
 		      <ul id="menu">
 		        <li id="menu-home" ><a href="#"><i class="fa fa-"><img src="../img/maki.png" height="170px" width="170px"></i><span><?php echo $rowacc['acc_fname']." "; echo $rowacc['acc_lname']?></span></a></li>
 		        <li><a href="#"><i class="fa fa-cogs"></i><span>Account Settings</span></a></li>
-		        <li id="menu-home" ><a href="pages/backend/admin-logout.php"><i class="fa fa-home"></i><span>Logout</span></a></li>
+		        <li id="menu-home" ><a href="pages/backend/admin-logout.php"><i class="fa fa-sign-out"></i><span>Logout</span></a></li>
 		      </ul>
 		    </div>
 	 </div>
