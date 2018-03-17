@@ -47,3 +47,16 @@ function chcngordstat(id){
   xhttp.open("GET", "pages/backend/updateordstat.php?id="+id+"&orderstat="+order_stat, true);
   xhttp.send();
 }
+
+function chcaccess(id){
+  var newaccess = document.getElementById("chcaccess").value;
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("main-page").innerHTML = this.responseText;
+    }
+  };
+  console.log(newaccess);
+  xhttp.open("GET", "pages/backend/chcaccess.php?id="+id+"&newaccess="+newaccess, true);
+  xhttp.send();
+}

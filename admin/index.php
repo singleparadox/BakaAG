@@ -69,6 +69,8 @@
 				include "pages/dashboard.php";
 			elseif($_SESSION['acc_type_id']==3)
 				include "pages/warehouse.php";
+			elseif($_SESSION['acc_type_id']==4)
+				include "pages/accmgmt.php";
 			else
 
 		?>
