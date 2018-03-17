@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 15, 2018 at 08:44 AM
--- Server version: 10.1.25-MariaDB
--- PHP Version: 7.1.7
+-- Generation Time: Mar 17, 2018 at 04:34 PM
+-- Server version: 10.1.19-MariaDB
+-- PHP Version: 5.6.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -74,7 +72,9 @@ INSERT INTO `account_address` (`acc_address_id`, `acc_id`, `address_province`, `
 (1, 1, 'Test Province', 'Test Country', 'Test City', '1111', 'Test Address1', 'Test Address2'),
 (2, 2, 'Albay', 'Philippines', 'Legazpi', '4503', 'Legazpi,Albay', 'Legazpi,Albay'),
 (3, 5, 'Albay', 'Philippines', 'Legazpi', '4503', 'Maguiron Guinobatan Albay', 'Maguiron Guinobatan Albay'),
-(4, 6, 'Albay', 'Philippines', 'Legazpi City', '1234', 'Albay', 'Albay');
+(4, 6, 'Albay', 'Philippines', 'Legazpi City', '1234', 'Albay', 'Albay'),
+(5, 3, 'Albay', 'Philippines', 'Legazpi', '4503', 'None', 'None'),
+(6, 4, 'Albay', 'Philippines', 'Daraga', '4506', 'None', 'None');
 
 -- --------------------------------------------------------
 
@@ -99,7 +99,9 @@ CREATE TABLE `account_billing` (
 INSERT INTO `account_billing` (`acc_billing_id`, `acc_id`, `billing_province`, `billing_country`, `billing_city`, `billing_phonenum`, `billing_compaddress`) VALUES
 (1, 1, 'Test B. Province', 'Test B. Country', 'Test B. City', '091111111', 'Test B. CompAdd'),
 (2, 2, 'Albay', 'Philippines', 'Legazpu', '09363712548', 'Maguiron Guinobatan Albay'),
-(3, 6, 'Albay', 'Philippines', 'Legazpi City', '09295988943', 'Albay');
+(3, 6, 'Albay', 'Philippines', 'Legazpi City', '09295988943', 'Albay'),
+(4, 3, 'Albay', 'Philippines', 'Legazpi', '0976842463', 'Daraga Albay Philippines'),
+(5, 4, 'Albay', 'Philippines', 'Daraga', '0967324673', 'Daraga Albay Philippines');
 
 -- --------------------------------------------------------
 
@@ -124,7 +126,8 @@ INSERT INTO `account_details` (`acc_details_id`, `acc_id`, `acc_details_gender`,
 (2, 2, 'Male', '1997-10-22', '09363712548'),
 (3, 4, 'male', '2018-03-12', '09363712548'),
 (4, 5, 'male', '2018-03-16', '09363712548'),
-(5, 6, 'female', '2018-03-30', '09295988943');
+(5, 6, 'female', '2018-03-30', '09295988943'),
+(6, 3, 'Male', '2018-03-21', '093684584');
 
 -- --------------------------------------------------------
 
@@ -146,7 +149,8 @@ INSERT INTO `account_type` (`acc_type_id`, `acc_type_name`) VALUES
 (2, 'Admin-Store Manger'),
 (3, 'Warehouse-Manager'),
 (4, 'Account-Manager'),
-(5, 'Master Admin');
+(5, 'Master Admin'),
+(6, 'Restricted/Blocked');
 
 -- --------------------------------------------------------
 
@@ -282,7 +286,7 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`prod_id`, `prod_codeid`, `prod_name`, `prod_desc`, `prod_picture_link`, `prod_dateadd`, `prod_featured`, `prod_genre_id`, `prod_type_id`, `inv_id`) VALUES
-(1, 'Empty', 'God Eater 2', 'n comparison to Gods Eater Burst there are new features and additions such as the four new weapons, the Boost Hammer, Charge Spear, the Variant Scythe and the Shotgun, each has its own function and abilities for the player to use. The Boost Hammer is a large hammer fitted with a rocket booster, which can be used to inflict heavy damage on an enemy. The Charge Spear is a large spear that can be \"charged\" to form a sharpened organic blade that can be used to stab foes.', 'data/Products/God Eater 2-18-03-04-37567/image.jpg', '2018-03-21', 'Yes', 2, 3, 1),
+(1, 'Empty', 'God Eater 2', 'n comparison to Gods Eater Burst there are new features and additions such as the four new weapons, the Boost Hammer, Charge Spear, the Variant Scythe and the Shotgun, each has its own function and abilities for the player to use. The Boost Hammer is a large hammer fitted with a rocket booster, which can be used to inflict heavy damage on an enemy. The Charge Spear is a large spear that can be "charged" to form a sharpened organic blade that can be used to stab foes.', 'data/Products/God Eater 2-18-03-04-37567/image.jpg', '2018-03-21', 'Yes', 2, 3, 1),
 (3, 'Empty', 'To Love Ru', 'The story of To Love-Ru revolves around Rito YÅ«ki, a shy and clumsy high-school student who cannot confess his love to the girl of his dreams, Haruna Sairenji. One day when sulking in the bathtub, a mysterious, naked devil-tailed girl appears out of nowhere. Her name is Lala, the runaway crown princess of the planet Deviluke. ', 'data/Products/To Love Ru-18-03-04-46309/image.jpg', '2018-03-12', 'Yes', 2, 2, 7),
 (6, 'Empty', 'Kakumeiki Valvrave', 'The story takes place in an unspecified future date, referred to as the 71st year of the True Era (çœŸæš¦ Shinreki). Seventy percent of all human beings have migrated from Earth to other planets of the Solar System and a Dyson sphere, constructed around an artificial Sun. ', 'data/Products/Test Image-17-12-28-42295/image.jpg', '2018-03-20', 'Yes', 2, 2, 10),
 (7, 'Empty', 'Gundam Breaker', 'Gundam Breaker is a video game for the Playstation 3 and PS Vita. It was first released for PS3 on June 27, 2013, and then for Vita on October 31, 2013. Both versions now have an online cross play component to share save data. Unlike most games in the Gundam series, Gundam Breaker focuses exclusively on gunplay rather than a specific story based on Gunpla Love and all Gundam universes. A sequel, titled Gundam Breaker 2, was released on December 18, 2014.', 'data/Products/Gundam Breaker-18-08-10-93874/image.jpg', '2018-03-20', 'Yes', 7, 3, 11),
@@ -527,22 +531,22 @@ ALTER TABLE `account`
 -- AUTO_INCREMENT for table `account_address`
 --
 ALTER TABLE `account_address`
-  MODIFY `acc_address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `acc_address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `account_billing`
 --
 ALTER TABLE `account_billing`
-  MODIFY `acc_billing_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `acc_billing_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `account_details`
 --
 ALTER TABLE `account_details`
-  MODIFY `acc_details_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `acc_details_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `account_type`
 --
 ALTER TABLE `account_type`
-  MODIFY `acc_type_id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `acc_type_id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `comments`
 --
@@ -587,8 +591,7 @@ ALTER TABLE `rating`
 -- AUTO_INCREMENT for table `search`
 --
 ALTER TABLE `search`
-  MODIFY `search_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;COMMIT;
-
+  MODIFY `search_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
