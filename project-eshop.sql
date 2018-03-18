@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 17, 2018 at 04:34 PM
+-- Generation Time: Mar 18, 2018 at 06:01 AM
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 5.6.28
 
@@ -160,8 +160,8 @@ INSERT INTO `account_type` (`acc_type_id`, `acc_type_name`) VALUES
 
 CREATE TABLE `cart` (
   `acc_id` int(11) NOT NULL,
-  `prod_list` varchar(700) NOT NULL,
-  `cart_total_amt` int(9) NOT NULL
+  `prod_id` varchar(700) NOT NULL,
+  `prod_quant` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -209,15 +209,15 @@ CREATE TABLE `inventory` (
 --
 
 INSERT INTO `inventory` (`inv_id`, `inv_price`, `inv_stock`, `inv_no_of_sold`, `inv_views`, `inv_rate`, `inv_discount`) VALUES
-(1, 60, 2, 0, 45, 0, 20),
-(7, 300, 11, 0, 80, 0, 10),
+(1, 60, 2, 0, 46, 0, 20),
+(7, 300, 11, 0, 82, 0, 10),
 (8, 10, 100, 0, 0, 0, 0),
 (9, 0, 0, 0, 0, 0, 0),
 (10, 200, 222, 0, 136, 0, 50),
 (11, 50, 777, 0, 22, 0, 40),
 (12, 100, 5, 0, 32, 0, 30),
 (13, 150, 3, 0, 5, 0, 75),
-(14, 800, 20, 0, 59, 0, 20);
+(14, 800, 20, 0, 62, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -240,7 +240,8 @@ CREATE TABLE `orders` (
 
 INSERT INTO `orders` (`order_id`, `acc_id`, `order_total_amt`, `order_product_list`, `order_date`, `order_status_id`) VALUES
 (2, 2, 300, '8;', '2018-03-13 13:35:18', 1),
-(3, 2, 100, '8;', '2018-03-14 13:50:53', 1);
+(3, 2, 100, '8;', '2018-03-14 13:50:53', 1),
+(6, 6, 3210, '10;3;', '2018-03-18 05:01:00', 1);
 
 -- --------------------------------------------------------
 
@@ -462,6 +463,12 @@ ALTER TABLE `account_type`
   ADD PRIMARY KEY (`acc_type_id`);
 
 --
+-- Indexes for table `cart`
+--
+ALTER TABLE `cart`
+  ADD UNIQUE KEY `prod_id` (`prod_id`);
+
+--
 -- Indexes for table `comments`
 --
 ALTER TABLE `comments`
@@ -561,7 +568,7 @@ ALTER TABLE `inventory`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `order_status`
 --
