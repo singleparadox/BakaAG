@@ -29,6 +29,14 @@ include_once("header.php");
     			echo "Must be logged in to continue";
     		}
     		else{
+    			$sql = "SELECT * FROM product,inventory WHERE inventory.inv_id=product.inv_id";
+		        $result = $conn->query($sql);
+		        while($row = $result->fetch_assoc()){
+		                    if(in_array($row['prod_id'], $_SESSION['arry'])==true){
+		                    	$sql2 = "INSERT INTO cart SET acc_id='".$_SESSION['acc_id']."', prod_id='".$row['prod_id']."',prod_quant='1'";
+		                    	$conn->query($sql2);
+		                    }
+		               	}
     			echo '
     				<table class="table table-hover">
 					   <thead>
@@ -40,16 +48,20 @@ include_once("header.php");
 							  </thead>
 							  <tbody>
     				';
-    				$sql = "SELECT * FROM product,inventory WHERE inventory.inv_id=product.inv_id";
+    					$sql = "SELECT * FROM cart,product,inventory WHERE inventory.inv_id=product.inv_id AND cart.prod_id=product.prod_id";
 		                $result = $conn->query($sql);
 		                $totprice = 0;
-		                $totprod = 0;
-		                $_SESSION['prodlist'] = "";
+		                $_SESSION['prodlist']="";
 		                while($row = $result->fetch_assoc()){
-		                    if(in_array($row['prod_id'], $_SESSION['arry'])==true){
-	                            $a = $row['inv_price'] * ($row['inv_discount'] / 100);
-	                            $b = $row['inv_price'] - $a;
-		                        $totprice = $totprice + $b;
+	                  			if($row['inv_discount']>0){
+	                  				$a = $row['inv_price'] * ($row['inv_discount'] / 100);
+	                            	$b = $row['inv_price'] - $a;
+		                        	$totprice = $totprice + $b;
+	                  			}
+	                  			else{
+	                  				$b = $row['inv_price'];
+		    						$totprice = $totprice + $b;
+	                  			}
 		                        $_SESSION['prodlist'] = $_SESSION['prodlist'].$row['prod_id'].";";
 		                        echo '
 		                            <tr>
@@ -58,12 +70,11 @@ include_once("header.php");
 		                                <td>PHP '.number_format($b,2).'</td>
 		                                </tr>
 		                                ';
-		                    }
 		                }
 		        echo '
 		        	<tr class="table-active">
 				      <th scope="col">Total</th>
-				      <th scope="col" id="total-price" name="total-price">PHP '.number_format($totprice,2).'</th>
+				      <th scope="col" id="total-price" name="total-price">PHP <input type="number" id="totprce" value="'.$totprice.'" disabled></th>
 				    </tr>
 				  </tbody>
 		</table>
