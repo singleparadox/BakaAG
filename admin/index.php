@@ -71,7 +71,10 @@
 				include "pages/warehouse.php";
 			elseif($_SESSION['acc_type_id']==4)
 				include "pages/accmgmt.php";
+			elseif ($_SESSION['acc_type_id']==5)
+				include "pages/master.php";
 			else
+				
 
 		?>
 	</div>
