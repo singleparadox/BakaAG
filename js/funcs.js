@@ -148,7 +148,7 @@ function remove_row(str) {
   };
   xhttp.send(params);
 }
-
+/*
 var thumbnailA = document.getElementById("thumbA");
 var thumbnailB = document.getElementById("thumbB");
 var thumbnailC = document.getElementById("thumbC");
@@ -172,7 +172,7 @@ thumbnailD.onclick = function(e) {
 
 main_image.onclick = function(e) {
   main_image.style.backgroundImage = originalThumb.style.backgroundImage;
-}
+}*/
 
 var rate_btn1 = document.getElementById("rate-btn-1");
 var rate_btn2 = document.getElementById("rate-btn-2");

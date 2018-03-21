@@ -71,7 +71,7 @@ include "backend/connection.php";
 				</div>
 				<hr>
 
-				<span><input type="checkbox" name="terms" id="terms" required><small>I agree to the <a href="#">Terms and Conditions</a></small></span>
+				<span><input required type="checkbox" name="terms" id="terms" required><small>I agree to the <a target="_blank" href="data/TOC.txt">Terms and Conditions</a></small></span>
 
 				<button type="submit" style="cursor:pointer;" class="btn btn-primary right">Submit</button>
 			</form>

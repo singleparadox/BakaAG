@@ -181,7 +181,7 @@ if(is_array($_SESSION['arry'])!=true){
                                     <th scope="row">'.$num.'</th>
                                     <td>'.$row['prod_name'].'</td>
                                      <td>PHP '.$b.'</td>
-                                     <td><a onclick="removefrcart('.$row['prod_id'].')" style="cursor:pointer;"><i class="fa fa-remove"></i></a></td>
+                                     <td><a onclick="removefrcart('.$row['prod_id'].')" style="cursor:pointer;">Remove<i class="fa fa-remove"></i></a></td>
                                 </tr>
                                 ';
                         }
