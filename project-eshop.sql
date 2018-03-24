@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 18, 2018 at 06:01 AM
+-- Generation Time: Mar 24, 2018 at 04:16 AM
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 5.6.28
 
@@ -45,7 +45,8 @@ INSERT INTO `account` (`acc_id`, `acc_email`, `acc_pass`, `acc_fname`, `acc_lnam
 (3, 'email2@test.com', 'pass', 'Warehouse', 'Manager', 3),
 (4, 'email3@test.com', 'pass', 'Account', 'Manager', 4),
 (5, 'master@email.com', 'pass', 'Master', 'Account', 5),
-(6, 'user2@test.com', 'pass', 'Loyd', 'Yanzon', 1);
+(6, 'user2@test.com', 'pass', 'Loyd', 'Yanzon', 1),
+(7, 'email4@test.com', 'pass', 'Transaction', 'Manager', 7);
 
 -- --------------------------------------------------------
 
@@ -74,7 +75,8 @@ INSERT INTO `account_address` (`acc_address_id`, `acc_id`, `address_province`, `
 (3, 5, 'Albay', 'Philippines', 'Legazpi', '4503', 'Maguiron Guinobatan Albay', 'Maguiron Guinobatan Albay'),
 (4, 6, 'Albay', 'Philippines', 'Legazpi City', '1234', 'Albay', 'Albay'),
 (5, 3, 'Albay', 'Philippines', 'Legazpi', '4503', 'None', 'None'),
-(6, 4, 'Albay', 'Philippines', 'Daraga', '4506', 'None', 'None');
+(6, 4, 'Albay', 'Philippines', 'Daraga', '4506', 'None', 'None'),
+(7, 7, 'Albay', 'Philippines', 'Daraga', '4506', 'None', 'None');
 
 -- --------------------------------------------------------
 
@@ -101,7 +103,8 @@ INSERT INTO `account_billing` (`acc_billing_id`, `acc_id`, `billing_province`, `
 (2, 2, 'Albay', 'Philippines', 'Legazpu', '09363712548', 'Maguiron Guinobatan Albay'),
 (3, 6, 'Albay', 'Philippines', 'Legazpi City', '09295988943', 'Albay'),
 (4, 3, 'Albay', 'Philippines', 'Legazpi', '0976842463', 'Daraga Albay Philippines'),
-(5, 4, 'Albay', 'Philippines', 'Daraga', '0967324673', 'Daraga Albay Philippines');
+(5, 4, 'Albay', 'Philippines', 'Daraga', '0967324673', 'Daraga Albay Philippines'),
+(6, 7, 'Albay', 'Philippines', 'Daraga', '0967324673', 'Daraga Albay Philippines');
 
 -- --------------------------------------------------------
 
@@ -127,7 +130,8 @@ INSERT INTO `account_details` (`acc_details_id`, `acc_id`, `acc_details_gender`,
 (3, 4, 'male', '2018-03-12', '09363712548'),
 (4, 5, 'male', '2018-03-16', '09363712548'),
 (5, 6, 'female', '2018-03-30', '09295988943'),
-(6, 3, 'Male', '2018-03-21', '093684584');
+(6, 3, 'Male', '2018-03-21', '093684584'),
+(7, 7, 'Male', '2018-03-21', '093684584');
 
 -- --------------------------------------------------------
 
@@ -150,7 +154,8 @@ INSERT INTO `account_type` (`acc_type_id`, `acc_type_name`) VALUES
 (3, 'Warehouse-Manager'),
 (4, 'Account-Manager'),
 (5, 'Master Admin'),
-(6, 'Restricted/Blocked');
+(6, 'Restricted/Blocked'),
+(7, 'Transaction Manager');
 
 -- --------------------------------------------------------
 
@@ -163,6 +168,15 @@ CREATE TABLE `cart` (
   `prod_id` varchar(700) NOT NULL,
   `prod_quant` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`acc_id`, `prod_id`, `prod_quant`) VALUES
+(6, '1', 1),
+(6, '10', 1),
+(6, '3', 1);
 
 -- --------------------------------------------------------
 
@@ -209,14 +223,14 @@ CREATE TABLE `inventory` (
 --
 
 INSERT INTO `inventory` (`inv_id`, `inv_price`, `inv_stock`, `inv_no_of_sold`, `inv_views`, `inv_rate`, `inv_discount`) VALUES
-(1, 60, 2, 0, 46, 0, 20),
+(1, 60, 2, 0, 47, 0, 20),
 (7, 300, 11, 0, 82, 0, 10),
 (8, 10, 100, 0, 0, 0, 0),
 (9, 0, 0, 0, 0, 0, 0),
-(10, 200, 222, 0, 136, 0, 50),
+(10, 200, 222, 0, 137, 0, 50),
 (11, 50, 777, 0, 22, 0, 40),
 (12, 100, 5, 0, 32, 0, 30),
-(13, 150, 3, 0, 5, 0, 75),
+(13, 150, 3, 0, 6, 0, 75),
 (14, 800, 20, 0, 62, 0, 0);
 
 -- --------------------------------------------------------
@@ -231,6 +245,7 @@ CREATE TABLE `orders` (
   `order_total_amt` int(9) NOT NULL,
   `order_product_list` varchar(700) NOT NULL,
   `order_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `order_mdpaymnt_id` int(9) NOT NULL DEFAULT '1',
   `order_status_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -238,10 +253,30 @@ CREATE TABLE `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`order_id`, `acc_id`, `order_total_amt`, `order_product_list`, `order_date`, `order_status_id`) VALUES
-(2, 2, 300, '8;', '2018-03-13 13:35:18', 1),
-(3, 2, 100, '8;', '2018-03-14 13:50:53', 1),
-(6, 6, 3210, '10;3;', '2018-03-18 05:01:00', 1);
+INSERT INTO `orders` (`order_id`, `acc_id`, `order_total_amt`, `order_product_list`, `order_date`, `order_mdpaymnt_id`, `order_status_id`) VALUES
+(2, 2, 300, '8;', '2018-03-13 13:35:18', 1, 2),
+(3, 2, 100, '8;', '2018-03-14 13:50:53', 1, 1),
+(6, 6, 3210, '10;3;', '2018-03-18 05:01:00', 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_mdofpymt`
+--
+
+CREATE TABLE `order_mdofpymt` (
+  `order_mdpaymt_id` int(11) NOT NULL,
+  `order_mdpaymt_name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `order_mdofpymt`
+--
+
+INSERT INTO `order_mdofpymt` (`order_mdpaymt_id`, `order_mdpaymt_name`) VALUES
+(1, 'Cash On Delivery'),
+(2, 'Credit/Debit Card'),
+(3, 'PayPal');
 
 -- --------------------------------------------------------
 
@@ -261,7 +296,8 @@ CREATE TABLE `order_status` (
 INSERT INTO `order_status` (`order_status_id`, `order_status_name`) VALUES
 (1, 'Proccessing'),
 (2, 'Shipped'),
-(3, 'Delivered');
+(3, 'Delivered'),
+(4, 'Cancelled');
 
 -- --------------------------------------------------------
 
@@ -487,6 +523,12 @@ ALTER TABLE `orders`
   ADD PRIMARY KEY (`order_id`);
 
 --
+-- Indexes for table `order_mdofpymt`
+--
+ALTER TABLE `order_mdofpymt`
+  ADD PRIMARY KEY (`order_mdpaymt_id`);
+
+--
 -- Indexes for table `order_status`
 --
 ALTER TABLE `order_status`
@@ -533,27 +575,27 @@ ALTER TABLE `search` ADD FULLTEXT KEY `search_query` (`search_query`);
 -- AUTO_INCREMENT for table `account`
 --
 ALTER TABLE `account`
-  MODIFY `acc_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `acc_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `account_address`
 --
 ALTER TABLE `account_address`
-  MODIFY `acc_address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `acc_address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `account_billing`
 --
 ALTER TABLE `account_billing`
-  MODIFY `acc_billing_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `acc_billing_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `account_details`
 --
 ALTER TABLE `account_details`
-  MODIFY `acc_details_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `acc_details_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `account_type`
 --
 ALTER TABLE `account_type`
-  MODIFY `acc_type_id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `acc_type_id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `comments`
 --
@@ -570,10 +612,15 @@ ALTER TABLE `inventory`
 ALTER TABLE `orders`
   MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
+-- AUTO_INCREMENT for table `order_mdofpymt`
+--
+ALTER TABLE `order_mdofpymt`
+  MODIFY `order_mdpaymt_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
 -- AUTO_INCREMENT for table `order_status`
 --
 ALTER TABLE `order_status`
-  MODIFY `order_status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `order_status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `product`
 --
