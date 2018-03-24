@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 24, 2018 at 04:16 AM
+-- Generation Time: Mar 24, 2018 at 05:04 PM
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 5.6.28
 
@@ -46,7 +46,8 @@ INSERT INTO `account` (`acc_id`, `acc_email`, `acc_pass`, `acc_fname`, `acc_lnam
 (4, 'email3@test.com', 'pass', 'Account', 'Manager', 4),
 (5, 'master@email.com', 'pass', 'Master', 'Account', 5),
 (6, 'user2@test.com', 'pass', 'Loyd', 'Yanzon', 1),
-(7, 'email4@test.com', 'pass', 'Transaction', 'Manager', 7);
+(7, 'email4@test.com', 'pass', 'Transaction', 'Manager', 7),
+(8, 'email5@test.com', 'pass', 'Courier', 'Manager', 8);
 
 -- --------------------------------------------------------
 
@@ -76,7 +77,8 @@ INSERT INTO `account_address` (`acc_address_id`, `acc_id`, `address_province`, `
 (4, 6, 'Albay', 'Philippines', 'Legazpi City', '1234', 'Albay', 'Albay'),
 (5, 3, 'Albay', 'Philippines', 'Legazpi', '4503', 'None', 'None'),
 (6, 4, 'Albay', 'Philippines', 'Daraga', '4506', 'None', 'None'),
-(7, 7, 'Albay', 'Philippines', 'Daraga', '4506', 'None', 'None');
+(7, 7, 'Albay', 'Philippines', 'Daraga', '4506', 'None', 'None'),
+(8, 8, 'Albay', 'Philippines', 'Daraga', '4506', 'None', 'None');
 
 -- --------------------------------------------------------
 
@@ -104,7 +106,8 @@ INSERT INTO `account_billing` (`acc_billing_id`, `acc_id`, `billing_province`, `
 (3, 6, 'Albay', 'Philippines', 'Legazpi City', '09295988943', 'Albay'),
 (4, 3, 'Albay', 'Philippines', 'Legazpi', '0976842463', 'Daraga Albay Philippines'),
 (5, 4, 'Albay', 'Philippines', 'Daraga', '0967324673', 'Daraga Albay Philippines'),
-(6, 7, 'Albay', 'Philippines', 'Daraga', '0967324673', 'Daraga Albay Philippines');
+(6, 7, 'Albay', 'Philippines', 'Daraga', '0967324673', 'Daraga Albay Philippines'),
+(7, 8, 'Albay', 'Philippines', 'Daraga', '0967324673', 'Daraga Albay Philippines');
 
 -- --------------------------------------------------------
 
@@ -131,7 +134,8 @@ INSERT INTO `account_details` (`acc_details_id`, `acc_id`, `acc_details_gender`,
 (4, 5, 'male', '2018-03-16', '09363712548'),
 (5, 6, 'female', '2018-03-30', '09295988943'),
 (6, 3, 'Male', '2018-03-21', '093684584'),
-(7, 7, 'Male', '2018-03-21', '093684584');
+(7, 7, 'Male', '2018-03-21', '093684584'),
+(8, 8, 'Male', '2018-03-21', '093684584');
 
 -- --------------------------------------------------------
 
@@ -155,7 +159,8 @@ INSERT INTO `account_type` (`acc_type_id`, `acc_type_name`) VALUES
 (4, 'Account-Manager'),
 (5, 'Master Admin'),
 (6, 'Restricted/Blocked'),
-(7, 'Transaction Manager');
+(7, 'Transaction Manager'),
+(8, 'Courier');
 
 -- --------------------------------------------------------
 
@@ -254,9 +259,9 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `acc_id`, `order_total_amt`, `order_product_list`, `order_date`, `order_mdpaymnt_id`, `order_status_id`) VALUES
-(2, 2, 300, '8;', '2018-03-13 13:35:18', 1, 2),
-(3, 2, 100, '8;', '2018-03-14 13:50:53', 1, 1),
-(6, 6, 3210, '10;3;', '2018-03-18 05:01:00', 1, 1);
+(2, 2, 300, '8;', '2018-03-13 13:35:18', 1, 1),
+(3, 2, 100, '8;', '2018-03-14 13:50:53', 1, 3),
+(6, 6, 3210, '10;3;', '2018-03-18 05:01:00', 1, 4);
 
 -- --------------------------------------------------------
 
@@ -575,27 +580,27 @@ ALTER TABLE `search` ADD FULLTEXT KEY `search_query` (`search_query`);
 -- AUTO_INCREMENT for table `account`
 --
 ALTER TABLE `account`
-  MODIFY `acc_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `acc_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `account_address`
 --
 ALTER TABLE `account_address`
-  MODIFY `acc_address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `acc_address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `account_billing`
 --
 ALTER TABLE `account_billing`
-  MODIFY `acc_billing_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `acc_billing_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `account_details`
 --
 ALTER TABLE `account_details`
-  MODIFY `acc_details_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `acc_details_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `account_type`
 --
 ALTER TABLE `account_type`
-  MODIFY `acc_type_id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `acc_type_id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `comments`
 --
