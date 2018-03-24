@@ -1,7 +1,7 @@
 <div class="inner-block">
 <!--market updates updates-->
 	<div class="blank">
-		<ul class="nav nav-tabs" role="tablist">
+	<ul class="nav nav-tabs" role="tablist">
 		<li role="presentation" class="active"><a href="#master-dashboard-tab" aria-controls="products" role="tab" data-toggle="tab">Dasboard</a></li>
 		<li role="presentation"><a href="#master-accounts-tab" aria-controls="settings" role="tab" data-toggle="tab">Account Management</a></li>
 		<li role="presentation"><a href="#master-products-tab" aria-controls="settings" role="tab" data-toggle="tab">Product Management</a></li>
