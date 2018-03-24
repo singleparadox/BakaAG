@@ -75,6 +75,10 @@
 				include "pages/master.php";
 			elseif ($_SESSION['acc_type_id']==7)
 				include "pages/transaction.php";
+			elseif ($_SESSION['acc_type_id']==8)
+				include "pages/courier.php";
+			else
+
 				
 
 		?>

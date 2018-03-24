@@ -9,4 +9,8 @@
 	if($_SESSION['acc_type_id']==7){
 		include "../transaction.php";
 	}
+	elseif ($_SESSION['acc_type_id']==8) 
+		include "../courier.php";
+	else
+		
 ?>

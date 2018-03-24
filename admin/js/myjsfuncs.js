@@ -61,3 +61,29 @@ function chcaccess(id){
   xhttp.open("GET", "pages/backend/chcaccess.php?id="+id+"&newaccess="+newaccess, true);
   xhttp.send();
 }
+
+function cour_deliver(id){
+  var order_stat = document.getElementById("deliver-"+id).value;
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("main-page").innerHTML = this.responseText;
+    }
+  };
+  console.log(order_stat);
+  xhttp.open("GET", "pages/backend/updateordstat.php?id="+id+"&orderstat="+order_stat, true);
+  xhttp.send();
+}
+
+function cour_cancel(id){
+  var order_stat = document.getElementById("cancel-"+id).value;
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("main-page").innerHTML = this.responseText;
+    }
+  };
+  console.log(order_stat);
+  xhttp.open("GET", "pages/backend/updateordstat.php?id="+id+"&orderstat="+order_stat, true);
+  xhttp.send();
+}
