@@ -368,3 +368,26 @@ var closeViewAll = document.getElementById("close-view-all");
 closeViewAll.onclick = function (e) {
     document.getElementById("all-comments").style.display="none";
 }
+
+
+var getViewReciepts = document.getElementById("reciepts");
+
+function reciepts(e) {
+  var getUID = document.getElementById("acc_id").value;
+  var params = "uid="+getUID;
+
+  var xhttp = new XMLHttpRequest();
+
+  xhttp.open("POST", "backend/reciepts.php", true);
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("main-body").innerHTML=this.responseText;
+      console.log(this.responseText);
+     
+    }
+  };
+  xhttp.send(params);
+  console.log(getUID);
+}

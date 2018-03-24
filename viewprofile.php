@@ -14,6 +14,7 @@ $row = $result->fetch_assoc();
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/admin/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/style_global.css">
+  <link rel="stylesheet" type="text/css" href="css/style_viewprofile.css">
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 </head>
 
@@ -127,8 +128,12 @@ $row = $result->fetch_assoc();
 	<div class="col-lg-7 data-container">
 	<div class="bs-component">
 	<div class="card border-primary mb-3" style="max-width: 65rem;">
-  <div class="card-header">Transactions</div>
-  <div class="card-body text-primary">
+  <div class="card-header">Transactions <a class="btn btn-link" onclick="reciepts();" id="reciepts">View Reciepts</a>
+    <?php 
+      echo '<input id="acc_id" type="number" class="hidden" value="'.$_SESSION['acc_id'].'" >';
+    ?>
+  </div>
+  <div class="card-body text-primary" id="main-body">
     <h4 class="card-title"></h4>
     <p class="card-text">
         <table class="table table-hover">
@@ -198,7 +203,6 @@ $row = $result->fetch_assoc();
 </div>
 
 <script type="text/javascript" src="js/funcs.js"></script>
-<script src='https://code.responsivevoice.org/responsivevoice.js'></script>
 </body>
 </html>
 <?php 
