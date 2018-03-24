@@ -108,7 +108,7 @@
 				    	?>
 				  </table>
 		</div>
-		<div role="tabpanel" class="tab-pane active" id="approved-tab">
+		<div role="tabpanel" class="tab-pane" id="approved-tab">
 			<table class="table">
 				    <thead>
 				    	<tr>

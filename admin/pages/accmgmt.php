@@ -149,7 +149,7 @@
 			</tbody>
 		 </table>
 		</div>
-		<div role="tabpanel" class="tab-pane active" id="admin-user-tab">
+		<div role="tabpanel" class="tab-pane" id="admin-user-tab">
 			<table class="table">
 			<thead>
 				<tr>
