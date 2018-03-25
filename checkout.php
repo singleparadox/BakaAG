@@ -11,6 +11,7 @@ include_once("header.php");
 	<link rel="stylesheet" type="text/css" href="css/admin/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/style_global.css">
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<script src="https://www.paypalobjects.com/api/checkout.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/inputstyle.css">
 </head>
 
@@ -96,7 +97,7 @@ include_once("header.php");
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Credit/Debit Card</h5>
+        <h5 class="modal-title">Credit/Debit Card/Paypal</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -177,11 +178,13 @@ include_once("header.php");
 		      <label for="card-cvv">Card CCV</label>
 		      <input type="text" class="form-control" id="card-cvv" aria-describedby="emailHelp" placeholder="CVV" maxlength="3">
 		    </div>
-		    <button type="button" id="pay-card-chckout" class="btn btn-primary" onclick="payuscard()">Pay</button>
+		    <button type="button" id="pay-card-chckout" class="btn btn-primary" onclick="payuscard2()">Pay</button>
 		  </div>
 		<div class="tab-pane fade" id="paypal-mode">
 		  <br>
-		  <center><button type="button" id="pay-card-chckout" class="btn btn-primary">Login to Paypal</button></center>
+		  <center><!--<button type="button" id="pay-card-chckout" class="btn btn-primary">Login to Paypal</button>-->
+		  		<div id="paypal-button"></div>
+		  </center>
 		</div>
 		</div>
         </p>
@@ -195,6 +198,67 @@ include_once("header.php");
 
 
 <script type="text/javascript" src="js/funcs.js"></script>
+  <script>
+    paypal.Button.render({
+      env: 'sandbox', // Or 'sandbox',
+
+      commit: true, // Show a 'Pay Now' button
+
+      style: {
+        color: 'gold',
+        size: 'small'
+      },
+
+      client: {
+          sandbox:    'AWxH2OyKquL8ZoAZOk-Yewxft6W4iKWHxPcz44N7FueX_u1yx_gwG37c3waUhJRmSP1Hgf7le_spio_J',
+          production: 'xxxxxxxxx'
+      },
+
+      payment: function(data, actions) {
+            return actions.payment.create({
+                payment: {
+                    transactions: [
+                        {
+                            amount: { total: <?php echo "'".($totprice / 50)."'"; ?>, currency: 'USD' }
+                        }
+                    ]
+                }
+            });
+      },
+
+      onAuthorize: function(data, actions) {
+            return actions.payment.execute().then(function(payment) {
+            	console.log("Payment success!");
+				var xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					document.getElementById("card-modal-content").innerHTML = this.responseText;
+					}
+				};
+				var totalprice = document.getElementById("totprce").value;
+
+				document.getElementById("pay-card-chckout").style.visibility = "hidden";
+				console.log(totalprice);
+				xhttp.open("GET", "backend/paypal.php?totalprice="+totalprice, true);
+				xhttp.send();
+                // The payment is complete!
+                // You can now show a confirmation message to the customer
+            });
+      },
+
+      onCancel: function(data, actions) {
+        /* 
+         * Buyer cancelled the payment 
+         */
+      },
+
+      onError: function(err) {
+        /* 
+         * An error occurred during the transaction 
+         */
+      }
+    }, '#paypal-button');
+  </script>
 <script src='https://code.responsivevoice.org/responsivevoice.js'></script>
 </body>
 </html>

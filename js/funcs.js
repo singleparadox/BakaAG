@@ -72,6 +72,20 @@ function payuscard(){
   xhttp.send();
 }
 
+function payuscard2(){
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+     document.getElementById("card-modal-content").innerHTML = this.responseText;
+    }
+  };
+  var totalprice = document.getElementById("totprce").value;
+  document.getElementById("pay-card-chckout").style.visibility = "hidden";
+  console.log(totalprice);
+  xhttp.open("GET", "backend/pay-credit-card.php?totalprice="+totalprice, true);
+  xhttp.send();
+}
+
 function showSearchHint(str) {
     if (str.length == 0) { 
         document.getElementById("txtHint").innerHTML = "";
