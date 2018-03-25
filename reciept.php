@@ -1,6 +1,28 @@
 <?php
+	session_start();
 	include_once("backend/connection.php");
 	$oid = $_GET['oid'];
+	$uid = isset($_SESSION['acc_id']) ? $_SESSION['acc_id']: '';
+
+	$sql_check = "SELECT * FROM orders WHERE order_id=".$oid;
+	$result = $conn->query($sql_check);
+	$fetch_check = $result->fetch_assoc();
+
+	if (($uid != $fetch_check['acc_id']) OR ($result->num_rows < 1)) {
+		header('HTTP/1.0 403 Forbidden');
+		echo "<html>
+				<head>
+				<title>403 Forbidden</title>
+				</head>
+				<body>
+				<h1>Forbidden</h1>
+				<p>You don't have permission to access ".$_SERVER['REQUEST_URI']."
+				on this server.</p>
+				</head>
+				</html>
+				";
+		exit;
+	}
 
 	$sql_data = "SELECT * FROM orders, order_mdofpymt,account WHERE orders.order_id=".$oid." AND order_mdofpymt.order_mdpaymt_id=orders.order_mdpaymnt_id AND account.acc_id=orders.acc_id";
 
