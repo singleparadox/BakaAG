@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 24, 2018 at 05:04 PM
+-- Generation Time: Mar 27, 2018 at 04:24 PM
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 5.6.28
 
@@ -250,6 +250,7 @@ CREATE TABLE `orders` (
   `order_total_amt` int(9) NOT NULL,
   `order_product_list` varchar(700) NOT NULL,
   `order_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `order_approval` varchar(255) DEFAULT 'Not approved',
   `order_mdpaymnt_id` int(9) NOT NULL DEFAULT '1',
   `order_status_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -258,10 +259,10 @@ CREATE TABLE `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`order_id`, `acc_id`, `order_total_amt`, `order_product_list`, `order_date`, `order_mdpaymnt_id`, `order_status_id`) VALUES
-(2, 2, 300, '8;', '2018-03-13 13:35:18', 1, 1),
-(3, 2, 100, '8;', '2018-03-14 13:50:53', 1, 3),
-(6, 6, 3210, '10;3;', '2018-03-18 05:01:00', 1, 4);
+INSERT INTO `orders` (`order_id`, `acc_id`, `order_total_amt`, `order_product_list`, `order_date`, `order_approval`, `order_mdpaymnt_id`, `order_status_id`) VALUES
+(2, 2, 300, '8;', '2018-03-13 13:35:18', 'Not approved', 1, 1),
+(3, 2, 100, '8;', '2018-03-14 13:50:53', 'Not approved', 1, 3),
+(6, 6, 3210, '10;3;', '2018-03-18 05:01:00', 'Not approved', 1, 4);
 
 -- --------------------------------------------------------
 
@@ -420,6 +421,19 @@ INSERT INTO `rating` (`rating_id`, `inv_id`, `acc_id`, `rate_num`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `receipt`
+--
+
+CREATE TABLE `receipt` (
+  `receipt_id` int(255) NOT NULL,
+  `receipt_amt_paid` int(255) NOT NULL,
+  `receipt_date_paid` int(255) NOT NULL,
+  `order_id` int(9) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `search`
 --
 
@@ -566,6 +580,12 @@ ALTER TABLE `rating`
   ADD PRIMARY KEY (`rating_id`);
 
 --
+-- Indexes for table `receipt`
+--
+ALTER TABLE `receipt`
+  ADD PRIMARY KEY (`receipt_id`);
+
+--
 -- Indexes for table `search`
 --
 ALTER TABLE `search`
@@ -646,6 +666,11 @@ ALTER TABLE `product_type`
 --
 ALTER TABLE `rating`
   MODIFY `rating_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+--
+-- AUTO_INCREMENT for table `receipt`
+--
+ALTER TABLE `receipt`
+  MODIFY `receipt_id` int(255) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `search`
 --
