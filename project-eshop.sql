@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 27, 2018 at 04:24 PM
+-- Generation Time: Mar 28, 2018 at 05:12 AM
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 5.6.28
 
@@ -428,6 +428,8 @@ CREATE TABLE `receipt` (
   `receipt_id` int(255) NOT NULL,
   `receipt_amt_paid` int(255) NOT NULL,
   `receipt_date_paid` int(255) NOT NULL,
+  `receipt_custname` varchar(255) NOT NULL,
+  `receipt_compaddress` int(11) NOT NULL,
   `order_id` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
