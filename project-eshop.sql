@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.7.0
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 28, 2018 at 05:12 AM
--- Server version: 10.1.19-MariaDB
--- PHP Version: 5.6.28
+-- Generation Time: Mar 28, 2018 at 10:42 AM
+-- Server version: 10.1.25-MariaDB
+-- PHP Version: 7.1.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -174,15 +176,6 @@ CREATE TABLE `cart` (
   `prod_quant` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `cart`
---
-
-INSERT INTO `cart` (`acc_id`, `prod_id`, `prod_quant`) VALUES
-(6, '1', 1),
-(6, '10', 1),
-(6, '3', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -228,15 +221,15 @@ CREATE TABLE `inventory` (
 --
 
 INSERT INTO `inventory` (`inv_id`, `inv_price`, `inv_stock`, `inv_no_of_sold`, `inv_views`, `inv_rate`, `inv_discount`) VALUES
-(1, 60, 2, 0, 47, 0, 20),
+(1, 60, 2, 0, 48, 0, 20),
 (7, 300, 11, 0, 82, 0, 10),
 (8, 10, 100, 0, 0, 0, 0),
 (9, 0, 0, 0, 0, 0, 0),
 (10, 200, 222, 0, 137, 0, 50),
-(11, 50, 777, 0, 22, 0, 40),
-(12, 100, 5, 0, 32, 0, 30),
+(11, 50, 777, 0, 23, 0, 40),
+(12, 100, 5, 0, 33, 0, 30),
 (13, 150, 3, 0, 6, 0, 75),
-(14, 800, 20, 0, 62, 0, 0);
+(14, 800, 20, 0, 63, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -245,7 +238,7 @@ INSERT INTO `inventory` (`inv_id`, `inv_price`, `inv_stock`, `inv_no_of_sold`, `
 --
 
 CREATE TABLE `orders` (
-  `order_id` int(11) NOT NULL,
+  `order_id` varchar(50) NOT NULL,
   `acc_id` int(11) NOT NULL,
   `order_total_amt` int(9) NOT NULL,
   `order_product_list` varchar(700) NOT NULL,
@@ -260,9 +253,9 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `acc_id`, `order_total_amt`, `order_product_list`, `order_date`, `order_approval`, `order_mdpaymnt_id`, `order_status_id`) VALUES
-(2, 2, 300, '8;', '2018-03-13 13:35:18', 'Not approved', 1, 1),
-(3, 2, 100, '8;', '2018-03-14 13:50:53', 'Not approved', 1, 3),
-(6, 6, 3210, '10;3;', '2018-03-18 05:01:00', 'Not approved', 1, 4);
+('ORDER-6-20180328044113', 6, 1218, '1;10;3;7;8;', '2018-03-28 08:41:13', 'Not approved', 1, 1),
+('ORDER-6-20180328044137', 6, 948, '1;10;7;8;', '2018-03-28 08:41:37', 'Not approved', 2, 1),
+('ORDER-6-20180328044216', 6, 948, '1;10;7;8;', '2018-03-28 08:42:16', 'Not approved', 3, 1);
 
 -- --------------------------------------------------------
 
@@ -329,7 +322,7 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`prod_id`, `prod_codeid`, `prod_name`, `prod_desc`, `prod_picture_link`, `prod_dateadd`, `prod_featured`, `prod_genre_id`, `prod_type_id`, `inv_id`) VALUES
-(1, 'Empty', 'God Eater 2', 'n comparison to Gods Eater Burst there are new features and additions such as the four new weapons, the Boost Hammer, Charge Spear, the Variant Scythe and the Shotgun, each has its own function and abilities for the player to use. The Boost Hammer is a large hammer fitted with a rocket booster, which can be used to inflict heavy damage on an enemy. The Charge Spear is a large spear that can be "charged" to form a sharpened organic blade that can be used to stab foes.', 'data/Products/God Eater 2-18-03-04-37567/image.jpg', '2018-03-21', 'Yes', 2, 3, 1),
+(1, 'Empty', 'God Eater 2', 'n comparison to Gods Eater Burst there are new features and additions such as the four new weapons, the Boost Hammer, Charge Spear, the Variant Scythe and the Shotgun, each has its own function and abilities for the player to use. The Boost Hammer is a large hammer fitted with a rocket booster, which can be used to inflict heavy damage on an enemy. The Charge Spear is a large spear that can be \"charged\" to form a sharpened organic blade that can be used to stab foes.', 'data/Products/God Eater 2-18-03-04-37567/image.jpg', '2018-03-21', 'Yes', 2, 3, 1),
 (3, 'Empty', 'To Love Ru', 'The story of To Love-Ru revolves around Rito YÅ«ki, a shy and clumsy high-school student who cannot confess his love to the girl of his dreams, Haruna Sairenji. One day when sulking in the bathtub, a mysterious, naked devil-tailed girl appears out of nowhere. Her name is Lala, the runaway crown princess of the planet Deviluke. ', 'data/Products/To Love Ru-18-03-04-46309/image.jpg', '2018-03-12', 'Yes', 2, 2, 7),
 (6, 'Empty', 'Kakumeiki Valvrave', 'The story takes place in an unspecified future date, referred to as the 71st year of the True Era (çœŸæš¦ Shinreki). Seventy percent of all human beings have migrated from Earth to other planets of the Solar System and a Dyson sphere, constructed around an artificial Sun. ', 'data/Products/Test Image-17-12-28-42295/image.jpg', '2018-03-20', 'Yes', 2, 2, 10),
 (7, 'Empty', 'Gundam Breaker', 'Gundam Breaker is a video game for the Playstation 3 and PS Vita. It was first released for PS3 on June 27, 2013, and then for Vita on October 31, 2013. Both versions now have an online cross play component to share save data. Unlike most games in the Gundam series, Gundam Breaker focuses exclusively on gunplay rather than a specific story based on Gunpla Love and all Gundam universes. A sequel, titled Gundam Breaker 2, was released on December 18, 2014.', 'data/Products/Gundam Breaker-18-08-10-93874/image.jpg', '2018-03-20', 'Yes', 7, 3, 11),
@@ -634,11 +627,6 @@ ALTER TABLE `comments`
 ALTER TABLE `inventory`
   MODIFY `inv_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
--- AUTO_INCREMENT for table `orders`
---
-ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
---
 -- AUTO_INCREMENT for table `order_mdofpymt`
 --
 ALTER TABLE `order_mdofpymt`
@@ -677,7 +665,8 @@ ALTER TABLE `receipt`
 -- AUTO_INCREMENT for table `search`
 --
 ALTER TABLE `search`
-  MODIFY `search_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `search_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

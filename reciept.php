@@ -1,10 +1,10 @@
 <?php
 	session_start();
 	include_once("backend/connection.php");
-	$oid = $_GET['oid'];
+	$oid = (string)$_GET['oid'];
 	$uid = isset($_SESSION['acc_id']) ? $_SESSION['acc_id']: '';
 
-	$sql_check = "SELECT * FROM orders WHERE order_id=".$oid;
+	$sql_check = "SELECT * FROM orders WHERE order_id='".$oid."'";
 	$result = $conn->query($sql_check);
 	$fetch_check = $result->fetch_assoc();
 
@@ -24,7 +24,7 @@
 		exit;
 	}
 
-	$sql_data = "SELECT * FROM orders, order_mdofpymt,account WHERE orders.order_id=".$oid." AND order_mdofpymt.order_mdpaymt_id=orders.order_mdpaymnt_id AND account.acc_id=orders.acc_id";
+	$sql_data = "SELECT * FROM orders, order_mdofpymt,account WHERE orders.order_id='".$oid."' AND order_mdofpymt.order_mdpaymt_id=orders.order_mdpaymnt_id AND account.acc_id=orders.acc_id";
 
 	$result = $conn->query($sql_data);
 	$fetch = $result->fetch_assoc();
@@ -58,46 +58,48 @@
 
 </head>
 <center>
-<h3>Reciept for order <?php echo $oid; ?></h3>
-<table>
-	<tr>
-		<td>DATE:</td>
-		<td><?php echo $fetch['order_date'] ?></td>
-	</tr>
+<h3>Reciept for <?php echo $oid; ?></h3>
 
-	<tr>
-		<td>ORDER NUMBER:</td>
-		<td><?php echo $oid; ?></td>
-	</tr>
+<div style="width:40%;">
+	<table>
+		<tr>
+			<td>DATE:</td>
+			<td><?php echo $fetch['order_date'] ?></td>
+		</tr>
 
-	<tr>
-		<td>CUSTOMER FULL NAME:</td>
-		<td><?php echo $fetch['acc_fname'].' '.$fetch['acc_lname']; ?></td>
-	</tr>
+		<tr>
+			<td>ORDER NUMBER:</td>
+			<td><?php echo $oid; ?></td>
+		</tr>
+
+		<tr>
+			<td>CUSTOMER FULL NAME:</td>
+			<td><?php echo $fetch['acc_fname'].' '.$fetch['acc_lname']; ?></td>
+		</tr>
 
 
-	<tr>
-		<td>ITEMS ORDERED:</td>
-		<td><?php echo $products; ?></td>
-	</tr>
+		<tr>
+			<td>ITEMS ORDERED:</td>
+			<td><?php echo $products; ?></td>
+		</tr>
 
-	<tr>
-		<td>PAYMENT METHOD:</td>
-		<td><?php echo $fetch['order_mdpaymt_name']; ?></td>
-	</tr>
+		<tr>
+			<td>PAYMENT METHOD:</td>
+			<td><?php echo $fetch['order_mdpaymt_name']; ?></td>
+		</tr>
 
-	<tr>
-		<td>RETAILER:</td>
-		<td>BakaAG</td>
-	</tr>
+		<tr>
+			<td>RETAILER:</td>
+			<td>BakaAG</td>
+		</tr>
 
-	<tr>
-		<td>TOTAL</td>
-		<td>₱ <?php echo number_format($fetch['order_total_amt'],2); ?></td>
-	</tr>
+		<tr>
+			<td>TOTAL</td>
+			<td>₱ <?php echo number_format($fetch['order_total_amt'],2); ?></td>
+		</tr>
 
-</table>
-
+	</table>
+</div>
 
 
 <button class="noprint" onClick="window.print();">Print this page</button>

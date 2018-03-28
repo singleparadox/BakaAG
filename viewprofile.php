@@ -136,7 +136,7 @@ $row = $result->fetch_assoc();
   <div class="card-body text-primary" id="main-body">
     <h4 class="card-title"></h4>
     <p class="card-text">
-        <table class="table table-hover">
+        <table class="table table-hover" style="">
           <thead>
             <tr class="table-primary">
               <th scope="col">Order Number</th>
@@ -153,10 +153,10 @@ $row = $result->fetch_assoc();
                 while($row = $result->fetch_assoc()){
                   echo '
                       <tr>
-                        <th scope="row">'.$row['order_id'].'</th>
-                        <td>'.$row['order_status_name'].'</td>
-                        <td>'.$row['order_date'].'</td>
-                        <td>'.$row['order_total_amt'].'</td>
+                        <th scope="row" style="font-size:10px;">'.$row['order_id'].'</th>
+                        <td style="font-size:10px;">'.$row['order_status_name'].'</td>
+                        <td style="font-size:10px;">'.$row['order_date'].'</td>
+                        <td style="font-size:10px;">'.$row['order_total_amt'].'</td>
                         <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#prodlist-modal-'.$row['order_id'].'">View products</button></td>
                         <div class="modal" id="prodlist-modal-'.$row['order_id'].'">
                           <div class="modal-dialog" role="document">
