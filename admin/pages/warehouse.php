@@ -154,7 +154,6 @@
 				    		<th>Date Ordered</th>
 				    		<th>Products</th>
 				    		<th>Total Amount</th>
-				    		<th>Status</th>
 				    	</tr>
 				    </thead>
 				    	<?php
@@ -196,34 +195,7 @@
 					                          </div>
 					                        </div>
 					                        <td>'.$row['order_total_amt'].'</td>
-					                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#statchng-modal-'.$row['order_id'].'">'.$row['order_status_name'].'</button></td>
-					                        <div id="statchng-modal-'.$row['order_id'].'" class="modal fade" role="dialog">
-  											<div class="modal-dialog">
-					                        <div class="modal-content">
-										      <div class="modal-header">
-										        <button type="button" class="close" data-dismiss="modal">&times;</button>
-										        <h4 class="modal-title">Change Status</h4>
-										      </div>
-										      <div class="modal-body">
-										        <div class="form-group">
-												  <label for="sel-stat">Select list:</label>
-												  <select class="form-control" id="sel-stat">
-												    ';
-												    $sql3 = "SELECT * FROM order_status";
-												    $result3 = $conn->query($sql3);
-	                								while($row3 = $result3->fetch_assoc()){
-	                									echo '<option value="'.$row3['order_status_id'].'">'.$row3['order_status_name'].'</option>';
-	                								}
-												  echo'
-												  </select>
-												</div>
-										      </div>
-										      <div class="modal-footer">
-										      	<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="chcngordstat('.$row['order_id'].')">Update</button>
-										        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-										      </div>
-										    </div>
-
+					                       
 										  </div>
 										</div>
 					                      </tr>

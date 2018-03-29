@@ -62,7 +62,7 @@ function chcaccess(id){
   xhttp.send();
 }
 
-function cour_deliver(id){
+function cour_shipped(id){
   var order_stat = document.getElementById("deliver-"+id).value;
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
@@ -76,7 +76,7 @@ function cour_deliver(id){
 }
 
 function cour_cancel(id){
-  var order_stat = document.getElementById("cancel-"+id).value;
+  var order_stat = 4
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
@@ -85,5 +85,32 @@ function cour_cancel(id){
   };
   console.log(order_stat);
   xhttp.open("GET", "pages/backend/updateordstat.php?id="+id+"&orderstat="+order_stat, true);
+  xhttp.send();
+}
+
+function apprv(id){
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("main-page").innerHTML = this.responseText;
+    }
+  };
+  console.log(id);
+  xhttp.open("GET", "pages/backend/apprvorder.php?id="+id, true);
+  xhttp.send();
+}
+
+function send_trans(id){
+  var name = document.getElementById("receipt-name").value;
+  var address = document.getElementById("receipt-address").value;
+  var amt = document.getElementById("receipt-amt").value;
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("main-page").innerHTML = this.responseText;
+    }
+  };
+  console.log(id);
+  xhttp.open("GET", "pages/backend/sendreceipt.php?id="+id+"&name="+name+"&address="+address+"&amt="+amt, true);
   xhttp.send();
 }

@@ -4,7 +4,7 @@
 	<div class="blank">
 		<ul class="nav nav-tabs" role="tablist">
 		<li role="presentation" class="active"><a href="#for-approval-tab" aria-controls="products" role="tab" data-toggle="tab">For Approval</a></li>
-		<li role="presentation"><a href="#approved-tab" aria-controls="settings" role="tab" data-toggle="tab">Approved Orders</a></li>
+		<li role="presentation"><a href="#approved-tab" aria-controls="settings" role="tab" data-toggle="tab">Delivered Orders</a></li>
 	</ul>
 	<div class="tab-content">
 		<div role="tabpanel" class="tab-pane active" id="for-approval-tab">
@@ -19,7 +19,7 @@
 				    	</tr>
 				    </thead>
 				    	<?php
-				    		$sql = "SELECT * FROM orders,order_status,account,order_mdofpymt WHERE orders.order_status_id=order_status.order_status_id AND orders.acc_id=account.acc_id AND orders.order_mdpaymnt_id=order_mdofpymt.order_mdpaymt_id AND order_status.order_status_id='1'";
+				    		$sql = "SELECT * FROM orders,order_status,account,order_mdofpymt WHERE orders.order_status_id=order_status.order_status_id AND orders.acc_id=account.acc_id AND orders.order_mdpaymnt_id=order_mdofpymt.order_mdpaymt_id AND order_status.order_status_id='1' AND orders.order_approval!='Approved'";
 	                		$result = $conn->query($sql);
 	                		while($row = $result->fetch_assoc()){
 	                			echo '
@@ -91,8 +91,7 @@
 										        	</div>
 										        </div>
 										        <div class="container">
-										        	<button type="button" class="btn btn-default" data-dismiss="modal" onclick="chcngordstat('.$row['order_id'].')">Approve and Send to Courrier</button>
-										        <input type="text" id="sel-stat-'.$row['order_id'].'" value="2" hidden>
+										        	<button type="button" class="btn btn-default" data-dismiss="modal" onclick="apprv('.$row['order_id'].')">Approve and Send to Courrier</button>
 										        </div>
 										      </div>
 										      <div class="modal-footer">
@@ -112,27 +111,29 @@
 			<table class="table">
 				    <thead>
 				    	<tr>
-				    		<th>Order Number</th>
-				    		<th>Date Ordered</th>
+				    		<th>Receipt Number</th>
+				    		<th>Date Received</th>
 				    		<th>Products</th>
-				    		<th>Total Amount</th>
-				    		<th>Status</th>
+				    		<th>Amount Paid</th>
+				    		<th>Receiver Name</th>
+				    		<th>Receiver Address</th>
+				    		<th>Review and mark as delivered</th>
 				    	</tr>
 				    </thead>
 				    <?php
-				    		$sql = "SELECT * FROM orders,order_status,account,order_mdofpymt WHERE orders.order_status_id=order_status.order_status_id AND orders.acc_id=account.acc_id AND orders.order_mdpaymnt_id=order_mdofpymt.order_mdpaymt_id AND order_status.order_status_id!='1'";
+				    		$sql = "SELECT * FROM orders,order_status,account,order_mdofpymt,receipt WHERE orders.order_status_id=order_status.order_status_id AND orders.acc_id=account.acc_id AND orders.order_mdpaymnt_id=order_mdofpymt.order_mdpaymt_id AND orders.order_id=receipt.order_id AND orders.order_approval='Approved' AND orders.order_receive='Received' AND orders.order_status_id='2'";
 	                		$result = $conn->query($sql);
 	                		while($row = $result->fetch_assoc()){
 	                			echo '
 	                				<tr>
-                        				<td>'.$row['order_id'].'</td>
-                        				<td>'.$row['order_date'].'</td>
-                        				<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#prodlist-modal-'.$row['order_id'].'">View products</button></td>
-					                        <div class="modal" id="prodlist-modal-'.$row['order_id'].'">
+                        				<td>'.$row['receipt_id'].'</td>
+                        				<td>'.$row['receipt_date_paid'].'</td>
+                        				<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#prodlist-modal-'.$row['receipt_id'].'">View products</button></td>
+					                        <div class="modal" id="prodlist-modal-'.$row['receipt_id'].'">
 					                          <div class="modal-dialog" role="document">
 					                            <div class="modal-content">
 					                              <div class="modal-header">
-					                                <h5 class="modal-title">Order Number:'.$row['order_id'].'</h5>
+					                                <h5 class="modal-title">Receipt Number:'.$row['receipt_id'].'</h5>
 					                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					                                  <span aria-hidden="true">&times;</span>
 					                                </button>
@@ -157,8 +158,11 @@
 					                            </div>
 					                          </div>
 					                        </div>
-					                        <td>'.$row['order_total_amt'].'</td>
-					                        <td>'.$row['order_status_name'].'</td>
+					                        <td>'.$row['receipt_amt_paid'].'</td>
+					                        <td>'.$row['receipt_custname'].'</td>
+					                        <td>'.$row['receipt_compaddress'].'</td>
+					                        <td><button type="button" class="btn btn-primary" onclick="chcngordstat('.$row['order_id'].')">Mark as Delivered</button></td>
+					                        <input type="number" id="sel-stat-'.$row['order_id'].'" value="3" hidden>
 										  </div>
 										</div>
 					                      </tr>

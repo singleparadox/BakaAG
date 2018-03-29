@@ -9,8 +9,7 @@
 	$newprodstock = $_POST['new-prod-stock'];
 	$newproddate = $_POST['new-prod-date'];
 
-	$newprodcodeid = $newprodname+$newprodgenre+$newprodtype;
-	$newprodcodeid = sha1($newprodcodeid);
+	$newprodcodeid = rand(100000,9674997)
 	
 	$newprodpic = $_FILES['new-prod-pic']['tmp_name'];
 	$newprodpicname = $newprodname."-".date("y-m-d")."-".rand(10000,90987);
