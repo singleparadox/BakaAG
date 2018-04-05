@@ -405,3 +405,18 @@ function reciepts(e) {
   xhttp.send(params);
   console.log(getUID);
 }
+
+function get_total() {
+
+  var xhttp = new XMLHttpRequest();
+
+  xhttp.open("POST", "backend/get_total.php", true);
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log(this.responseText);   
+    }
+  };
+  xhttp.send();
+}

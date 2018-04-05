@@ -1,6 +1,7 @@
 <?php
 	session_start();
 	include_once("backend/connection.php");
+	date_default_timezone_set('Asia/Singapore');	
 	$oid = (string)$_GET['oid'];
 	$uid = isset($_SESSION['acc_id']) ? $_SESSION['acc_id']: '';
 
@@ -24,83 +25,298 @@
 		exit;
 	}
 
-	$sql_data = "SELECT * FROM orders, order_mdofpymt,account WHERE orders.order_id='".$oid."' AND order_mdofpymt.order_mdpaymt_id=orders.order_mdpaymnt_id AND account.acc_id=orders.acc_id";
+	$sql_data = "SELECT * FROM orders, order_mdofpymt,account,receipt,account_address,order_status WHERE orders.order_id='".$oid."' AND order_mdofpymt.order_mdpaymt_id=orders.order_mdpaymnt_id AND account.acc_id=orders.acc_id AND receipt.order_id=orders.order_id AND account_address.acc_id=account.acc_id AND order_status.order_status_id=orders.order_status_id";
 
 	$result = $conn->query($sql_data);
 	$fetch = $result->fetch_assoc();
 
 	$items = explode(";", $fetch['order_product_list']);
+
+	//var_dump($items);
+
 	$products = '';
 	foreach ($items as $key) {
+		$quantity = explode("-", $key, 2);
+		$end = end($quantity);
+
 		$sql_get_prod_name = "SELECT prod_name FROM product WHERE prod_id=".(int)$key;
 		$result_name = $conn->query($sql_get_prod_name);
 		$fetch_prod_name = $result_name->fetch_assoc();
 		if (!($key == '')) {
-			$products .= '['.$fetch_prod_name['prod_name'].']';	
+			$products .= '['.$end.' x '.$fetch_prod_name['prod_name'].']*';	
 		}
 	}
+
+	$date = date_create($fetch['order_date']);
+	$date2 = date_create($fetch['receipt_date_paid']);
 	 
 
 ?>
-
+<!doctype html>
+<html>
 <head>
-	<style type="text/css">
-		@media print {
-		/* style sheet for print goes here */
-		.noprint {
-		visibility: hidden;
-		}
-		}
-		* {
-			font-family: Courier;
-		}
-	</style>
+    <meta charset="utf-8">
+    <title>BakaAG - Reciept</title>
+    
+    <style>
+	@page { size: auto;  margin: 0mm; }
+	@media print {
+	/* style sheet for print goes here */
+	.noprint {
+	visibility: hidden;
+	}
+	}
+    .invoice-box {
+        max-width: 800px;
+        margin: auto;
+        padding: 30px;
+        border: 1px solid #eee;
+        box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+        font-size: 16px;
+        line-height: 24px;
+        font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+        color: #555;
+    }
+    
+    .invoice-box table {
 
+        width: 100%;
+        line-height: inherit;
+        text-align: left;
+    }
+    
+    .invoice-box table td {
+        padding: 5px;
+        vertical-align: top;
+    }
+    
+    .invoice-box table tr td:nth-child(2) {
+        text-align: right;
+    }
+    
+    .invoice-box table tr.top table td {
+        padding-bottom: 20px;
+    }
+    
+    .invoice-box table tr.top table td.title {
+        font-size: 45px;
+        line-height: 45px;
+        color: #333;
+    }
+    
+    .invoice-box table tr.information table td {
+        padding-bottom: 40px;
+    }
+    
+    .invoice-box table tr.heading td {
+        background: #eee;
+        border-bottom: 1px solid #ddd;
+        font-weight: bold;
+    }
+    
+    .invoice-box table tr.details td {
+        padding-bottom: 20px;
+    }
+    
+    .invoice-box table tr.item td{
+        border-bottom: 1px solid #eee;
+    }
+    
+    .invoice-box table tr.item.last td {
+        border-bottom: none;
+    }
+    
+    .invoice-box table tr.total td:nth-child(2) {
+        border-top: 2px solid #eee;
+        font-weight: bold;
+    }
+    
+    @media only screen and (max-width: 600px) {
+        .invoice-box table tr.top table td {
+            width: 100%;
+            display: block;
+            text-align: center;
+        }
+        
+        .invoice-box table tr.information table td {
+            width: 100%;
+            display: block;
+            text-align: center;
+        }
+    }
+    
+    /** RTL **/
+    .rtl {
+        direction: rtl;
+        font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+    }
+    
+    .rtl table {
+        text-align: right;
+    }
+    
+    .rtl table tr td:nth-child(2) {
+        text-align: left;
+    }
+    </style>
 </head>
-<center>
-<h3>Reciept for <?php echo $oid; ?></h3>
 
-<div style="width:40%;">
-	<table>
-		<tr>
-			<td>DATE:</td>
-			<td><?php echo $fetch['order_date'] ?></td>
-		</tr>
+<body>
+    <div class="invoice-box">
+        <table cellpadding="0" cellspacing="0">
+            <tr class="top">
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td class="title" style="font-size: 20px;">
+                                <h1 style="width:100%; max-width:300px; font-family: Helvetica;">Baka<span style="font-family: Helvetica;color:red;">AG</span></h1>
+                            </td>
+                            
+                            <td>
+                                Order Number: <?php echo 'ORDER-'.$oid.date("Y"); ?><br>
+                                Created: <?php echo date_format($date2, 'F jS Y'); ?><br>
+                                Order Date: <?php echo date_format($date, 'F jS Y'); ?>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            
+            <tr class="information">
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td>
+                                BakaAG, Inc.<br>
+                                Daraga, Albay<br>
+                                Sagpon, 4500
+                            </td>
+                            
+                            <td>
+                                <?php echo $fetch['address_city'].', '.$fetch['address_province'].', '.$fetch['address_zipcode']?><br>
+                                <?php echo $fetch['address_country']; ?><br>
+                                <?php echo $fetch['acc_fname'].' '.$fetch['acc_lname'];?>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            
+            <tr class="heading">
+                <td>
+                    Payment Method
+                </td>
+                
+                <td>
+                    Amount Paid
+                </td>
+            </tr>
+            
+            <tr class="details">
+                <td>
+                    <?php echo $fetch['order_mdpaymt_name']; ?>
+                </td>
+                
+                <td>
+                    PHP <?php echo $fetch['receipt_amt_paid']; ?>
+                </td>
 
-		<tr>
-			<td>ORDER NUMBER:</td>
-			<td><?php echo $oid; ?></td>
-		</tr>
+            </tr>
+            
+            <tr class="heading">
+                <td>
+                    Item
+                </td>
+                
+                <td>
+                    Price
+                </td>
+            </tr>
+            
+            <?php 
+            	$pr = explode("*", $products);
 
-		<tr>
-			<td>CUSTOMER FULL NAME:</td>
-			<td><?php echo $fetch['acc_fname'].' '.$fetch['acc_lname']; ?></td>
-		</tr>
+        		$itemsP = explode(";", $fetch['order_product_list']);
+        		$endP = end($itemsP);
+
+        		$arrayID = array();
+        		$arrayQuan = array();
+
+        		$j = 0;
+        		foreach ($items as $ks) {
+        			if (empty($ks)) {
+        				break;
+        			}
+            		$exp = explode("-", $ks, 2);
+            		$curr = current($exp);
+            		$ended = end($exp);
+
+            		array_push($arrayID, $curr);
+            		array_push($arrayQuan, $ended);
+
+            		$j++;
+        		}
 
 
-		<tr>
-			<td>ITEMS ORDERED:</td>
-			<td><?php echo $products; ?></td>
-		</tr>
+        		$l = 0;
+        		$num_of_elem = count($pr) - 1;
+            	foreach ($pr as $ke) {
+            		if ($l == $num_of_elem) {
+            			break;
+            		}
 
-		<tr>
-			<td>PAYMENT METHOD:</td>
-			<td><?php echo $fetch['order_mdpaymt_name']; ?></td>
-		</tr>
+            		$sql_pr = "SELECT * FROM product,inventory WHERE product.prod_id=".$arrayID[$l]." AND product.inv_id=inventory.inv_id";
+            		$resultP = $conn->query($sql_pr);
+            		if ($arrayID[$l] != '') {
+            			$fetchP = $resultP->fetch_assoc();
 
-		<tr>
-			<td>RETAILER:</td>
-			<td>BakaAG</td>
-		</tr>
+            		} else {
+            			break;
+            		}
 
-		<tr>
-			<td>TOTAL</td>
-			<td>₱ <?php echo number_format($fetch['order_total_amt'],2); ?></td>
-		</tr>
+          			if($fetchP['inv_discount']>0){
+          				$a = $fetchP['inv_price'] * ($fetchP['inv_discount'] / 100);
+                    	$b = $fetchP['inv_price'] - $a;
 
-	</table>
-</div>
+          			}
+          			else {
+          				$b = $fetchP['inv_price'];
+
+          			}
+
+            		echo '
+			            <tr class="item">
+			                <td>
+			                    '.$ke.'
+			                </td>
+			                
+			                <td>PHP
+			                    '.$b * $arrayQuan[$l].'
+			                </td>
+            			</tr>
+
+            		';
+            		$l++;
+            	}
+            ?>
 
 
-<button class="noprint" onClick="window.print();">Print this page</button>
-</center>
+            
+            
+            <tr class="total">
+                <td>STATUS: <span style="color: darkgreen; font-weight: bold;"><?php echo $fetch['order_status_name']; ?></span></td>
+                
+                <td>
+                   Total: PHP <?php echo $fetch['order_total_amt']; ?>
+                </td>
+            </tr>
+        </table>
+        <center><button class="noprint" onClick="window.print();">Print this page</button></center>
+    </div>
+
+</body>
+
+</html>
+
+
+

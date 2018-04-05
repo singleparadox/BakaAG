@@ -26,10 +26,28 @@ include_once("header.php");
     <h4 class="card-title"></h4>
     <p class="card-text">
     	<?php
+    	$price = 0;
     		if(!isset($_SESSION['acc_id'])){
     			echo "Must be logged in to continue";
     		}
-    		else{
+    		else {
+    			$sql_get_total = "SELECT cart.prod_quant AS quantity, inventory.inv_price AS price, inventory.inv_discount AS discount FROM cart,product,inventory WHERE cart.acc_id=".$_SESSION['acc_id']." AND product.prod_id=cart.prod_id AND product.inv_id=inventory.inv_id";
+    			$result_get_total = $conn->query($sql_get_total);
+    			if (($result_get_total->num_rows) > 0) {
+    				
+    				while ($row_price = $result_get_total->fetch_assoc()) {
+    					if ($row_price['discount'] == 0) {
+    						$dis = $row_price['price'];
+    					} else {
+    						$dc = 100;
+    						$dis = $row_price['price'] - ($row_price['price'] * ((float)$row_price['discount'] / $dc));
+    					}
+    					$price = $price + ($row_price['quantity'] * $dis);
+    					//echo ','.$row_price['price'] * $dis;
+    				}
+    			}
+
+
     			$sql = "SELECT * FROM product,inventory WHERE inventory.inv_id=product.inv_id";
 		        $result = $conn->query($sql);
 		        while($row = $result->fetch_assoc()){
@@ -57,17 +75,17 @@ include_once("header.php");
 	                  			if($row['inv_discount']>0){
 	                  				$a = $row['inv_price'] * ($row['inv_discount'] / 100);
 	                            	$b = $row['inv_price'] - $a;
-		                        	$totprice = $totprice + $b;
+		                        	$totprice = $price;
 	                  			}
 	                  			else{
 	                  				$b = $row['inv_price'];
-		    						$totprice = $totprice + $b;
+		    						$totprice = $price;
 	                  			}
 		                        $_SESSION['prodlist'] = $_SESSION['prodlist'].$row['prod_id'].";";
 		                        echo '
 		                            <tr>
 		                                <th scope="row">'.$row['prod_name'].'</th>
-		                                <td><input id="prod-quant-'.$row['prod_id'].'" type="number" value="1" min="1" onchange="incrdecr('.$row['prod_id'].')"></td>
+		                                <td><input id="prod-quant-'.$row['prod_id'].'" value='.$row['prod_quant'].' type="number" value="1" min="1" onchange="incrdecr('.$row['prod_id'].')"></td>
 		                                <td>PHP '.number_format($b,2).'</td>
 		                                </tr>
 		                                ';
@@ -219,7 +237,7 @@ include_once("header.php");
                 payment: {
                     transactions: [
                         {
-                            amount: { total: <?php echo "'".($totprice / 50)."'"; ?>, currency: 'USD' }
+                            amount: { total: <?php echo "'".$price."'"; ?>, currency: 'PHP' }
                         }
                     ]
                 }
