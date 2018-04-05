@@ -179,7 +179,9 @@
 					                                $numb = 1;
 					                                echo '<p class="text-primary">Product Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Genre&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Type</p>';
 					                                foreach ($prods as $prdct) {
-					                                  $sql2 = "SELECT * FROM product,product_genre,product_type WHERE product.prod_id='".$prdct."' AND product.prod_genre_id=product_genre.prod_genre_id AND product.prod_type_id=product_type.prod_type_id";
+					                                  $prodid = explode("-", $prdct);
+					                                  $prodid = $prodid[0];
+					                                  $sql2 = "SELECT * FROM product,product_genre,product_type WHERE product.prod_id='".$prodid."' AND product.prod_genre_id=product_genre.prod_genre_id AND product.prod_type_id=product_type.prod_type_id";
 					                                  $result2 = $conn->query($sql2);
 					                                  $row2 = $result2->fetch_assoc();
 					                                  echo '
