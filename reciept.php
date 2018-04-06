@@ -218,7 +218,7 @@
                 </td>
                 
                 <td>
-                    PHP <?php echo $fetch['receipt_amt_paid']; ?>
+                    PHP <?php echo number_format($fetch['receipt_amt_paid'],2); ?>
                 </td>
 
             </tr>
@@ -291,7 +291,7 @@
 			                </td>
 			                
 			                <td>PHP
-			                    '.$b * $arrayQuan[$l].'
+			                    '.number_format(($b * $arrayQuan[$l]),2).'
 			                </td>
             			</tr>
 
@@ -307,7 +307,7 @@
                 <td>STATUS: <span style="color: darkgreen; font-weight: bold;"><?php echo $fetch['order_status_name']; ?></span></td>
                 
                 <td>
-                   Total: PHP <?php echo $fetch['order_total_amt']; ?>
+                   Total: PHP <?php echo number_format($fetch['order_total_amt'],2); ?>
                 </td>
             </tr>
         </table>

@@ -84,9 +84,14 @@ include_once("header.php");
 		                        $_SESSION['prodlist'] = $_SESSION['prodlist'].$row['prod_id'].";";
 		                        echo '
 		                            <tr>
-		                                <th scope="row">'.$row['prod_name'].'</th>
-		                                <td><input id="prod-quant-'.$row['prod_id'].'" value='.$row['prod_quant'].' type="number" value="1" min="1" onchange="incrdecr('.$row['prod_id'].')"></td>
-		                                <td>PHP '.number_format($b,2).'</td>
+		                                <th scope="row">'.$row['prod_name'].'</th>';
+		                        if (isset($_GET['finalize'])==1) {
+		                        	echo '<td><input disabled id="prod-quant-'.$row['prod_id'].'" value='.$row['prod_quant'].' type="number" value="1" min="1" onchange="incrdecr('.$row['prod_id'].')"></td>';
+		                        } else {
+		                        	echo '<td><input id="prod-quant-'.$row['prod_id'].'" value='.$row['prod_quant'].' type="number" value="1" min="1" onchange="incrdecr('.$row['prod_id'].')"></td>';
+		                        }
+
+		                        echo    '<td>PHP '.number_format($b,2).'</td>
 		                                </tr>
 		                                ';
 		                }
@@ -97,8 +102,14 @@ include_once("header.php");
 				    </tr>
 				  </tbody>
 		</table>
-		<a href="#"><button class="btn btn-primary" id="cursor-pointer" data-toggle="modal" data-target="#card-modal">Choose payment method</button></a>
 		        	';
+		        	if (isset($_GET['finalize'])==1) {
+		        		echo '<button class="btn btn-primary" id="cursor-pointer" data-toggle="modal" data-target="#card-modal">Choose payment method</button>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a id="cursor-pointer" style="color: blue;" class="link" href="checkout.php">Go back</a>';	
+		        	} else {
+		        		echo '<a class="btn btn-primary" id="cursor-pointer" href="checkout.php?finalize=1">Finalize</a>';
+		        	}
+
+		        	echo "";
     		}
     	?>          
     </p>
@@ -243,7 +254,6 @@ include_once("header.php");
                 }
             });
       },
-
       onAuthorize: function(data, actions) {
             return actions.payment.execute().then(function(payment) {
             	console.log("Payment success!");
@@ -271,9 +281,7 @@ include_once("header.php");
       },
 
       onError: function(err) {
-        /* 
-         * An error occurred during the transaction 
-         */
+        		window.alert("Either the transaction has failed or your cart is Empty!\nPlease try to add items to your cart...");
       }
     }, '#paypal-button');
   </script>

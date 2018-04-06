@@ -5,6 +5,19 @@ include_once("header.php");
 $sql ="SELECT* FROM account,account_details,account_billing,account_address WHERE account.acc_id='".$_SESSION['acc_id']."' AND account.acc_id=account_details.acc_id AND account.acc_id=account_billing.acc_id AND account.acc_id=account_address.acc_id";
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
+
+if (isset($_GET['cancel'])) {
+  $toCancel = $_GET['cancel'];
+  $sql_order = "SELECT order_status_id AS id FROM orders WHERE order_id=".$toCancel;
+  $result_order = $conn->query($sql_order);
+  $fetch_order = $result_order->fetch_assoc();
+
+  if ($fetch_order['id'] == 1) {
+    $sql_cancel = "UPDATE orders SET order_status_id=4 WHERE order_id=".$toCancel;
+    $conn->query($sql_cancel);
+  }
+
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -150,11 +163,17 @@ $row = $result->fetch_assoc();
             <?php
                 $sql = "SELECT * FROM orders,order_status WHERE acc_id='".$_SESSION['acc_id']."' AND orders.order_status_id=order_status.order_status_id";
                 $result = $conn->query($sql);
-                while($row = $result->fetch_assoc()){
+                while($row = $result->fetch_assoc()){ 
+                  if ($row['order_status_id'] == 1) {
+                    $stat = $row['order_status_name'].'<br>'.'<center><a id="cancel" onclick="cancel('.$row['order_id'].')" style="cursor:pointer; color:blue;" class="link">Cancel</a></center>';
+                  } else {
+                    $stat = $row['order_status_name'];
+                  }
+
                   echo '
                       <tr>
                         <th scope="row" style="font-size:10px;">'.$row['order_id'].'</th>
-                        <td style="font-size:10px;">'.$row['order_status_name'].'</td>
+                        <td style="font-size:10px;">'.$stat.'</td>
                         <td style="font-size:10px;">'.$row['order_date'].'</td>
                         <td style="font-size:10px;">'.$row['order_total_amt'].'</td>
                         <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#prodlist-modal-'.$row['order_id'].'">View products</button></td>
@@ -205,6 +224,15 @@ $row = $result->fetch_assoc();
 </div>
 
 <script type="text/javascript" src="js/funcs.js"></script>
+
+<script type="text/javascript">
+  function cancel(val) {
+    if (window.confirm("Do you really want to cancel the order?")) { 
+      window.open("viewprofile.php"+"?cancel="+val, "_self");
+    }
+  }
+
+</script>
 </body>
 </html>
 <?php 

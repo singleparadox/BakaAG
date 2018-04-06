@@ -13,10 +13,20 @@
 		$result = $conn->query($sql);
 		$row = $result->fetch_assoc();
 
+
 		$quantity = $row['prod_quant'];
 		$newprodlist = $newprodlist.$quants."-".$quantity.";";
 	}
 	$_SESSION['prodlist'] = $newprodlist;
+	
+	if (empty($_SESSION['prodlist']) || ($_SESSION['prodlist'] == "-;")) {
+		echo '<div class="alert alert-dismissible alert-warning">
+				  <h4 class="alert-heading">Cart is Empty!</h4>
+				  <p class="mb-0">Order is unsuccessful</p>
+				</div>';
+				exit;
+	}
+
 
 	$sql = "INSERT INTO orders SET order_id='".$order_id."',acc_id='".$_SESSION['acc_id']."',order_total_amt='".$totalprice."',order_product_list='".$_SESSION['prodlist']."',order_status_id='1'";
 	$conn->query($sql);
