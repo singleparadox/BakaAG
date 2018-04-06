@@ -201,6 +201,20 @@
                     </table>
                 </td>
             </tr>
+
+            <tr class="information">
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td>
+                                Recieved By: <?php echo $fetch['receipt_custname']; ?> <br>
+                                Date Paid:  <?php echo date_format(date_create($fetch['receipt_date_paid']), 'F jS Y'); ?><br>
+                                Address Recieved: <?php echo $fetch['receipt_compaddress']; ?>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
             
             <tr class="heading">
                 <td>
