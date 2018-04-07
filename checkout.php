@@ -266,8 +266,8 @@ include_once("header.php");
 				var totalprice = document.getElementById("totprce").value;
 
 				document.getElementById("pay-card-chckout").style.visibility = "hidden";
-				console.log(totalprice);
-				xhttp.open("GET", "backend/paypal.php?totalprice="+totalprice, true);
+				console.log(data);
+				xhttp.open("GET", "backend/paypal.php?totalprice="+totalprice+"&payid="+data.paymentID+"&payerid="+data.payerID+"&transactionid="+payment.transactions[0].related_resources[0].sale.id, true);
 				xhttp.send();
                 // The payment is complete!
                 // You can now show a confirmation message to the customer
