@@ -10,13 +10,54 @@ $row = $result->fetch_assoc();
 if (isset($_GET['cancel'])) {
 
   $toCancel = $_GET['cancel'];
-  $sql_order = "SELECT order_status_id AS id, order_total_amt AS t_amount FROM orders WHERE order_id=".$toCancel;
+  $sql_order = "SELECT order_status_id AS id, order_total_amt AS t_amount, paypal_payment_id AS payid, paypal_payer_id AS payerid,  paypal_sale_id AS sale_id, order_mdpaymnt_id AS mode_pay FROM orders WHERE order_id=".$toCancel;
   $result_order = $conn->query($sql_order);
   $fetch_order = $result_order->fetch_assoc();
 
   if ($fetch_order['id'] == 1) {
     $sql_cancel = "UPDATE orders SET order_status_id=4 WHERE order_id=".$toCancel;
 
+    if ($fetch_order['mode_pay'] == 3) {
+      $ch = curl_init();
+
+      curl_setopt($ch, CURLOPT_URL, "https://api.sandbox.paypal.com/v1/oauth2/token"); // Get access token
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+      curl_setopt($ch, CURLOPT_POSTFIELDS, "grant_type=client_credentials");
+      curl_setopt($ch, CURLOPT_POST, 1);
+      curl_setopt($ch, CURLOPT_USERPWD, "AWxH2OyKquL8ZoAZOk-Yewxft6W4iKWHxPcz44N7FueX_u1yx_gwG37c3waUhJRmSP1Hgf7le_spio_J" . ":" . "EME_lHYenXDDJ4HqRXchHhovpxhS9L5hvBTUKNurWVu0vwI_bRpMLIaw9DF4wuM29PaSfqj9pkZsBe5M");
+
+      $headers = array();
+      $headers[] = "Accept: application/json";
+      $headers[] = "Accept-Language: en_US";
+      $headers[] = "Content-Type: application/x-www-form-urlencoded";
+      curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+      $resultA = curl_exec($ch);
+      $arr = json_decode($resultA, true);
+      if (curl_errno($ch)) {
+          echo 'Error:' . curl_error($ch);
+      }
+      curl_close ($ch);
+
+      $ch = curl_init();
+
+      curl_setopt($ch, CURLOPT_URL, "https://api.sandbox.paypal.com/v1/payments/sale/".$fetch_order['sale_id']."/refund"); // Do Refund
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+      curl_setopt($ch, CURLOPT_POSTFIELDS, "{}");
+      curl_setopt($ch, CURLOPT_POST, 1);
+
+      $headers = array();
+      $headers[] = "Content-Type: application/json";
+      $headers[] = "Authorization: Bearer ".$arr['access_token'];
+      curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+      $resultB = curl_exec($ch);
+      if (curl_errno($ch)) {
+          echo 'Error:' . curl_error($ch);
+      }
+      curl_close ($ch);
+      
+    }
     $conn->query($sql_cancel);
   }
 
@@ -230,7 +271,7 @@ if (isset($_GET['cancel'])) {
 
 <script type="text/javascript">
   function cancel(val) {
-    if (window.confirm("Do you really want to cancel the order?")) { 
+    if (window.confirm("Do you really want to cancel the order?\n(Your money will also be refunded)")) { 
       window.open("viewprofile.php"+"?cancel="+val, "_self");
     }
   }

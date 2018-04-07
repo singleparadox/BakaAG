@@ -1,6 +1,7 @@
 <?php
 	session_start();
 	include_once("backend/connection.php");
+
 	date_default_timezone_set('Asia/Singapore');	
 	$oid = (string)$_GET['oid'];
 	$uid = isset($_SESSION['acc_id']) ? $_SESSION['acc_id']: '';
@@ -62,9 +63,13 @@
 	@page { size: auto;  margin: 0mm; }
 	@media print {
 	/* style sheet for print goes here */
-	.noprint {
-	visibility: hidden;
-	}
+    	.noprint {
+    	visibility: hidden;
+    	}
+        .invoice-box {
+            border: none !important;
+            box-shadow: none !important;
+        }
 	}
     .invoice-box {
         max-width: 800px;
@@ -162,7 +167,7 @@
 </head>
 
 <body>
-    <div class="invoice-box">
+    <div id="invoice-box" class="invoice-box">
         <table cellpadding="0" cellspacing="0">
             <tr class="top">
                 <td colspan="2">
@@ -207,14 +212,31 @@
                     <table>
                         <tr>
                             <td>
-                                Recieved By: <?php echo $fetch['receipt_custname']; ?> <br>
-                                Date Paid:  <?php echo date_format(date_create($fetch['receipt_date_paid']), 'F jS Y'); ?><br>
-                                Address Recieved: <?php echo $fetch['receipt_compaddress']; ?>
+                                Recieved By: <b><?php echo $fetch['receipt_custname']; ?></b> <br>
+                                Date Paid:  <b><?php echo date_format(date_create($fetch['receipt_date_paid']), 'F jS Y'); ?></b><br>
+                                Address Recieved: <b><?php echo $fetch['receipt_compaddress']; ?></b>
                             </td>
+
+
+                            <?php 
+                                if ($fetch['order_mdpaymnt_id'] == 3) {
+                                    echo "
+                                        <td>
+                                            Paypal Sale/Transaction ID: <b>".$fetch['paypal_sale_id']."</b><br>
+                                            Paypal Customer ID:  <b>".$fetch['paypal_payer_id']."</b><br>
+                                            Paypal Payment ID:  <b>".$fetch['paypal_payment_id']."</b>
+                                        </td>
+                                    ";
+                                }
+
+
+                            ?>
+
                         </tr>
                     </table>
                 </td>
             </tr>
+
             
             <tr class="heading">
                 <td>
@@ -328,9 +350,12 @@
         <center><button class="noprint" onClick="window.print();">Print this page</button></center>
     </div>
 
+
+
 </body>
 
 </html>
+
 
 
 
