@@ -185,7 +185,7 @@ if (isset($_GET['cancel'])) {
 	<div class="col-lg-7 data-container">
 	<div class="bs-component">
 	<div class="card border-primary mb-3" style="max-width: 65rem;">
-  <div class="card-header">Transactions <a class="btn btn-link" onclick="reciepts();" id="reciepts">View Reciepts</a>
+  <div class="card-header">Transactions <a class="btn btn-link" onclick="reciepts();" id="reciepts">View Reciepts</a> 
     <?php 
       echo '<input id="acc_id" type="number" class="hidden" value="'.$_SESSION['acc_id'].'" >';
     ?>
