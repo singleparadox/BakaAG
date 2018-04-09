@@ -3,7 +3,7 @@
 	<div class="blank">
 	<ul class="nav nav-tabs" role="tablist">
 		<li role="presentation" class="active"><a href="#shipping-tab" aria-controls="products" role="tab" data-toggle="tab">Approved Orders</a></li>
-		<li role="presentation"><a href="#delivered-tab" aria-controls="products" role="tab" data-toggle="tab">Shipped</a></li>
+		<li role="presentation"><a href="#delivered-tab" aria-controls="products" role="tab" data-toggle="tab">Delivered</a></li>
 	</ul>
 	<div class="tab-content">
 		<div role="tabpanel" class="tab-pane active" id="shipping-tab">
@@ -19,7 +19,7 @@
 				    </thead>
 				    <tbody>
 				    	<?php
-				    		$sql = "SELECT * FROM orders,order_status WHERE orders.order_status_id=order_status.order_status_id AND orders.order_status_id='1' AND orders.order_approval='Approved'";
+				    		$sql = "SELECT * FROM orders,order_status WHERE orders.order_status_id=order_status.order_status_id AND orders.order_status_id='1' AND orders.order_approval='Approved' AND orders.order_approval_wh='Approved'";
 				    		$result = $conn->query($sql);
 	                		while($row = $result->fetch_assoc()){
 	                			echo '

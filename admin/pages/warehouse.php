@@ -9,7 +9,7 @@
 		    <li role="presentation" class="active"><a href="#products-tab" aria-controls="products" role="tab" data-toggle="tab">Products</a></li>
 		    <li role="presentation"><a href="#" aria-controls="profile"  data-toggle="modal" data-target=".product_modal">Add new Product</a></li>
 		    <li role="presentation"><a href="#" aria-controls="messages" data-toggle="modal" data-target=".category">Add new Category</a></li>
-		    <li role="presentation"><a href="#transactions-tab" aria-controls="settings" role="tab" data-toggle="tab">Transactions</a></li>
+		    <li role="presentation"><a href="#transactions-tab" aria-controls="settings" role="tab" data-toggle="tab">Orders</a></li>
 		  </ul>
 
 		  <!-- Tab panes -->
@@ -144,7 +144,7 @@
 		    <div role="tabpanel" class="tab-pane" id="transactions-tab">
 		    	<div class="panel panel-default">
 				  <!-- Default panel contents -->
-				  <div class="panel-heading">Transactions List</div>
+				  <div class="panel-heading">Pending Items</div>
 
 				  <!-- Table -->
 				  <table class="table">
@@ -154,10 +154,11 @@
 				    		<th>Date Ordered</th>
 				    		<th>Products</th>
 				    		<th>Total Amount</th>
+				    		<th>Send Items</th>
 				    	</tr>
 				    </thead>
 				    	<?php
-				    		$sql = "SELECT * FROM orders,order_status WHERE orders.order_status_id=order_status.order_status_id";
+				    		$sql = "SELECT * FROM orders,order_status WHERE orders.order_status_id=order_status.order_status_id AND orders.order_approval='Approved' AND orders.order_approval_wh='Not Approved'";
 	                		$result = $conn->query($sql);
 	                		while($row = $result->fetch_assoc()){
 	                			echo '
@@ -197,7 +198,7 @@
 					                          </div>
 					                        </div>
 					                        <td>'.$row['order_total_amt'].'</td>
-					                       
+					                       <td><button type="button" class="btn btn-primary" onclick="sndcour('.$row['order_id'].')">Send items to courier</button></td>
 										  </div>
 										</div>
 					                      </tr>

@@ -114,3 +114,14 @@ function send_trans(id){
   xhttp.open("GET", "pages/backend/sendreceipt.php?id="+id+"&name="+name+"&address="+address+"&amt="+amt, true);
   xhttp.send();
 }
+function sndcour(id){
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("main-page").innerHTML = this.responseText;
+    }
+  };
+  console.log(id);
+  xhttp.open("GET", "pages/backend/sendcour.php?id="+id, true);
+  xhttp.send();
+}
