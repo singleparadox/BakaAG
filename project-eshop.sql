@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 29, 2018 at 06:16 PM
+-- Generation Time: Apr 08, 2018 at 09:24 PM
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 5.6.28
 
@@ -219,13 +219,13 @@ CREATE TABLE `inventory` (
 --
 
 INSERT INTO `inventory` (`inv_id`, `inv_price`, `inv_stock`, `inv_no_of_sold`, `inv_views`, `inv_rate`, `inv_discount`) VALUES
-(1, 60, 2, 0, 47, 0, 20),
-(7, 300, 11, 0, 83, 0, 10),
+(1, 60, 2, 0, 48, 0, 20),
+(7, 300, 11, 0, 85, 0, 10),
 (8, 10, 100, 0, 0, 0, 0),
 (9, 0, 0, 0, 0, 0, 0),
-(10, 200, 222, 0, 137, 0, 50),
+(10, 200, 222, 0, 138, 0, 50),
 (11, 50, 777, 0, 23, 0, 40),
-(12, 100, 5, 0, 33, 0, 30),
+(12, 100, 5, 0, 34, 0, 30),
 (13, 150, 3, 0, 6, 0, 75),
 (14, 800, 20, 0, 62, 0, 0);
 
@@ -242,7 +242,11 @@ CREATE TABLE `orders` (
   `order_product_list` varchar(700) NOT NULL,
   `order_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `order_approval` varchar(255) DEFAULT 'Not approved',
+  `order_approval_wh` varchar(255) NOT NULL DEFAULT 'Not Approved',
   `order_receive` varchar(255) NOT NULL DEFAULT 'Undelivered',
+  `paypal_payment_id` varchar(500) DEFAULT NULL,
+  `paypal_payer_id` varchar(500) DEFAULT NULL,
+  `paypal_sale_id` varchar(500) DEFAULT NULL,
   `order_mdpaymnt_id` int(9) NOT NULL DEFAULT '1',
   `order_status_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -251,11 +255,11 @@ CREATE TABLE `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`order_id`, `acc_id`, `order_total_amt`, `order_product_list`, `order_date`, `order_approval`, `order_receive`, `order_mdpaymnt_id`, `order_status_id`) VALUES
-(2, 2, 300, '8;', '2018-03-13 13:35:18', 'Approved', 'Received', 1, 3),
-(3, 2, 100, '8;', '2018-03-14 13:50:53', 'Approved', 'Received', 1, 3),
-(6, 6, 3210, '10;3;', '2018-03-18 05:01:00', 'Approved', 'Undelivered', 1, 4),
-(7, 6, 1218, '1;10;3;7;8;', '2018-03-29 15:51:28', 'Approved', 'Received', 1, 3);
+INSERT INTO `orders` (`order_id`, `acc_id`, `order_total_amt`, `order_product_list`, `order_date`, `order_approval`, `order_approval_wh`, `order_receive`, `paypal_payment_id`, `paypal_payer_id`, `paypal_sale_id`, `order_mdpaymnt_id`, `order_status_id`) VALUES
+(2, 2, 300, '8;', '2018-03-13 13:35:18', 'Approved', 'Approved', 'Received', NULL, NULL, NULL, 1, 3),
+(3, 2, 100, '8;', '2018-03-14 13:50:53', 'Approved', 'Approved', 'Received', NULL, NULL, NULL, 1, 3),
+(6, 6, 3210, '10;3;', '2018-03-18 05:01:00', 'Approved', 'Approved', 'Undelivered', NULL, NULL, NULL, 1, 4),
+(7, 6, 1218, '1;10;3;7;8;', '2018-03-29 15:51:28', 'Approved', 'Approved', 'Received', NULL, NULL, NULL, 1, 3);
 
 -- --------------------------------------------------------
 
