@@ -38,7 +38,7 @@
 
 	echo '<div class="alert alert-dismissible alert-warning">
 		  <h4 class="alert-heading">Success!</h4>
-		  <p class="mb-0">Order was successfully placed</p>
+		  <p class="mb-0">Order was successfully placed<br>Redirecting in 5 seconds...</p>
 		</div>';
 
 ?>

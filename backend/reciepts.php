@@ -18,15 +18,21 @@
 		</thead>
 
 	<?php 
-		$sql_get_data = "SELECT * FROM orders WHERE acc_id=".$uid." AND order_status_id=3";
+		$sql_get_data = "SELECT * FROM orders WHERE acc_id=".$uid;
 		$result = $conn->query($sql_get_data);
 
 		while ($row = $result->fetch_assoc()) {
+			if ($row['order_status_id'] != 3) {
+				$link = $row['order_id']."&p=1";
+			} else {
+				$link = $row['order_id'];
+			}
+
 			echo '
 			    <tr>
 					<th scope="row">'.$row['order_date'].'</th>
 					<td>'.$row['order_id'].'</td>
-					<td><a style="color:blue; cursor:pointer;" target="_blank" href="reciept.php?oid='.$row['order_id'].'">VIEW</a></td>
+					<td><a style="color:blue; cursor:pointer;" target="_blank" href="reciept.php?oid='.$link.'">VIEW</a></td>
 			    </tr>
 
 			';

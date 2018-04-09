@@ -1,6 +1,14 @@
 <?php
 include_once("backend/connection.php");
 include_once("header.php");
+
+if (isset($_GET['empty']) && isset($_SESSION['acc_id'])) {
+	$sql_empty = "DELETE FROM cart WHERE acc_id=".$_SESSION['acc_id'];
+	$result = $conn->query($sql_empty);
+	$_SESSION['prodlist'] = NULL;
+}
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -21,7 +29,7 @@ include_once("header.php");
 	<div class="col-lg-7 data-container">
 	<div class="bs-component">
 	<div class="card border-primary mb-3" style="max-width: 65rem;">
-  <div class="card-header">Checkout</div>
+  <div class="card-header">Checkout <?php if(isset($_SESSION['acc_id'])){echo '<span style="margin-left: 70%;"><a href="checkout.php?empty=1" class="link" style="color: blue;">Clear Items</a></span>';} ?></div>
   <div class="card-body text-primary">
     <h4 class="card-title"></h4>
     <p class="card-text">
@@ -47,15 +55,17 @@ include_once("header.php");
     				}
     			}
 
+    			if (!isset($_GET['empty'])) {
+	    			$sql = "SELECT * FROM product,inventory WHERE inventory.inv_id=product.inv_id";
+			        $result = $conn->query($sql);
+			        while($row = $result->fetch_assoc()){
+			                    if(in_array($row['prod_id'], $_SESSION['arry'])==true){
+			                    	$sql2 = "INSERT INTO cart SET acc_id='".$_SESSION['acc_id']."', prod_id='".$row['prod_id']."',prod_quant='1'";
+			                    	$conn->query($sql2);
+			                    }
+			               	}
+    			}
 
-    			$sql = "SELECT * FROM product,inventory WHERE inventory.inv_id=product.inv_id";
-		        $result = $conn->query($sql);
-		        while($row = $result->fetch_assoc()){
-		                    if(in_array($row['prod_id'], $_SESSION['arry'])==true){
-		                    	$sql2 = "INSERT INTO cart SET acc_id='".$_SESSION['acc_id']."', prod_id='".$row['prod_id']."',prod_quant='1'";
-		                    	$conn->query($sql2);
-		                    }
-		               	}
     			echo '
     				<table class="table table-hover">
 					   <thead>
@@ -106,7 +116,10 @@ include_once("header.php");
 		        	if (isset($_GET['finalize'])==1) {
 		        		echo '<button class="btn btn-primary" id="cursor-pointer" data-toggle="modal" data-target="#card-modal">Choose payment method</button>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a id="cursor-pointer" style="color: blue;" class="link" href="checkout.php">Go back</a>';	
 		        	} else {
-		        		echo '<a class="btn btn-primary" id="cursor-pointer" href="checkout.php?finalize=1">Finalize</a>';
+		        		if (!(($result->num_rows) < 1)) {
+		        			echo '<a class="btn btn-primary" id="cursor-pointer" href="checkout.php?finalize=1">Finalize</a>';
+		        		}
+		        		
 		        	}
 
 		        	echo "";
@@ -262,6 +275,10 @@ include_once("header.php");
 				if (this.readyState == 4 && this.status == 200) {
 					document.getElementById("card-modal-content").innerHTML = this.responseText;
 					}
+					
+					setTimeout(function(){
+					    window.location.href = "checkout.php?empty=1";
+					}, 5000);
 				};
 				var totalprice = document.getElementById("totprce").value;
 

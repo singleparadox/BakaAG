@@ -1,6 +1,7 @@
 <?php
 	session_start();
 	include_once("backend/connection.php");
+
 	date_default_timezone_set('Asia/Singapore');	
 	$oid = (string)$_GET['oid'];
 	$uid = isset($_SESSION['acc_id']) ? $_SESSION['acc_id']: '';
@@ -25,7 +26,13 @@
 		exit;
 	}
 
-	$sql_data = "SELECT * FROM orders, order_mdofpymt,account,receipt,account_address,order_status WHERE orders.order_id='".$oid."' AND order_mdofpymt.order_mdpaymt_id=orders.order_mdpaymnt_id AND account.acc_id=orders.acc_id AND receipt.order_id=orders.order_id AND account_address.acc_id=account.acc_id AND order_status.order_status_id=orders.order_status_id";
+    if (!isset($_GET['p'])) {
+        $sql_data = "SELECT * FROM orders, order_mdofpymt,account,receipt,account_address,order_status WHERE orders.order_id='".$oid."' AND order_mdofpymt.order_mdpaymt_id=orders.order_mdpaymnt_id AND account.acc_id=orders.acc_id AND receipt.order_id=orders.order_id AND account_address.acc_id=account.acc_id AND order_status.order_status_id=orders.order_status_id";
+    } else {
+        $sql_data = "SELECT * FROM orders, order_mdofpymt,account,account_address,order_status WHERE orders.order_id='".$oid."' AND order_mdofpymt.order_mdpaymt_id=orders.order_mdpaymnt_id AND account.acc_id=orders.acc_id AND account_address.acc_id=account.acc_id AND order_status.order_status_id=orders.order_status_id";
+    }
+
+
 
 	$result = $conn->query($sql_data);
 	$fetch = $result->fetch_assoc();
@@ -48,7 +55,10 @@
 	}
 
 	$date = date_create($fetch['order_date']);
-	$date2 = date_create($fetch['receipt_date_paid']);
+    if (!isset($_GET['p'])) {
+        $date2 = date_create($fetch['receipt_date_paid']);
+    }
+	
 	 
 
 ?>
@@ -62,9 +72,13 @@
 	@page { size: auto;  margin: 0mm; }
 	@media print {
 	/* style sheet for print goes here */
-	.noprint {
-	visibility: hidden;
-	}
+    	.noprint {
+    	visibility: hidden;
+    	}
+        .invoice-box {
+            border: none !important;
+            box-shadow: none !important;
+        }
 	}
     .invoice-box {
         max-width: 800px;
@@ -162,7 +176,7 @@
 </head>
 
 <body>
-    <div class="invoice-box">
+    <div id="invoice-box" class="invoice-box">
         <table cellpadding="0" cellspacing="0">
             <tr class="top">
                 <td colspan="2">
@@ -174,7 +188,12 @@
                             
                             <td>
                                 Order Number: <?php echo 'ORDER-'.$oid.date("Y"); ?><br>
-                                Created: <?php echo date_format($date2, 'F jS Y'); ?><br>
+                                Created: <?php 
+                                    if (!isset($_GET['p'])) {
+                                        echo date_format($date2, 'F jS Y')."<br>";
+                                    }
+
+                                ?>
                                 Order Date: <?php echo date_format($date, 'F jS Y'); ?>
                             </td>
                         </tr>
@@ -206,15 +225,40 @@
                 <td colspan="2">
                     <table>
                         <tr>
-                            <td>
-                                Recieved By: <?php echo $fetch['receipt_custname']; ?> <br>
-                                Date Paid:  <?php echo date_format(date_create($fetch['receipt_date_paid']), 'F jS Y'); ?><br>
-                                Address Recieved: <?php echo $fetch['receipt_compaddress']; ?>
+                            <td><?php 
+                                    if (!isset($_GET['p'])) {
+                                        echo "
+                                            Recieved By: <b>".$fetch['receipt_custname']."</b> <br>
+                                            Date Paid:  <b>".date_format(date_create($fetch['receipt_date_paid']), 'F jS Y')."</b><br>
+                                            Address Recieved: <b>".$fetch['receipt_compaddress']."</b>
+
+
+                                        ";
+                                    }
+                                ?>
+
                             </td>
+
+
+                            <?php 
+                                if ($fetch['order_mdpaymnt_id'] == 3) {
+                                    echo "
+                                        <td>
+                                            Paypal Sale/Transaction ID: <b>".$fetch['paypal_sale_id']."</b><br>
+                                            Paypal Customer ID:  <b>".$fetch['paypal_payer_id']."</b><br>
+                                            Paypal Payment ID:  <b>".$fetch['paypal_payment_id']."</b>
+                                        </td>
+                                    ";
+                                }
+
+
+                            ?>
+
                         </tr>
                     </table>
                 </td>
             </tr>
+
             
             <tr class="heading">
                 <td>
@@ -222,7 +266,7 @@
                 </td>
                 
                 <td>
-                    Amount Paid
+                    <?php if (!isset($_GET['p'])) {echo "Amount Paid"; }?>
                 </td>
             </tr>
             
@@ -232,7 +276,13 @@
                 </td>
                 
                 <td>
-                    PHP <?php echo number_format($fetch['receipt_amt_paid'],2); ?>
+
+                    <?php
+                        if (!isset($_GET['p'])) {
+                            echo 'PHP '.number_format($fetch['receipt_amt_paid'],2);
+                        }
+                    ?>
+                    
                 </td>
 
             </tr>
@@ -328,9 +378,12 @@
         <center><button class="noprint" onClick="window.print();">Print this page</button></center>
     </div>
 
+
+
 </body>
 
 </html>
+
 
 
 

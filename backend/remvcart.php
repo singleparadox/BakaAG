@@ -29,8 +29,8 @@
 				<tr>
                     <th scope="row">'.$num.'</th>
                     <td>'.$row['prod_name'].'</td>
-                     <td>'.$row['inv_price'].'$</td>
-                     <td><a onclick="removefrcart('.$row['prod_id'].')"><i class="fa fa-remove"></i></a></td>
+                     <td>PHP '.number_format($row['inv_price'],2).'</td>
+                     <td><a onclick="removefrcart('.$row['prod_id'].')">Remove<i class="fa fa-remove"></i></a></td>
                 </tr>
 				';
 		}
