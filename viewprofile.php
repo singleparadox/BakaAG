@@ -57,13 +57,16 @@ if (isset($_GET['cancel'])) {
           echo 'Error:' . curl_error($ch);
       }
       curl_close ($ch);
-      
+
+      if ((array_key_exists("state", $arr2) == true)) {
+          $conn->query($sql_cancel);
+      } else {
+          echo "<script>window.alert('There was a problem with the connection to PayPal..')</script>";
+      }
     }
 
-    if (array_key_exists("state", $arr2) == true) {
+    else {
       $conn->query($sql_cancel);
-    } else {
-      echo "<script>window.alert('There was a problem with the connection to PayPal..')</script>";
     }
     
   }
