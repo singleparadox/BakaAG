@@ -52,13 +52,20 @@ if (isset($_GET['cancel'])) {
       curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
       $resultB = curl_exec($ch);
+      $arr2 = json_decode($resultB, true);
       if (curl_errno($ch)) {
           echo 'Error:' . curl_error($ch);
       }
       curl_close ($ch);
       
     }
-    $conn->query($sql_cancel);
+
+    if (array_key_exists("state", $arr2) == true) {
+      $conn->query($sql_cancel);
+    } else {
+      echo "<script>window.alert('There was a problem with the connection to PayPal..')</script>";
+    }
+    
   }
 
 }
